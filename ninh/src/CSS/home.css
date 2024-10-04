@@ -1,0 +1,137 @@
+.header{
+    display: flex;
+    padding: 0px 10px 10px 10px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.nav-left a{
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 10px 10px 10px 10px;
+    font-family: 'Inter', sans-serif;
+}
+
+.logo{
+    height: 30px;
+    padding-right: 15px;
+}
+
+.fa-bell , .fa-fire{
+    color: white;
+    font-size: 1.3rem;
+    padding: 10px 10px 10px 10px;
+}
+
+.fa-circle-user{
+    color: white;
+    font-size: 1.7rem;
+    padding: 10px 5px ;
+}
+
+.nav-left{
+    padding-left: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-right{
+    display: flex;
+    align-items: center;
+    padding-right: 15%;
+}
+
+.footer {
+    background-color: #181818;
+    padding: 10px 20px;
+    color:  #7d7a76;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 11px;
+    padding-left: 5%;
+}
+
+.footer-left p {
+    margin: 0;
+    padding-right: 10px;
+}
+
+.footer-left a {
+    color: #cccccc;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.footer-left a:hover {
+    color: white
+}
+
+.footer-container{
+    padding: 10px 20px;
+}
+
+.footer {
+    border-top: 1px solid #333333;
+}
+
+.img-container {
+    display: flex;
+    gap: 30px; /* Spacing between images */
+}
+
+.img-container .image-1,
+.img-container .image-2,
+.img-container .image-3 {
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Ensures image corners are rounded */
+}
+
+.img-container img {
+  display: block;
+  width: 300px; /* Smaller width */
+  height: 140px; /* Smaller height */
+  object-fit: cover; /* Ensures the image covers the entire container */
+  border-radius: 10px; /* Apply rounded corners directly to the images */
+}
+
+.categories {
+    display: flex;
+    gap: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #cccccc;
+    flex-wrap: wrap;
+  }
+  
+  .category {
+    color: #ffffff;
+    font-weight: 100;
+    cursor: pointer;
+  }
+   
+  .expand {
+    color: #888888;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .expand i {
+    margin-left: 5px;
+  }
