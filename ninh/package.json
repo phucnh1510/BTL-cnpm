@@ -20,7 +20,9 @@
   "dependencies": {
     "@internationalized/date": "^3.5.6",
     "bits-ui": "^0.21.16",
+    "chart.js": "^4.4.4",
     "clsx": "^2.1.1",
+    "paneforge": "^0.0.6",
     "shadcn-ui": "^0.2.3",
     "svelte-radix": "^1.1.1",
     "tailwind-merge": "^2.5.2",
