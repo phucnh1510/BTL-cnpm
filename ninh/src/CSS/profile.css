@@ -1,0 +1,235 @@
+/* General Styles */
+  .profile-page-container {
+    display: flex;
+    height: 100vh;
+    background-color: #1a202c;
+    color: white;
+    width: 1000px;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  
+
+  .profile-sidebar {
+    width: 20rem;
+    background-color: #2d3748;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .profile-main-content {
+    flex: 1;
+    padding: 1rem;
+  }
+
+  /* Profile Info */
+  .profile-profile-info {
+    text-align: center;
+    margin-bottom: 2rem;
+    
+  }
+
+  .profile-profile-image {
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 1rem;
+    margin: 0 auto;
+  }
+
+  .profile-profile-username {
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+.profile-rank{
+    display: flex;
+    justify-content: center;
+}
+
+.profile-rank-1{
+    padding-right: 10px;
+}
+
+  .profile-profile-rank {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .profile-edit-profile-btn {
+    background-color: #283a2e;
+    padding: 7px 0px;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    color: #2cab51;
+    font-size: 14px;
+    width: 90%;
+    font-weight: 600;
+  }
+
+  .profile-edit-profile-btn:hover {
+    background-color: #2f855a;
+  }
+
+  /* Community Stats */
+ .profile-community-stats-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: small;
+    color: white;
+  }
+
+  .profile-icon-1 , .profile-icon-2 , .profile-icon-3 , .profile-icon-4{
+    width: 1rem;
+    height: 1.5rem;
+    margin-right: 0.75rem;
+    color: #60a5fa; /* Light blue color */
+  }
+
+.profile-icon-2{
+    color: #64d2ff; /* Yellow color */
+}
+
+.profile-icon-3{
+    color: #00b8a3; /* Red color */
+}
+
+.profile-icon-3{
+    color: #ffa116; /* Red color */
+}
+
+.profile-community-stats-title{
+    font-weight: 500;
+    font-size: 16px;
+    padding-bottom: 20px;
+    border-top: 1px solid white;
+    padding-top: 1rem;
+}
+
+  /* Stats Overview */
+   .profile-stats-overview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .profile-stats-box {
+    background-color: #4a5568;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    text-align: center;
+  }
+
+  .profile-stats-title {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-stats-value {
+    font-size: 1rem;
+  }
+
+  /* Difficulty Breakdown */
+  .profile-difficulty-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .profile-difficulty-box {
+    background-color: #4a5568;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    text-align: center;
+  }
+
+  .profile-difficulty-title {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-difficulty-value {
+    font-size: 1rem;
+  }
+
+  /* Difficulty Breakdown */
+  .profile-difficulty-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .profile-difficulty-box {
+    background-color: #4a5568;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    text-align: center;
+  }
+
+  .profile-difficulty-title {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-difficulty-value {
+    font-size: 1rem;
+  }
+
+  /* Submission Calendar */
+  .profile-submission-calendar {
+    background-color: #4a5568;
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .profile-calendar-title {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .profile-calendar-placeholder {
+    text-align: center;
+  }
+
+  /* Recent Activity */
+  .profile-recent-activity {
+    background-color: #4a5568;
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .profile-activity-title {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .profile-activity-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-activity-btn {
+    background-color: #2d3748;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    color: white;
+  }
+
+  .profile-activity-btn:hover {
+    background-color: #1a202c;
+  }
+
+  .profile-no-submissions {
+    text-align: center;
+  }
+  

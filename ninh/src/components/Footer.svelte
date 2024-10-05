@@ -1,4 +1,6 @@
 <script>
+    import "../CSS/footer.css";
+    
     export let href = "#";
     export const alt = "LeetCode";
 </script>
