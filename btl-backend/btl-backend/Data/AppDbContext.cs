@@ -10,11 +10,40 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Class> Classes { get; set; }
-    public DbSet<Problem> Problems { get; set; }
-    public DbSet<Submission> Submissions { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<TestCase> TestCases { get; set; }
-    public DbSet<Topic> Topics { get; set; }
+    public DbSet<Class> Classes => Set<Class>();
+    public DbSet<Problem> Problems => Set<Problem>();
+    public DbSet<Submission> Submissions => Set<Submission>();
+    public DbSet<User> Users => Set<User>();
+    public DbSet<TestCase> TestCases => Set<TestCase>();
+    public DbSet<Topic> Topics => Set<Topic>();
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Class)
+            .WithMany(c => c.Users)
+            .HasForeignKey(u => u.ClassId);
+
+        modelBuilder.Entity<Class>()
+            .HasMany(c => c.Problems)
+            .WithMany(p => p.Classes);
+
+        modelBuilder.Entity<Problem>()
+            .HasMany(p => p.Topics)
+            .WithMany(t => t.Problems);
+
+        modelBuilder.Entity<Problem>()
+            .HasMany(p => p.TestCases)
+            .WithOne(tc => tc.Problem);
+
+        modelBuilder.Entity<Submission>()
+            .HasOne(s => s.Problem)
+            .WithMany(p => p.Submissions)
+            .HasForeignKey(s => s.ProblemId);
+
+        modelBuilder.Entity<Submission>()
+            .HasOne(s => s.User)
+            .WithMany(u => u.Submissions)
+            .HasForeignKey(s => s.UserId);
+    }
 }

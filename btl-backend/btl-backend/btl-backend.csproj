@@ -16,4 +16,21 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Data\DbInitializer.cs" />
+      <Compile Remove="LoginService\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="LoginService\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="LoginService\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="LoginService\**" />
+    </ItemGroup>
+
 </Project>

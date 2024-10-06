@@ -1,8 +1,16 @@
-﻿namespace btl_backend.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace btl_backend.Models;
 
 public class Class
 {
-    public int ClassID { get; set; }
+    public int ClassId { get; set; }
 
-    public ICollection<Problem>? Problem { get; set; }
+    [Required]
+    [MaxLength(100)]
+    public string? ClassName { get; set; }
+
+    public List<Problem>? Problems { get; set; }
+
+    public List<User>? Users { get; set; }
 }

@@ -13,11 +13,17 @@ public class User
     [MaxLength(100)]
     public string? Password { get; set; }
 
-    [Required]
-    [MaxLength(100)]
-    public string? ClassId { get; set; }
-
     public int Role { get; set; }
 
-    public ICollection<Submission>? Submissions { get; set; }
+    public int ClassId { get; set; } // Foreign key property
+    public Class? Class { get; set; } // Navigation property
+
+    public List<Submission>? Submissions { get; set; }
+}
+
+internal enum Role
+{
+    Student = 0,
+    Teacher = 1,
+    Admin = 2
 }
