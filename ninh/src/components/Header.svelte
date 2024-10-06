@@ -18,14 +18,18 @@
     navigate("/profile");
   }
 
-</script>
+  function goHome() {
+    navigate("/home");
+  }
+
+</script>-
 
 <div class="header">
 
     <div class="nav-left">
-      <img src="/leetcode.svg" {alt} class="logo" />
+      <button on:click={goHome}><img src="/leetcode.svg" {alt} class="logo" /></button>
       <a {href}>Explore</a>
-      <a {href}>Problems</a>
+      <a href = "/home">Problems</a>
       <a {href}>Contest</a>
       <a {href}>Discuss</a>
     </div>
