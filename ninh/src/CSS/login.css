@@ -1,0 +1,132 @@
+.login-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282828
+}
+
+.login-left{
+    display: flex;
+    flex: 50%;
+    height: auto;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.login-left img{
+    width: 650px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-body{
+    display: flex;
+    width: 1300px;
+    height: 800px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: #080808;
+    box-shadow: 0 4px 8px white;
+}
+
+.login-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 40%;
+    text-align: center;
+}
+
+.create-account{
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+
+.login-username , .login-password{
+    border-radius: 8px;
+    color: gray;
+    border: 1px solid #7f7668;
+    width: 350px;
+    padding: 10px;
+}
+
+.login-username{
+    margin-bottom: 10px;
+}
+
+.login{
+    color: white;
+    
+}
+
+.description{
+    font-size: .875rem;
+    color: #858178;
+    padding-bottom: 30px;
+}
+
+.custom-signin-button {
+  display: inline-block;
+  width: 100%; /* Ensure the button takes full width like in the image */
+  padding: 0rem 1rem; /* Padding around the text */
+  background-color: #1f1f1f; /* Dark background color (adjust based on your needs) */
+  color: #d1d5db; /* Light gray text color */
+  font-size: 0.875rem; /* Standard text size */
+  line-height: 1.25rem;
+  text-align: center; /* Center the text */
+  border-radius: 0.375rem; /* Slightly rounded corners */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor on hover */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Light shadow */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  font-weight: 500;
+
+  margin-top: 10px;
+}
+
+.custom-signin-button:hover {
+  background-color: #2d2d2d; /* Slightly lighter color on hover */
+}
+
+.login-image-container {
+    position: relative;
+    width: 650px;
+    height: auto;
+}
+
+.login-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.login-image-overlay {
+    position: absolute;
+    bottom: 20px; /* Adjust the positioning as necessary */
+    left: 30px;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow to make the text stand out */
+    max-width: 90%; /* Ensures the text doesn't stretch too wide */
+}
+
+.login-company-name {
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-bottom: 100%;
+}
+
+.login-testimonial {
+    font-size: 1.125rem;
+    margin-bottom: 5px;
+    line-height: 1.75rem;
+}
+
+.login-author {
+    font-size: .875rem;
+    font-style: italic;
+}
