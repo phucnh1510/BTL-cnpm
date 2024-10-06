@@ -2,7 +2,7 @@
 
 public class Class
 {
-    public string? ClassID { get; set; }
+    public int ClassID { get; set; }
 
-    public List<string>? ClassProblem { get; set; }
+    public ICollection<Problem>? Problem { get; set; }
 }

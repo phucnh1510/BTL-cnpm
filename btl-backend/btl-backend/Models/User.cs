@@ -1,19 +1,23 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
+﻿using System.ComponentModel.DataAnnotations;
 namespace btl_backend.Models;
 
 public class User
 {
-    public string? UserID { get; set; }
+    public int UserId { get; set; }
 
+    [Required]
+    [MaxLength(100)]
     public string? Username { get; set; }
 
+    [Required]
+    [MaxLength(100)]
     public string? Password { get; set; }
 
-    public string? ClassID { get; set; }
+    [Required]
+    [MaxLength(100)]
+    public string? ClassId { get; set; }
 
     public int Role { get; set; }
 
-    public int Completed { get; set; }
-
+    public ICollection<Submission>? Submissions { get; set; }
 }
