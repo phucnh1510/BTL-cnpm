@@ -1,10 +1,49 @@
 <script>
+// @ts-nocheck
+
     import "../CSS/login.css";
     import { Input } from "$lib/components/ui/input";
     import { navigate } from "svelte-routing";
     import { Button } from "$lib/components/ui/button";
-    
-    import Footer from "../components/Footer.svelte";
+    import { timeToExpireStore, accessTokenStore } from "D:\\Code\\repos\\BTL-cnpm\\ninh\\src\\store\\store.js";
+
+    let username = '';
+	let password = '';
+
+    $: {
+        console.log(username);
+        console.log(password);
+    }
+
+    const handleSubmit = async () => {
+        const loginDetails = {
+			username: username,
+			password: password
+		};
+
+		const options = {
+			method: 'POST',
+			body: JSON.stringify(loginDetails),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include'
+		};
+		const url = 'http://localhost:8090/backend/auth/login';
+
+        try {
+			const res = await fetch(url, options);
+            console.log(res);
+			const accessToken = await res.json();
+			console.log(accessToken);
+			accessTokenStore.set(accessToken);
+			const payloadB64 = accessToken.split('.')[1];
+			timeToExpireStore.set(JSON.parse(window.atob(payloadB64)).exp);
+            navigate('/home');
+		} catch (err) {
+			alert(err);
+		}
+    };
 </script>
 
 <main class="login-main">
@@ -21,11 +60,13 @@
 
         <div class="login-right">
             <div class="login ">
-                <h1 class="create-account">Sign in</h1>
-                <p class="description">Enter your email below to create your account</p>
-                <Input label="Username" placeholder="Enter your username" class="login-username" />
-                <Input label="Password" placeholder="Enter your password" type="password"  class="login-password" />
-                <Button class="custom-signin-button" on:click={() => navigate("/home")}>Login to your account</Button>
+                <form on:submit|preventDefault={handleSubmit}>
+                    <h1 class="create-account">Sign in</h1>
+                    <p class="description">Enter your email below to create your account</p>
+                    <Input label="Username" placeholder="Enter your username" class="login-username" bind:value={username}/>
+                    <Input label="Password" placeholder="Enter your password" type="password"  class="login-password" bind:value={password}/>
+                    <Button class="custom-signin-button" type="submit">Login to your account</Button>
+                </form>
             </div>
     </div>
 
