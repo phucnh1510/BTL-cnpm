@@ -447,7 +447,7 @@ grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
 .body-right {
-  margin-top: 5vh;
+  margin-top: 7.3-vh;
   padding: 22px;
   border: 1px solid rgba(0, 0, 0, 0.1); /* Dark border with low opacity */
   background-color: #121414; /* Replace with your background color variable */
@@ -584,7 +584,7 @@ grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
 .range-calendar-root {
-  background-color: #0f1011; /* Calendar background color */
+  background-color: #1f1f1f; /* Calendar background color */
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for calendar */

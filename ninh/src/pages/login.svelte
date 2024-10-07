@@ -5,7 +5,7 @@
     import { Input } from "$lib/components/ui/input";
     import { navigate } from "svelte-routing";
     import { Button } from "$lib/components/ui/button";
-    import { timeToExpireStore, accessTokenStore } from "D:\\Code\\repos\\BTL-cnpm\\ninh\\src\\store\\store.js";
+    import { timeToExpireStore, accessTokenStore } from "../store/store";
 
     let username = '';
 	let password = '';
