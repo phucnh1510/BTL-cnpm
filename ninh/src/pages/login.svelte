@@ -5,7 +5,7 @@
     import { Input } from "$lib/components/ui/input";
     import { navigate } from "svelte-routing";
     import { Button } from "$lib/components/ui/button";
-    import { timeToExpireStore, accessTokenStore } from "D:\\Code\\repos\\BTL-cnpm\\ninh\\src\\store\\store.js";
+    import { timeToExpireStore, accessTokenStore } from "../store/store";
 
     let username = '';
 	let password = '';
@@ -27,9 +27,8 @@
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			credentials: 'include'
 		};
-		const url = 'http://localhost:8090/backend/auth/login';
+		const url = 'http://localhost:5292/auth/login';
 
         try {
 			const res = await fetch(url, options);
@@ -37,8 +36,6 @@
 			const accessToken = await res.json();
 			console.log(accessToken);
 			accessTokenStore.set(accessToken);
-			const payloadB64 = accessToken.split('.')[1];
-			timeToExpireStore.set(JSON.parse(window.atob(payloadB64)).exp);
             navigate('/home');
 		} catch (err) {
 			alert(err);

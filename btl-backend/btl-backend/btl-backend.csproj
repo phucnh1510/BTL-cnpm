@@ -33,4 +33,8 @@
       <None Remove="LoginService\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="CodeExecutor\" />
+    </ItemGroup>
+
 </Project>
