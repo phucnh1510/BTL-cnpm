@@ -6,7 +6,7 @@ public class ProblemDto
 
     public string? Status { get; set; }
 
-    public string? ProblemTitle { get; set; }
+    public string? Title { get; set; }
 
     public int Difficulty { get; set; }
 }
