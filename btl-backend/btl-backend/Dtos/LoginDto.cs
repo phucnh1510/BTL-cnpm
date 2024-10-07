@@ -1,6 +1,6 @@
 ﻿namespace btl_backend.Dtos;
 
-public class UserDto
+public class LoginDto
 {
     public string? Username { get; set; }
 

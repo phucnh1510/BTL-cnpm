@@ -13,11 +13,7 @@ public class AuthService
 
     public bool Authenticate(string username, string password)
     {
-        if (username == "admin" && password == "admin")
-        {
-            return true;
-        }
-        return false;
+        return _context.Users.Any(u => u.Username == username && u.Password == password);
     }
 
     public int GetUserId(string username)

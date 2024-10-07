@@ -18,19 +18,19 @@ public class AuthController :  ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login(UserDto userDto)
+    public IActionResult Login(LoginDto loginDto)
     {
-        if (userDto.Username == null || userDto.Password == null)
+        if (loginDto.Username == null || loginDto.Password == null)
         {
             return BadRequest(new {message = "Invalid Credentials"});
         }
-        else if (userDto.Username.Equals("admin"))
+        else if (loginDto.Username.Equals("admin"))
         {
             return Ok(new { UserId = "admin" });
         }
-        else if (_authService.Authenticate(userDto.Username, userDto.Password))
+        else if (_authService.Authenticate(loginDto.Username, loginDto.Password))
         {
-            var userId = _authService.GetUserId(userDto.Username);
+            var userId = _authService.GetUserId(loginDto.Username);
             return Ok(new { UserId = userId });
         }
         return BadRequest(new {message = "Invalid Credentials"});
