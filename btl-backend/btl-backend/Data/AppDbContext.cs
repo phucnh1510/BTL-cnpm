@@ -14,7 +14,6 @@ public class AppDbContext : DbContext
     public DbSet<Problem> Problems => Set<Problem>();
     public DbSet<Submission> Submissions => Set<Submission>();
     public DbSet<User> Users => Set<User>();
-    public DbSet<TestCase> TestCases => Set<TestCase>();
     public DbSet<Topic> Topics => Set<Topic>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,10 +30,6 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Problem>()
             .HasMany(p => p.Topics)
             .WithMany(t => t.Problems);
-
-        modelBuilder.Entity<Problem>()
-            .HasMany(p => p.TestCases)
-            .WithOne(tc => tc.Problem);
 
         modelBuilder.Entity<Submission>()
             .HasOne(s => s.Problem)

@@ -10,7 +10,7 @@ public class Class
     [MaxLength(100)]
     public string? ClassName { get; set; }
 
-    public List<Problem>? Problems { get; set; }
+    public List<Problem> Problems { get; set; } = [];
 
     public List<User>? Users { get; set; }
 }

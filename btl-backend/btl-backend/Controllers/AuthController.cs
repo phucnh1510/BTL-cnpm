@@ -1,0 +1,38 @@
+﻿using btl_backend.Dtos;
+using Microsoft.AspNetCore.Mvc;
+using btl_backend.Services;
+using Microsoft.AspNetCore.Cors;
+
+namespace btl_backend.Controllers;
+
+[ApiController]
+[EnableCors]
+[Route("[controller]")]
+public class AuthController :  ControllerBase
+{
+    private readonly AuthService _authService;
+
+    public AuthController(AuthService authService)
+    {
+        _authService = authService;
+    }
+
+    [HttpPost("login")]
+    public IActionResult Login(LoginDto loginDto)
+    {
+        if (loginDto.Username == null || loginDto.Password == null)
+        {
+            return BadRequest(new {message = "Invalid Credentials"});
+        }
+        else if (loginDto.Username.Equals("admin"))
+        {
+            return Ok(new { UserId = "admin" });
+        }
+        else if (_authService.Authenticate(loginDto.Username, loginDto.Password))
+        {
+            var userId = _authService.GetUserId(loginDto.Username);
+            return Ok(new { UserId = userId });
+        }
+        return BadRequest(new {message = "Invalid Credentials"});
+    }
+}

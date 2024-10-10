@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using btl_backend.Data;
@@ -12,9 +13,11 @@ using btl_backend.Data;
 namespace btl_backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241007161712_DescriptionIncreaseSize")]
+    partial class DescriptionIncreaseSize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,6 +82,9 @@ namespace btl_backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProblemId"));
 
+                    b.Property<List<string>>("Code")
+                        .HasColumnType("text[]");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(10000)
@@ -89,12 +95,6 @@ namespace btl_backend.Migrations
 
                     b.Property<bool>("Solution")
                         .HasColumnType("boolean");
-
-                    b.Property<List<string>>("TemplateCode")
-                        .HasColumnType("text[]");
-
-                    b.Property<List<string>>("TestCode")
-                        .HasColumnType("text[]");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -135,8 +135,8 @@ namespace btl_backend.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("SubmissionTime")
                         .HasColumnType("timestamp with time zone");
@@ -151,6 +151,34 @@ namespace btl_backend.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Submissions");
+                });
+
+            modelBuilder.Entity("btl_backend.Models.TestCase", b =>
+                {
+                    b.Property<int>("TestCaseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TestCaseId"));
+
+                    b.Property<string>("Input")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Output")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("ProblemId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("TestCaseId");
+
+                    b.HasIndex("ProblemId");
+
+                    b.ToTable("TestCases");
                 });
 
             modelBuilder.Entity("btl_backend.Models.Topic", b =>
@@ -254,6 +282,17 @@ namespace btl_backend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("btl_backend.Models.TestCase", b =>
+                {
+                    b.HasOne("btl_backend.Models.Problem", "Problem")
+                        .WithMany("TestCases")
+                        .HasForeignKey("ProblemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Problem");
+                });
+
             modelBuilder.Entity("btl_backend.Models.User", b =>
                 {
                     b.HasOne("btl_backend.Models.Class", "Class")
@@ -273,6 +312,8 @@ namespace btl_backend.Migrations
             modelBuilder.Entity("btl_backend.Models.Problem", b =>
                 {
                     b.Navigation("Submissions");
+
+                    b.Navigation("TestCases");
                 });
 
             modelBuilder.Entity("btl_backend.Models.User", b =>

@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
 namespace btl_backend.Models;
 
 public class Topic
@@ -11,6 +13,7 @@ public class Topic
 
     public int ProblemId { get; set; } // Foreign key property
 
+    [JsonIgnore]
     public List<Problem>? Problems { get; set; } // Navigation property
 
 }

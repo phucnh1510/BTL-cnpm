@@ -27,9 +27,8 @@
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			credentials: 'include'
 		};
-		const url = 'http://localhost:8090/backend/auth/login';
+		const url = 'http://localhost:5292/auth/login';
 
         try {
 			const res = await fetch(url, options);
@@ -37,8 +36,6 @@
 			const accessToken = await res.json();
 			console.log(accessToken);
 			accessTokenStore.set(accessToken);
-			const payloadB64 = accessToken.split('.')[1];
-			timeToExpireStore.set(JSON.parse(window.atob(payloadB64)).exp);
             navigate('/home');
 		} catch (err) {
 			alert(err);
