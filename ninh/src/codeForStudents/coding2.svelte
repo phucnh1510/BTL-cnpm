@@ -89,6 +89,7 @@
         background-color: #1d1f20;
         border-radius: 6px;
         border: 1px solid transparent;
+        margin-top: 5px;
         
     }
 

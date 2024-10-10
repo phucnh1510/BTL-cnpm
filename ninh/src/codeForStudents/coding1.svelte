@@ -1,5 +1,7 @@
 
 <script>
+    import TopicHeader from "../components/TopicHeader.svelte";
+
     const questions = {
         id: 1,
         title: "Two Sum",
@@ -45,6 +47,8 @@
 </script>
 
 <main class = "code1-main">
+    <TopicHeader  />
+
     <article class="coding1-article">
     <h1 class="coding1-title">{questions.id} . {questions.title}</h1>
     <p class={`coding1-difficulty ${difficultyClass}`}>{questions.difficulty}</p>
