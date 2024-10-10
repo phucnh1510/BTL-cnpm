@@ -19,22 +19,23 @@
     <ItemGroup>
       <Compile Remove="Data\DbInitializer.cs" />
       <Compile Remove="LoginService\**" />
+      <Compile Remove="Models\TestCase.cs" />
+      <Compile Remove="CodeExecutor\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="LoginService\**" />
+      <EmbeddedResource Remove="CodeExecutor\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Remove="LoginService\**" />
+      <Content Remove="CodeExecutor\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="LoginService\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="CodeExecutor\" />
+      <None Remove="CodeExecutor\**" />
     </ItemGroup>
 
 </Project>
