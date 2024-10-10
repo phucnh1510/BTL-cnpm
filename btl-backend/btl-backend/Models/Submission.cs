@@ -14,7 +14,7 @@ public class Submission
     public User? User { get; set; }
 
     [Required]
-    [MaxLength(20)]
+    [MaxLength(1000)]
     public string? Status { get; set; }
 
     [Required]
