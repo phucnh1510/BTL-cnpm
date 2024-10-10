@@ -8,11 +8,11 @@ namespace btl_backend.Controllers;
 [Route("api/gv")]
 public class GvController : ControllerBase
 {
-    private readonly ProblemService _problemService;
+    private readonly UserService _userService;
 
-    public GvController(ProblemService problemService)
+    public GvController(UserService userService)
     {
-        _problemService = problemService;
+        _userService = userService;
     }
 
     [HttpPost("{classid}/add")]
