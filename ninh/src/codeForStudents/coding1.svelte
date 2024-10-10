@@ -1,3 +1,4 @@
+
 <script>
     const questions = {
         id: 1,
@@ -77,10 +78,11 @@
     .code1-main {
         background-color: #1d1f20;
         color: white;
-        border: 1px solid gray;
+        border: 0px solid gray;
         border-radius: 12px;
         height: 100%;
         padding: 20px;
+        position: relative;
     }
 
     .coding1-title{
