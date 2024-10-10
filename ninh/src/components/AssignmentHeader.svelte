@@ -35,7 +35,7 @@
                 <button class="problem-list">Problem List</button>
             </Sheet.Trigger>
 
-            <Sheet.Content>
+            <Sheet.Content side="left">
                 <Sheet.Header>
                 <Sheet.Title>Are you sure absolutely sure?</Sheet.Title>
                 <Sheet.Description>
