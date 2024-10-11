@@ -2,6 +2,8 @@
     import "../CSS/header.css";
 
     import { navigate } from "svelte-routing";
+    import { editorContent } from '../store/store.js';
+    import { onDestroy } from 'svelte';
 
     import * as Avatar from "$lib/components/ui/avatar/index.js";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
@@ -20,7 +22,42 @@
         navigate("/home");
     }
 
+    let content;
+    const unsubscribe = editorContent.subscribe((value) => {
+        content = value;
+    });
 
+    async function submitContent() {
+        console.log('Submitting content:', content);
+
+        // try {
+        // const response = await fetch('http://localhost:5292/api/problem/611/1/submit', {
+        //     method: 'POST',
+        //     headers: {
+        //     'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //             "problemId": 0,
+        //             "userId": 0,
+        //             "language": 0,
+        //             "code": content
+        //         })
+            
+        // });
+
+        // if (!response.ok) {
+        //     throw new Error('Network response was not ok');
+        // }
+
+        // const result = await response.json();
+        //     console.log('Submission successful:', result);
+        // } catch (error) {
+        //     console.error('Error submitting content:', error);
+        // }
+    }
+    onDestroy(() => {
+        unsubscribe();
+    });
 </script>
 
 <main>
@@ -56,7 +93,7 @@
         <div class="middle-assignment">
             <div class="middle-submit">
                 <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="cloud-arrow-up"  role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M354.9 121.7c13.8 16 36.5 21.1 55.9 12.5c8.9-3.9 18.7-6.2 29.2-6.2c39.8 0 72 32.2 72 72c0 4-.3 7.9-.9 11.7c-3.5 21.6 8.1 42.9 28.1 51.7C570.4 276.9 592 308 592 344c0 46.8-36.6 85.2-82.8 87.8c-.6 0-1.3 .1-1.9 .2H504 144c-53 0-96-43-96-96c0-41.7 26.6-77.3 64-90.5c19.2-6.8 32-24.9 32-45.3l0-.2v0 0c0-66.3 53.7-120 120-120c36.3 0 68.8 16.1 90.9 41.7zM512 480v-.2c71.4-4.1 128-63.3 128-135.8c0-55.7-33.5-103.7-81.5-124.7c1-6.3 1.5-12.8 1.5-19.3c0-66.3-53.7-120-120-120c-17.4 0-33.8 3.7-48.7 10.3C360.4 54.6 314.9 32 264 32C171.2 32 96 107.2 96 200l0 .2C40.1 220 0 273.3 0 336c0 79.5 64.5 144 144 144H464h40 8zM223 255c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V384c0 13.3 10.7 24 24 24s24-10.7 24-24V249.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z" data-darkreader-inline-fill="" style="--darkreader-inline-fill: currentColor;"></path></svg>
-                <button >Submit</button>
+                <button on:click={submitContent}>Submit</button>
             </div>
             
             <button class="middle-clock" ><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="alarm-clock" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M160 25.4C143 9.6 120.2 0 95.2 0C42.6 0 0 42.6 0 95.2c0 18.8 5.5 36.3 14.9 51.1L160 25.4zM256 112a176 176 0 1 1 0 352 176 176 0 1 1 0-352zm0 400c53.2 0 102.1-18.6 140.5-49.5L439 505c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-42.5-42.5c31-38.4 49.5-87.3 49.5-140.5C480 164.3 379.7 64 256 64S32 164.3 32 288c0 53.2 18.6 102.1 49.5 140.5L39 471c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l42.5-42.5c38.4 31 87.3 49.5 140.5 49.5zM497.1 146.4C506.5 131.6 512 114 512 95.2C512 42.6 469.4 0 416.8 0C391.8 0 369 9.6 352 25.4L497.1 146.4zM280 184c0-13.3-10.7-24-24-24s-24 10.7-24 24V288c0 6.4 2.5 12.5 7 17l48 48c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-41-41V184z" data-darkreader-inline-fill="" style="--darkreader-inline-fill: currentColor;"></path></svg></button>

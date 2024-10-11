@@ -1,6 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import LanguageSelector from './LanguageSelector.svelte';
+  import { editorContent } from '../store/store.js';
 
   let editor;
   let monaco;  // Declare monaco at the top level so it can be used everywhere
@@ -9,11 +10,11 @@
 
   // List of languages to pass to the LanguageSelector component
   const languages = [
-    { value: 'cpp', label: 'C++', template: `class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Your code here\n    }\n};` },
-    { value: 'javascript', label: 'Java', template: `function twoSum(nums, target) {\n  // Your code here\n}` },
-    { value: 'python', label: 'Python', template: `class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        # Your code here\n        pass` },
-    { value: 'java', label: 'Java', template: `class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Your code here\n    }\n}` },
-    { value: 'typescript', label: 'TypeScript', template: `function twoSum(nums: number[], target: number): number[] {\n  // Your code here\n}` }
+    { langid: 0, value: 'cpp', label: 'C++', template: `class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Your code here\n    }\n};` },
+    { langid: 1, value: 'javascript', label: 'Java', template: `function twoSum(nums, target) {\n  // Your code here\n}` },
+    { langid: 2, value: 'python', label: 'Python', template: `class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        # Your code here\n        pass` },
+    { langid: 3, value: 'java', label: 'Java', template: `class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Your code here\n    }\n}` },
+    { langid: 4, value: 'typescript', label: 'TypeScript', template: `function twoSum(nums: number[], target: number): number[] {\n  // Your code here\n}` }
   ];
 
   // Function to update the Monaco editor's language and value
@@ -30,6 +31,7 @@
 
   onMount(async () => {
     monaco = await import('monaco-editor');  // Import Monaco asynchronously
+    editorContent.set('');
 
     // Default language and value on initial load
     const initialLanguage = languages.find(lang => lang.value === selectedLanguage);
@@ -48,7 +50,9 @@
       lineNumbers: 'on'
     });
 
-
+    editor.onDidChangeModelContent(() => {
+      editorContent.update(content => editor.getValue());
+    });
 
   });
 
@@ -64,7 +68,9 @@
   $: if (monaco && editor && selectedLanguage) {
     updateLanguage();
   }
+
 </script>
+
 
 <style>
     #editor-container {
