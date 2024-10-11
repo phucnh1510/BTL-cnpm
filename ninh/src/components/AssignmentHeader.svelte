@@ -2,7 +2,7 @@
     import "../CSS/header.css";
 
     import { navigate } from "svelte-routing";
-    import { editorContent } from '../store/store.js';
+    import { editorContent, editorLanguage } from '../store/store.js';
     import { onDestroy } from 'svelte';
 
     import * as Avatar from "$lib/components/ui/avatar/index.js";
@@ -22,42 +22,37 @@
         navigate("/home");
     }
 
-    let content;
-    const unsubscribe = editorContent.subscribe((value) => {
-        content = value;
-    });
+    // let content;
+    // const unsubscribeeditorContent = editorContent.subscribe((value) => {
+    //     content = value;
+    // });
 
     async function submitContent() {
-        console.log('Submitting content:', content);
+        console.log('Submitting content:', $editorContent);
+        console.log('Submitting language:', $editorLanguage);
 
-        // try {
-        // const response = await fetch('http://localhost:5292/api/problem/611/1/submit', {
-        //     method: 'POST',
-        //     headers: {
-        //     'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //             "problemId": 0,
-        //             "userId": 0,
-        //             "language": 0,
-        //             "code": content
-        //         })
+        try {
+        const object = {
+            "language": $editorLanguage,
+            "code": $editorContent
+        }
+        const response = await fetch('http://localhost:5292/api/problem/611/1/submit', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(object)
             
-        // });
+        });
 
-        // if (!response.ok) {
-        //     throw new Error('Network response was not ok');
-        // }
-
-        // const result = await response.json();
-        //     console.log('Submission successful:', result);
-        // } catch (error) {
-        //     console.error('Error submitting content:', error);
-        // }
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log('Submission successful:', response.status);
+        } catch (error) {
+            console.error('Error submitting content:', error);
+        }
     }
-    onDestroy(() => {
-        unsubscribe();
-    });
 </script>
 
 <main>

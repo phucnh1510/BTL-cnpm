@@ -2,29 +2,36 @@
   import { onMount, onDestroy } from 'svelte';
   import LanguageSelector from './LanguageSelector.svelte';
   import { editorContent } from '../store/store.js';
+  import { editorLanguage } from '../store/store.js';
 
   let editor;
   let monaco;  // Declare monaco at the top level so it can be used everywhere
-  let selectedLanguage = 'cpp';  // Default language
   let editorValue = '';  // Variable to hold the code for the selected language
 
   // List of languages to pass to the LanguageSelector component
   const languages = [
-    { langid: 0, value: 'cpp', label: 'C++', template: `class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Your code here\n    }\n};` },
-    { langid: 1, value: 'javascript', label: 'Java', template: `function twoSum(nums, target) {\n  // Your code here\n}` },
-    { langid: 2, value: 'python', label: 'Python', template: `class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        # Your code here\n        pass` },
-    { langid: 3, value: 'java', label: 'Java', template: `class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Your code here\n    }\n}` },
-    { langid: 4, value: 'typescript', label: 'TypeScript', template: `function twoSum(nums: number[], target: number): number[] {\n  // Your code here\n}` }
+    {value: 0, label: 'C++', template: `class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Your code here\n    }\n};` },
+    {value: 1, label: 'Python', template: `class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        # Your code here\n        pass` },
+    {value: 2, label: 'Java', template: `class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Your code here\n    }\n}` },
+    {value: 3, label: 'JavaScript', template: `function twoSum(nums, target) {\n  // Your code here\n}` },
+    {value: 4, label: 'TypeScript', template: `function twoSum(nums: number[], target: number): number[] {\n  // Your code here\n}` }
   ];
+  const langmap = {
+    0: 'cpp',
+    1: 'python',
+    2: 'java',
+    3: 'javascript',
+    4: 'typescript'
+  };
 
   // Function to update the Monaco editor's language and value
   function updateLanguage() {
     if (monaco && editor) {
-      const languageData = languages.find(lang => lang.value === selectedLanguage);
+      const languageData = languages.find(lang => lang.value === $editorLanguage);
       if (languageData) {
         editorValue = languageData.template;  // Set the template for the selected language
         editor.setValue(editorValue);  // Update the editor with the new value
-        monaco.editor.setModelLanguage(editor.getModel(), selectedLanguage); // Set the new language
+        monaco.editor.setModelLanguage(editor.getModel(), langmap[$editorLanguage]); // Set the new language
       }
     }
   }
@@ -34,12 +41,12 @@
     editorContent.set('');
 
     // Default language and value on initial load
-    const initialLanguage = languages.find(lang => lang.value === selectedLanguage);
+    const initialLanguage = languages.find(lang => lang.value === $editorLanguage);
     editorValue = initialLanguage.template;
 
     editor = monaco.editor.create(document.getElementById('editor-container'), {
       value: editorValue,
-      language: selectedLanguage,
+      language: langmap[$editorLanguage],
       theme: 'vs-dark',
       automaticLayout: true,
       minimap: {
@@ -56,16 +63,16 @@
 
   });
 
-  
-
   onDestroy(() => {
     if (editor) {
       editor.dispose();
+      editorContent.set('');
+      editorLanguage.set(0);
     }
   });
 
   // Whenever the language changes, update the editor
-  $: if (monaco && editor && selectedLanguage) {
+  $: if (monaco && editor && $editorLanguage + 1) {
     updateLanguage();
   }
 
@@ -123,7 +130,7 @@
 
 </div>
 
-<LanguageSelector bind:selectedLanguage={selectedLanguage} {languages} />
+<LanguageSelector {languages} />
 
 </div>
 

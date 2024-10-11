@@ -1,12 +1,6 @@
 <script>
-  export let selectedLanguage;
+  import { editorLanguage } from "../store/store";
   export let languages = [];
-
-  // Function to notify the parent component about the language change
-  function onChange(event) {
-    selectedLanguage = event.target.value;
-  }
-
 
 
 </script>
@@ -85,7 +79,7 @@
 
 <div class="language-selector">
 
-  <select id="language" bind:value={selectedLanguage} on:change={onChange}>
+  <select id="language" bind:value={$editorLanguage} on:change={() => console.log($editorLanguage)}>
     {#each languages as { value, label }}
       <option class="language-label" value={value}>{label}</option>
     {/each}
