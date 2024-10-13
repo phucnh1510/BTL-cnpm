@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
 namespace btl_backend.Models;
 
 public class Submission
@@ -7,19 +9,20 @@ public class Submission
 
     public int ProblemId { get; set; }
 
-    public Problem? Problem { get; set; }
 
     public int UserId { get; set; }
 
+    [JsonIgnore]
+    public Problem? Problem { get; set; }
+
+    [JsonIgnore]
     public User? User { get; set; }
 
     [Required]
     [MaxLength(1000)]
     public string? Status { get; set; }
 
-    [Required]
-    [MaxLength(20)]
-    public string? Language { get; set; }
+    public int Language { get; set; }
 
     [Required]
     [MaxLength(10000)]

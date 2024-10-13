@@ -4,5 +4,7 @@ public enum Language
 {
     Cpp,
     Python,
-    Javascript
+    Java,
+    JavaScript,
+    TypeScript
 }

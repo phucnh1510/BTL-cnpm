@@ -13,10 +13,11 @@ public class User
     [MaxLength(100)]
     public string? Password { get; set; }
 
-    public int Role { get; set; }
+    public int UserRole { get; set; }
 
-    public int ClassId { get; set; } // Foreign key property
-    public Class? Class { get; set; } // Navigation property
+    public bool IsBlocked { get; set; }
+
+    public List<Class>? Classes { get; set; }
 
     public List<Submission>? Submissions { get; set; }
 }
@@ -25,5 +26,6 @@ internal enum Role
 {
     Student = 0,
     Teacher = 1,
-    Admin = 2
+    Admin = 2,
+    Unknown = -1
 }

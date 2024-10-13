@@ -2,9 +2,6 @@
 
 public class SubmissionDto
 {
-    public int ProblemId { get; set; }
-
-    public int UserId { get; set; }
 
     public int Language { get; set; }
 

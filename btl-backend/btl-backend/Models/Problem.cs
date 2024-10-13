@@ -17,9 +17,9 @@ public class Problem
 
     public bool Solution { get; set; }
 
-    public List<string> TestCode { get; set; } = [];
+    public List<string> TestCode { get; set; } = [""];
 
-    public List<string> TemplateCode { get; set; } = [];
+    public List<string> TemplateCode { get; set; } = [""];
 
     public List<Class>? Classes { get; set; }
 
