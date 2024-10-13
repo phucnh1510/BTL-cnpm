@@ -153,11 +153,11 @@ function HW() {
     <div class="body-left">
       <div class="img-container">
         <div class="image-1">
-          <a {href}><img src="https://assets.leetcode.com/users/images/49479bba-73b3-45d2-9272-99e773d784b2_1687290663.3168745.jpeg" class="object-cover md:h-full md:w-full h-[100px] w-[200px]" {alt} /></a>
+          <a {href}><img src="/1.png" class="object-cover md:h-full md:w-full h-[100px] w-[200px]" {alt} /></a>
         </div>
 
         <div class="image-2">
-          <a {href}><img src="https://assets.leetcode.com/users/images/770789b0-c96b-4663-86d1-baab25534864_1669795265.8012726.png" class="object-cover md:h-full md:w-full h-[100px] w-[200px]" {alt} /></a>
+          <a {href}><img src="/2.png" class="object-cover md:h-full md:w-full h-[100px] w-[200px]" {alt} /></a>
         </div>
 
         <div class="image-3">
