@@ -47,7 +47,6 @@
 </script>
 
 <main class = "code1-main">
-    <TopicHeader  />
 
     <article class="coding1-article">
     <h1 class="coding1-title">{questions.id} . {questions.title}</h1>
@@ -83,7 +82,7 @@
         background-color: #1d1f20;
         color: white;
         border: 0px solid gray;
-        border-radius: 12px;
+        border-radius: 0px ;
         height: 100%;
         padding: 20px;
         position: relative;

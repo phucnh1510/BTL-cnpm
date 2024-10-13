@@ -27,7 +27,7 @@
 <div class="header">
 
     <div class="nav-left">
-      <button on:click={goHome}><img src="/leetcode.svg" {alt} class="logo" /></button>
+      <button on:click={goHome}><img src="/logo1.webp" {alt} class="logo" /></button>
       <a {href}>Explore</a>
       <a href = "/home">Problems</a>
       <a {href}>Contest</a>
