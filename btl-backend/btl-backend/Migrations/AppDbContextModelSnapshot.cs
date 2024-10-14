@@ -176,9 +176,6 @@ namespace btl_backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TopicId"));
 
-                    b.Property<int>("ProblemId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("TopicName")
                         .IsRequired()
                         .HasMaxLength(100)

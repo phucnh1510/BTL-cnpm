@@ -1,4 +1,5 @@
 ﻿using btl_backend.Data;
+using btl_backend.Models;
 
 namespace btl_backend.Services;
 
@@ -16,8 +17,9 @@ public class AuthService
         return _context.Users.Any(u => u.Username == username && u.Password == password);
     }
 
-    public int GetUserId(string username)
+    public (int userId, int userRole) GetUserId(string username)
     {
-        return _context.Users.FirstOrDefault(u => u.Username == username)?.UserId ?? -1;
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        return (user?.UserId ?? -1, user?.UserRole ?? (int) Role.Unknown);
     }
 }

@@ -15,24 +15,6 @@ public class GvController : ControllerBase
         _userService = userService;
     }
 
-    [HttpPost("{classid}/add")]
-    public IActionResult AddProblemToClass(int gvid, int classid, Problem problem)
-    {
-        return Ok();
-    }
-
-    [HttpDelete("{classid}/remove")]
-    public IActionResult RemoveProblemFromClass(int gvid, int classid, int problemid)
-    {
-        return Ok();
-    }
-
-    [HttpGet("{classid}/problems")]
-    public IActionResult GetProblemsInClass(int gvid, int classid)
-    {
-        return Ok();
-    }
-
     [HttpGet("submissions")]
     public IActionResult GetSubmissions(int gvid)
     {
@@ -47,6 +29,18 @@ public class GvController : ControllerBase
 
     [HttpGet("{classid}/submissions")]
     public IActionResult GetSubmissionsInClass(int gvid, int classid)
+    {
+        return Ok();
+    }
+
+    [HttpPut("{classid}/{userid}/disable")]
+    public IActionResult DisableStudent(int gvid, int classid, int userid)
+    {
+        return Ok();
+    }
+
+    [HttpPut("{classid}/{userid}/enable")]
+    public IActionResult EnableStudent(int gvid, int classid, int userid)
     {
         return Ok();
     }

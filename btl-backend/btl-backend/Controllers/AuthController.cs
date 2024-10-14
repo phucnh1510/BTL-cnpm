@@ -1,4 +1,5 @@
 ﻿using btl_backend.Dtos;
+using btl_backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using btl_backend.Services;
 using Microsoft.AspNetCore.Cors;
@@ -26,12 +27,12 @@ public class AuthController :  ControllerBase
         }
         else if (loginDto.Username.Equals("admin"))
         {
-            return Ok(new { UserId = "admin" });
+            return Ok(new { UserId = "admin", Role = (int) Role.Admin });
         }
         else if (_authService.Authenticate(loginDto.Username, loginDto.Password))
         {
             var userId = _authService.GetUserId(loginDto.Username);
-            return Ok(new { UserId = userId });
+            return Ok(new { UserId = userId.userId, Role = userId.userRole });
         }
         return BadRequest(new {message = "Invalid Credentials"});
     }

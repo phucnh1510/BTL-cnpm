@@ -50,8 +50,7 @@ namespace btl_backend.Migrations
                 {
                     TopicId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TopicName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    ProblemId = table.Column<int>(type: "integer", nullable: false)
+                    TopicName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {

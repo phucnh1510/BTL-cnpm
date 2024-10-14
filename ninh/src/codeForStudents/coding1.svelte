@@ -5,7 +5,7 @@
     const questions = {
         id: 1,
         title: "Two Sum",
-        difficulty: "Easy",
+        difficulty: 1,
         description: `
             Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
             You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -36,11 +36,11 @@
     };
 
         let difficultyClass;
-        if (questions.difficulty === "Easy") {
+        if (questions.difficulty === 1) {
             difficultyClass = "text-easy";
-        } else if (questions.difficulty === "Medium") {
+        } else if (questions.difficulty === 2) {
             difficultyClass = "text-medium";
-        } else if (questions.difficulty === "Hard") {
+        } else if (questions.difficulty === 3) {
             difficultyClass = "text-hard";
         }
 

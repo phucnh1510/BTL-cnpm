@@ -36,7 +36,7 @@
             "language": $editorLanguage,
             "code": $editorContent
         }
-        const response = await fetch('http://localhost:5292/api/problem/611/1/submit', {
+        const response = await fetch('http://localhost:5292/api/problem/1/1/submit', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -48,7 +48,9 @@
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        console.log('Submission successful:', response.status);
+        // console.log('Submission successful:', response);
+        const data = await response.json();
+        console.log('Submission successful:', data);
         } catch (error) {
             console.error('Error submitting content:', error);
         }

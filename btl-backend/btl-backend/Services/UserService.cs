@@ -18,7 +18,7 @@ public class UserService
     {
         var problems = await _context.Users
             .Where(u => u.UserId == userId)
-            .Select(u => u.Class)
+            .SelectMany(u => u.Classes)
             .SelectMany(c => c.Problems)
             .AsNoTracking()
             .GroupJoin(
@@ -46,7 +46,7 @@ public class UserService
     {
         var problem = _context.Users
             .Where(u => u.UserId == userId)
-            .Select(u => u.Class)
+            .SelectMany(u => u.Classes)
             .SelectMany(c => c.Problems)
             .Include(p => p.Topics)
             .AsNoTracking()

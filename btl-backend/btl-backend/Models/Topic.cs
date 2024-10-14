@@ -11,8 +11,6 @@ public class Topic
     [MaxLength(100)]
     public string? TopicName { get; set; }
 
-    public int ProblemId { get; set; } // Foreign key property
-
     [JsonIgnore]
     public List<Problem>? Problems { get; set; } // Navigation property
 

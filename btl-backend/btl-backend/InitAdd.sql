@@ -1,215 +1,216 @@
 ﻿INSERT INTO "Classes" VALUES
-(1, '65KTPM'),
-(2, '65CNTT');
+(1, 'CCP65KTPM'),
+(2, 'CCP65CNTT');
 
-INSERT INTO "Users" VALUES (611, 'Phuc', '12345', 0, 1),
-                           (636, 'Yen', '12345', 0, 1),
-                           (637, 'Ninh', '12345', 0, 1),
-                           (638, 'Khanh', '12345', 0, 2),
-                           (639, 'Thu', '12345', 0, 2),
-                           (640, 'Tung', '12345', 0, 2);
+INSERT INTO "Users" VALUES (1, 'Phuc', '12345', 0, false),
+                           (2, 'Yen', '12345', 0, false),
+                           (3, 'Ninh', '12345', 0, false),
+                           (4, 'Khanh', '12345', 0, false),
+                           (5, 'Thu', '12345', 0, false),
+                           (6, 'Tung', '12345', 0, false);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (1, 'Two Sum',
  ARRAY ['Python', 'JavaScript'],
  $$Given an array of integers `nums` and an integer `target`, *return indices of the two numbers such that they add up to `target`.*
 
-    You may assume that each input would have ***exactly one solution***, and you may not use the same element twice.
+You may assume that each input would have ***exactly one solution***, and you may not use the same element twice.
 
-    You can return the answer in any order.
+You can return the answer in any order.
 
-    <br>
+<br>
 
-    **Example 1:**
+**Example 1:**
 
-        Input: nums = [2,7,11,15], target = 9
-        Output: [0,1]
-        Output: Because nums[0] + nums[1] == 9, we return [0, 1].
+    Input: nums = [2,7,11,15], target = 9
+    Output: [0,1]
+    Output: Because nums[0] + nums[1] == 9, we return [0, 1].
 
-    **Example 2:**
+**Example 2:**
 
-        Input: nums = [3,2,4], target = 6
-        Output: [1,2]
+    Input: nums = [3,2,4], target = 6
+    Output: [1,2]
 
-    **Example 3:**
+**Example 3:**
 
-        Input: nums = [3,3], target = 6
-        Output: [0,1]
+    Input: nums = [3,3], target = 6
+    Output: [0,1]
 
-    <br>
+<br>
 
-    **Constraints:**
+**Constraints:**
 
-    * `2 <= nums.length <= 104`
-    * `-109 <= nums[i] <= 109`
-    * `-109 <= target <= 109`
-    * **Only one valid answer exists.**
+* `2 <= nums.length <= 104`
+* `-109 <= nums[i] <= 109`
+* `-109 <= target <= 109`
+* **Only one valid answer exists.**
 
-    <br>
+<br>
 
-    **Follow-up:** Can you come up with an algorithm that is less than <code>O(n<sup>^</sup>2)</code> time complexity?$$,
- 1, true);
+**Follow-up:** Can you come up with an algorithm that is less than <code>O(n<sup>^</sup>2)</code> time complexity?$$,
+ 1, true,
+ ARRAY ['Python', 'JavaScript']);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (2, 'Add Two Numbers',
  ARRAY ['Python', 'JavaScript'],
  $$You are given two **non-empty** linked lists representing two non-negative integers. The digits are stored in **reverse order**, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
 
-    You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
-    <br>
+<br>
 
-    **Example 1:**
+**Example 1:**
 
-    ![](https://assets.leetcode.com/uploads/2020/10/02/addtwonumber1.jpg)
+![](https://assets.leetcode.com/uploads/2020/10/02/addtwonumber1.jpg)
 
-        Input: l1 = [2,4,3], l2 = [5,6,4]
-        Output: [7,0,8]
-        Explanation: 342 + 465 = 807.
+    Input: l1 = [2,4,3], l2 = [5,6,4]
+    Output: [7,0,8]
+    Explanation: 342 + 465 = 807.
 
-    **Example 2:**
+**Example 2:**
 
-        Input: l1 = [0], l2 = [0]
-        Output: [0]
+    Input: l1 = [0], l2 = [0]
+    Output: [0]
 
-    **Example 3:**
+**Example 3:**
 
-        Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
-        Output: [8,9,9,9,0,0,0,1]
+    Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+    Output: [8,9,9,9,0,0,0,1]
 
-    <br>
+<br>
 
-    **Constraints:**
+**Constraints:**
 
-    * The number of nodes in each linked list is in the range `[1, 100]`.
-    * `0 <= Node.val <= 9`
-    * It is guaranteed that the list represents a number that does not have leading zeros.$$,
- 2, true);
+* The number of nodes in each linked list is in the range `[1, 100]`.
+* `0 <= Node.val <= 9`
+* It is guaranteed that the list represents a number that does not have leading zeros.$$,
+ 2, true, ARRAY ['Python', 'JavaScript']);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (3, 'Longest Substring Without Repeating Characters',
  ARRAY ['Python', 'JavaScript'],
  $$Given a string `s`, find the length of the **longest substring** without repeating characters.
 
-    <br>
+<br>
 
-    **Example 1:**
+**Example 1:**
 
-        Input: s = "abcabcbb"
-        Output: 3
-        Explanation: The answer is "abc", with the length of 3.
+    Input: s = "abcabcbb"
+    Output: 3
+    Explanation: The answer is "abc", with the length of 3.
 
-    **Example 2:**
+**Example 2:**
 
-        Input: s = "bbbbb"
-        Output: 1
-        Explanation: The answer is "b", with the length of 1.
+    Input: s = "bbbbb"
+    Output: 1
+    Explanation: The answer is "b", with the length of 1.
 
-    **Example 3:**
+**Example 3:**
 
-        Input: s = "pwwkew"
-        Output: 3
-        Explanation: The answer is "wke", with the length of 3.
-        Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+    Input: s = "pwwkew"
+    Output: 3
+    Explanation: The answer is "wke", with the length of 3.
+    Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
-    **Example 4:**
+**Example 4:**
 
-        Input: s = ""
-        Output: 0
+    Input: s = ""
+    Output: 0
 
-    <br>
+<br>
 
-    **Constraints:**
+**Constraints:**
 
-    * <code>0 <= s.length <= 5 * 10<sup>4</sup></code>
-    * `s` consists of English letters, digits, symbols and spaces.$$,
- 2, true);
+* <code>0 <= s.length <= 5 * 10<sup>4</sup></code>
+* `s` consists of English letters, digits, symbols and spaces.$$,
+ 2, true, ARRAY ['Python', 'JavaScript']);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (4, 'Median of Two Sorted Arrays',
  ARRAY ['Python', 'JavaScript'],
  $$Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return **the median** of the two sorted arrays.
 
-    The overall run time complexity should be `O(log (m+n))`.
+The overall run time complexity should be `O(log (m+n))`.
 
-    <br>
+<br>
 
-    **Example 1:**
+**Example 1:**
 
-        Input: nums1 = [1,3], nums2 = [2]
-        Output: 2.00000
-        Explanation: merged array = [1,2,3] and median is 2.
+    Input: nums1 = [1,3], nums2 = [2]
+    Output: 2.00000
+    Explanation: merged array = [1,2,3] and median is 2.
 
-    **Example 2:**
+**Example 2:**
 
-        Input: nums1 = [1,2], nums2 = [3,4]
-        Output: 2.50000
-        Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+    Input: nums1 = [1,2], nums2 = [3,4]
+    Output: 2.50000
+    Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
 
-    **Example 3:**
+**Example 3:**
 
-        Input: nums1 = [0,0], nums2 = [0,0]
-        Output: 0.00000
+    Input: nums1 = [0,0], nums2 = [0,0]
+    Output: 0.00000
 
-    **Example 4:**
+**Example 4:**
 
-        Input: nums1 = [], nums2 = [1]
-        Output: 1.00000
+    Input: nums1 = [], nums2 = [1]
+    Output: 1.00000
 
-    **Example 5:**
+**Example 5:**
 
-        Input: nums1 = [2], nums2 = []
-        Output: 2.00000
+    Input: nums1 = [2], nums2 = []
+    Output: 2.00000
 
-    <br>
+<br>
 
-    **Constraints:**
+**Constraints:**
 
-    * `nums1.length == m`
-    * `nums2.length == n`
-    * `0 <= m <= 1000`
-    * `0 <= n <= 1000`
-    * `1 <= m + n <= 2000`
-    * <code>-10<sup>6</sup> <= nums1[i], nums2[i] <= 10<sup>6</sup></code>$$,
- 3);
+* `nums1.length == m`
+* `nums2.length == n`
+* `0 <= m <= 1000`
+* `0 <= n <= 1000`
+* `1 <= m + n <= 2000`
+* <code>-10<sup>6</sup> <= nums1[i], nums2[i] <= 10<sup>6</sup></code>$$,
+ 3, false, ARRAY ['Python', 'JavaScript']);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (5, 'Longest Palindromic Substring',
  ARRAY ['Python', 'JavaScript'],
- $$Given a string `s`, return *the longest palindromic substring* in `s`.
+$$Given a string `s`, return *the longest palindromic substring* in `s`.
 
-    <br>
+<br>
 
-    **Example 1:**
+**Example 1:**
 
-        Input: s = "babad"
-        Output: "bab"
-        Note: "aba" is also a valid answer.
+    Input: s = "babad"
+    Output: "bab"
+    Note: "aba" is also a valid answer.
 
-    **Example 2:**
+**Example 2:**
 
-        Input: s = "cbbd"
-        Output: "bb"
+    Input: s = "cbbd"
+    Output: "bb"
 
-    **Example 3:**
+**Example 3:**
 
-        Input: s = "a"
-        Output: "a"
+    Input: s = "a"
+    Output: "a"
 
-    **Example 4:**
+**Example 4:**
 
-        Input: s = "ac"
-        Output: "a"
+    Input: s = "ac"
+    Output: "a"
 
-    <br>
+<br>
 
-    **Constraints:**
+**Constraints:**
 
-    * `1 <= s.length <= 1000`
-    * `s` consist of only digits and English letters.$$,
- 2, true);
+* `1 <= s.length <= 1000`
+* `s` consist of only digits and English letters.$$,
+ 2, true, ARRAY ['Python', 'JavaScript']);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (6, 'ZigZag Conversion',
  ARRAY ['Python', 'JavaScript'],
  $$The string `"PAYPALISHIRING"` is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
@@ -260,9 +261,9 @@ INSERT INTO "Problems" VALUES
     * `1 <= s.length <= 1000`
     * `s` consists of English letters (lower-case and upper-case), `','` and `'.'`.
     * `1 <= numRows <= 1000`$$,
- 2);
+ 2, false, ARRAY ['Python', 'JavaScript']);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (7, 'Reverse Integer',
  ARRAY ['Python', 'JavaScript'],
  $$Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range `[-2^31, 2^31 - 1]`, then return `0`.
@@ -296,9 +297,9 @@ INSERT INTO "Problems" VALUES
     **Constraints:**
 
     * <code>-2<sup>31</sup> <= x <= 2<sup>31</sup> - 1</code>$$,
- 2, true);
+ 2, true, ARRAY ['Python', 'JavaScript']);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (8, 'String to Integer (atoi)',
  ARRAY ['Python', 'JavaScript'],
  $$Implement the `myAtoi(string s)` function, which converts a string to a 32-bit signed integer (similar to C/C++'s `atoi` function).
@@ -364,9 +365,9 @@ INSERT INTO "Problems" VALUES
 
     * `0 <= s.length <= 200`
     * `s` consists of English letters (lower-case and upper-case), digits, `' '`, `'+'`, `'-'`, and `'.'`. $$,
-    2);
+    2, false, ARRAY ['Python', 'JavaScript']);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (9, 'Palindrome Number',
  ARRAY ['Python', 'JavaScript'],
  $$Given an integer `x`, return `true` if `x` is a palindrome integer.
@@ -402,9 +403,9 @@ INSERT INTO "Problems" VALUES
     **Constraints:**
 
     * <code>-2<sup>31</sup> <= x <= 2<sup>31</sup> - 1</code>$$,
-    1);
+    1, false, ARRAY ['Python', 'JavaScript']);
 
-INSERT INTO "Problems" VALUES
+INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (10, 'Roman to Integer',
  ARRAY ['Python', 'JavaScript'],
  $$Roman numerals are represented by seven different symbols: `I`, `V`, `X`, `L`, `C`, `D` and `M`.
@@ -466,7 +467,7 @@ INSERT INTO "Problems" VALUES
     * `s` contains only the characters `('I', 'V', 'X', 'L', 'C', 'D', 'M')`.
     * It is **guaranteed** that `s` is a valid roman numeral in the range `[1, 3999]`. $$,
     1,
- true);
+ true, ARRAY ['Python', 'JavaScript']);
 
 INSERT INTO "ClassProblem" VALUES
 (1, 1),
@@ -515,6 +516,10 @@ INSERT INTO "ProblemTopic" VALUES
 (10, 9),
 (10, 10);
 
-INSERT INTO "TestCases" VALUES
-(1, '2,7,11,15\n9', '0, 1', 1),
-(2, '3,2,4\n6', '1, 2', 1);
+INSERT INTO "ClassUser" VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6);

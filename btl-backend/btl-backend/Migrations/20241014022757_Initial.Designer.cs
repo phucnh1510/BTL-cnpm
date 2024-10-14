@@ -13,7 +13,7 @@ using btl_backend.Data;
 namespace btl_backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241012142443_Initial")]
+    [Migration("20241014022757_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -178,9 +178,6 @@ namespace btl_backend.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TopicId"));
-
-                    b.Property<int>("ProblemId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("TopicName")
                         .IsRequired()

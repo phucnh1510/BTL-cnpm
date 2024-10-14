@@ -18,18 +18,26 @@ public class SvController : ControllerBase
         _codeJudgeService = codeJudgeService;
     }
 
-    [HttpGet("{userid}/all")]
-    public async Task<IActionResult> GetProblemSet(int userId)
+    [HttpGet("{svId}/all")]
+    public async Task<IActionResult> GetProblemSet(int svId)
     {
-        var problems = await _userService.GetProblemSet(userId);
+        var problems = await _userService.GetProblemSet(svId);
 
         return Ok(problems);
     }
 
-    [HttpGet("{userid}/{problemId}")]
-    public IActionResult GetProblem(int userid, int problemId)
+    [HttpGet("{svId}/{classId}/all")]
+    public async Task<IActionResult> GetProblemSetByClass(int svId, int classId)
     {
-        var problem = _userService.GetProblem(userid, problemId);
+        var problems = await _userService.GetProblemSet(svId);
+
+        return Ok(problems);
+    }
+
+    [HttpGet("{svId}/{problemId}")]
+    public IActionResult GetProblem(int svId, int problemId)
+    {
+        var problem = _userService.GetProblem(svId, problemId);
         if (problem == null)
         {
             return Unauthorized();
@@ -37,24 +45,32 @@ public class SvController : ControllerBase
         return Ok(problem);
     }
 
-    [HttpGet("{userid}/submissions")]
-    public async Task<IActionResult> GetSubmissions(int userId)
+    [HttpGet("{svId}/submissions")]
+    public async Task<IActionResult> GetSubmissions(int svId)
     {
-        var submissions = await _userService.GetUserSubmissions(userId);
+        var submissions = await _userService.GetUserSubmissions(svId);
         return Ok(submissions);
     }
 
-    [HttpGet("{userid}/{problemId}/submissions")]
-    public async Task<IActionResult> GetProblemSubmissions(int userId, int problemId)
+    [HttpGet("{svId}/{problemId}/submissions")]
+    public async Task<IActionResult> GetProblemSubmissions(int svId, int problemId)
     {
-        var submissions = await _userService.GetProblemSubmissions(userId, problemId);
+        var submissions = await _userService.GetProblemSubmissions(svId, problemId);
         return Ok(submissions);
     }
 
-    [HttpPost("{userid}/{problemId}/submit")]
-    public IActionResult SubmitSolution(int userId, int problemId, string submittedCode, int language)
+    [HttpPost("{svId}/{problemId}/submit")]
+    public async Task<IActionResult> SubmitSolution(int svId, int problemId, SubmissionDto submission)
     {
+        // Console.WriteLine(submission.Code);
+        // Console.WriteLine((Language) submission.Language);
+        var problem = _userService.GetProblem(svId, problemId);
+        if (problem == null)
+        {
+            return Unauthorized();
+        }
 
-        return Ok();
+        var submissionResult = await _codeJudgeService.JudgeSubmissionAsync(svId, problemId, submission.Code, submission.Language);
+        return Ok(new { Result = submissionResult, SubmittedCode = submission.Code });
     }
 }
