@@ -22,6 +22,10 @@
     navigate("/home");
   }
 
+  function discuss() {
+    navigate("/discuss");
+  }
+
 </script>-
 
 <div class="header">
@@ -31,7 +35,7 @@
       <a {href}>Explore</a>
       <a href = "/home">Problems</a>
       <a {href}>Contest</a>
-      <a {href}>Discuss</a>
+      <a href = "/discuss">Discuss</a>
     </div>
 
     <div class="nav-right">
