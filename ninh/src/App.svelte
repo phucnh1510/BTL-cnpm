@@ -9,7 +9,7 @@
   import DiscussComment from './pages/discussComment.svelte';
   import AddAccount from './pages/addAccount.svelte';
   import Contest from './pages/contest.svelte';
-
+  import Result from './codeForStudents/result.svelte';
 
 </script>
 
@@ -26,6 +26,7 @@
     <Route path="/discussComment" component={DiscussComment} />
     <Route path="/addAccount" component={AddAccount} />
     <Route path="/contest" component={Contest} />
+    <Route path="/result" component={Result} />
 
   </Router>
 
