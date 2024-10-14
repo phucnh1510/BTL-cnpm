@@ -36,7 +36,7 @@
       <button on:click={goHome}><img src="/logo1.webp" {alt} class="logo" /></button>
       <a {href}>Explore</a>
       <a href = "/home">Problems</a>
-      <a {href}>Contest</a>
+      <a href = "/contest">Contest</a>
       <a href = "/discuss">Discuss</a>
     </div>
 

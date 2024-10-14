@@ -8,6 +8,8 @@
   import Discuss from './pages/discuss.svelte';
   import DiscussComment from './pages/discussComment.svelte';
   import AddAccount from './pages/addAccount.svelte';
+  import Contest from './pages/contest.svelte';
+
 
 </script>
 
@@ -23,6 +25,7 @@
     <Route path="/discuss" component={Discuss} />
     <Route path="/discussComment" component={DiscussComment} />
     <Route path="/addAccount" component={AddAccount} />
+    <Route path="/contest" component={Contest} />
 
   </Router>
 
