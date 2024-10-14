@@ -10,8 +10,8 @@
     };
 
     let accounts = [
-        { name: 'John', email: 'john@example.com', role: 'Admin' },
-        { name: 'Jane', email: 'jane@example.com', role: 'User' }
+        { name: 'John', email: '1234', role: 'Admin' },
+        { name: 'Jane', email: '5432', role: 'User' }
     ];
 
     // Add a new account to the list
@@ -61,7 +61,7 @@
         <thead>
             <tr>
                 <th class="addAccount-th">Name</th>
-                <th class="addAccount-th">Email</th>
+                <th class="addAccount-th">Password</th>
                 <th class="addAccount-th">Role</th>
                 <th class="addAccount-th">Actions</th>
             </tr>
