@@ -6,6 +6,8 @@
   import Profile from './pages/profile.svelte';
   import Assignment from './assignments/assignment.svelte';
   import Discuss from './pages/discuss.svelte';
+  import DiscussComment from './pages/discussComment.svelte';
+
 
 </script>
 
@@ -19,6 +21,8 @@
     <Route path="/profile" component={Profile} />
     <Route path="/assignment" component={Assignment} />
     <Route path="/discuss" component={Discuss} />
+    <Route path="/discussComment/" component={DiscussComment} />
+
   </Router>
 
 
