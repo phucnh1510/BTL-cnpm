@@ -1,4 +1,5 @@
 <script>
+     import { navigate } from "svelte-routing";
 
     import Header from "../components/Header.svelte";
 
@@ -32,10 +33,10 @@
     <section class="discuss-question-list">
         {#each questions as question}
             <article class="discuss-question-item">
-                <div class="discuss-post-title">
+                <button class="discuss-post-title" on:click={() => navigate("/discussComment")}>
                     <h2>{question.title}</h2>
                     <p class="discuss-created-info">Created: {question.created}</p>
-                </div>
+                </button   >
                 <div class="discuss-tags">
                     {#each question.tags as tag}
                         <span class="discuss-tag">{tag}</span>
