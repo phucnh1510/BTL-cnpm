@@ -150,14 +150,6 @@
         padding: 2px 0;
     }
 
-    .coding1-constraints-list li::before {
-        content: '•'; /* Add bullet point */
-        color: white; /* Set bullet point color */
-        font-weight: bold; /* Make bullet point bold */
-        display: inline-block; /* Ensure it behaves like a bullet */
-        width: 1em; /* Space between bullet and text */
-        margin-left: -1em; /* Align bullet with text */
-    }
 
     .coding1-constraints-list{
         margin-left: 20px;
