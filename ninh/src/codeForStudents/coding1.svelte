@@ -36,12 +36,17 @@
     };
 
         let difficultyClass;
+        let difficultyText;
+
         if (questions.difficulty === 1) {
             difficultyClass = "text-easy";
+            difficultyText = "Easy";
         } else if (questions.difficulty === 2) {
             difficultyClass = "text-medium";
+            difficultyText = "Medium";
         } else if (questions.difficulty === 3) {
             difficultyClass = "text-hard";
+            difficultyText = "Hard";
         }
 
 </script>
@@ -50,7 +55,7 @@
 
     <article class="coding1-article">
     <h1 class="coding1-title">{questions.id} . {questions.title}</h1>
-    <p class={`coding1-difficulty ${difficultyClass}`}>{questions.difficulty}</p>
+    <p class={`coding1-difficulty ${difficultyClass}`}>{difficultyText}</p>
     <p class="coding1-description">{@html  questions.description}</p>
 
     

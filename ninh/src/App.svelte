@@ -5,6 +5,10 @@
   import Login from './pages/login.svelte';
   import Profile from './pages/profile.svelte';
   import Assignment from './assignments/assignment.svelte';
+  import Discuss from './pages/discuss.svelte';
+  import DiscussComment from './pages/discussComment.svelte';
+  import AddAccount from './pages/addAccount.svelte';
+  import Contest from './pages/contest.svelte';
 
 
 </script>
@@ -18,6 +22,11 @@
     <Route path="/login" component={Login} />
     <Route path="/profile" component={Profile} />
     <Route path="/assignment" component={Assignment} />
+    <Route path="/discuss" component={Discuss} />
+    <Route path="/discussComment" component={DiscussComment} />
+    <Route path="/addAccount" component={AddAccount} />
+    <Route path="/contest" component={Contest} />
+
   </Router>
 
 
