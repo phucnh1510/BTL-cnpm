@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
 namespace btl_backend.Models;
 
 public class User
@@ -20,6 +22,12 @@ public class User
     public List<Class>? Classes { get; set; }
 
     public List<Submission>? Submissions { get; set; }
+
+    [JsonIgnore]
+    public List<Discussion>? Discussions { get; set; }
+
+    [JsonIgnore]
+    public List<Comment>? Comments { get; set; }
 }
 
 internal enum Role

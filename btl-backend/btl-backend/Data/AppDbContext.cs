@@ -15,6 +15,8 @@ public class AppDbContext : DbContext
     public DbSet<Submission> Submissions => Set<Submission>();
     public DbSet<User> Users => Set<User>();
     public DbSet<Topic> Topics => Set<Topic>();
+    public DbSet<Discussion> Discussions => Set<Discussion>();
+    public DbSet<Comment> Comments => Set<Comment>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,5 +41,20 @@ public class AppDbContext : DbContext
             .HasOne(s => s.User)
             .WithMany(u => u.Submissions)
             .HasForeignKey(s => s.UserId);
+
+        modelBuilder.Entity<Discussion>()
+            .HasOne(d => d.Author)
+            .WithMany(u => u.Discussions)
+            .HasForeignKey(d => d.AuthorId);
+
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.Author)
+            .WithMany(u => u.Comments)
+            .HasForeignKey(c => c.AuthorId);
+
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.Discussion)
+            .WithMany(d => d.Comments)
+            .HasForeignKey(c => c.DiscussionId);
     }
 }
