@@ -22,4 +22,14 @@ public class AuthService
         var user = _context.Users.FirstOrDefault(u => u.Username == username);
         return (user?.UserId ?? -1, user?.UserRole ?? (int) Role.Unknown);
     }
+
+    public bool Register(User user)
+    {
+        return false;
+    }
+
+    public bool Delete(int userid)
+    {
+        return false;
+    }
 }

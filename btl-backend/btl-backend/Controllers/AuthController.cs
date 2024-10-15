@@ -36,4 +36,28 @@ public class AuthController :  ControllerBase
         }
         return BadRequest(new {message = "Invalid Credentials"});
     }
+
+    [HttpPost("register")]
+    public IActionResult Register(User user)
+    {
+        if (user.Username == null || user.Password == null)
+        {
+            return BadRequest(new {message = "Invalid Credentials"});
+        }
+        if (_authService.Register(user))
+        {
+            return Ok();
+        }
+        return BadRequest(new {message = "Invalid Credentials"});
+    }
+
+    [HttpDelete("delete")]
+    public IActionResult Delete(int userId)
+    {
+        if (_authService.Delete(userId))
+        {
+            return Ok();
+        }
+        return BadRequest(new {message = "Invalid Credentials"});
+    }
 }
