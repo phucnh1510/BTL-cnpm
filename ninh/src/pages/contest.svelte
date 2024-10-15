@@ -52,7 +52,7 @@
         background-color: #1b1d1e;
         color: #e8eaed;
         font-family: Arial, sans-serif;
-        height: 100%;    
+        height: 200vh;    
     }
 
     .contest-header {

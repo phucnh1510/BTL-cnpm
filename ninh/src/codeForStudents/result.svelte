@@ -18,7 +18,7 @@
         </p>
         
     {:else}
-        <p>No result data available.</p>
+        <p class="no-result">No result data available.</p>
     {/if}
 </main>
 
@@ -51,5 +51,12 @@
 
     }
 
+    .no-result {
+        color: white;
+        font-size: 1.5rem;
+        margin-top: 50px;
+        text-align: center;
+        font-weight: bold;
+    }
 
 </style>
