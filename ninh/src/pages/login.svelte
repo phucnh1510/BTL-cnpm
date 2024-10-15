@@ -38,7 +38,7 @@
 			accessTokenStore.set(accessToken);
             navigate('/home');
 		} catch (err) {
-			alert(err);
+			alert("Invalid Credentials");
 		}
     };
 </script>

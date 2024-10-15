@@ -7,7 +7,6 @@
   import { createPagination, melt } from '@melt-ui/svelte';
   import { RangeCalendar } from "bits-ui";
 
-
   import { onMount } from 'svelte';
   import { navigate } from "svelte-routing";
 
@@ -417,7 +416,7 @@ function HW() {
 
     <div class="body-right">
       <!-- Calendar placed inside body-right -->
-      <RangeCalendar.Root let:months let:weekdays class='range-calendar-root'>
+      <RangeCalendar.Root let:months let:weekdays   class='range-calendar-root'>
         <RangeCalendar.Header class="range-calendar-header">
 
           <RangeCalendar.PrevButton class="range-calendar-prev-button">

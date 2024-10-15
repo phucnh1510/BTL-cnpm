@@ -2,7 +2,7 @@
     import "../CSS/header.css";
 
     import { navigate } from "svelte-routing";
-    import { editorContent, editorLanguage } from '../store/store.js';
+    import { editorContent, editorLanguage, resultData } from '../store/store.js';
     import { onDestroy } from 'svelte';
 
     import * as Avatar from "$lib/components/ui/avatar/index.js";
@@ -51,6 +51,14 @@
         // console.log('Submission successful:', response);
         const data = await response.json();
         console.log('Submission successful:', data);
+
+        // Save data to the resultData store
+            resultData.set(data);
+
+        // Navigate to another page (e.g., Result page)
+        
+
+
         } catch (error) {
             console.error('Error submitting content:', error);
         }
