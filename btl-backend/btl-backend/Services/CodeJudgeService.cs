@@ -95,20 +95,32 @@ public class CodeJudgeService
             result = "Not implemented language";
         }
 
-        // var submission = new Submission()
-        // {
-        //     ProblemId = problemId,
-        //     UserId = userId,
-        //     Code = submittedCode,
-        //     ExecutionTime = 0,
-        //     Language = language,
-        //     Memory = 0,
-        //     Status = result,
-        //     SubmissionTime = DateTime.Now,
-        // };
-        //
-        // await _context.Submissions.AddAsync(submission);
-        // await _context.SaveChangesAsync();
+
+
+        var submission = new Submission()
+        {
+            ProblemId = problemId,
+            UserId = userId,
+            Code = submittedCode,
+            ExecutionTime = 0,
+            Language = language,
+            Memory = 0,
+            Result = result,
+            Status = result[0] switch
+            {
+                'C' => (int) Statuses.CompilationError,
+                'A' => (int) Statuses.Accepted,
+                'W' => (int) Statuses.WrongAnswer,
+                'T' => (int) Statuses.TimeLimitExceeded,
+                'M' => (int) Statuses.MemoryLimitExceeded,
+                'R' => (int) Statuses.RuntimeError,
+                _ => (int) Statuses.NotImplemented,
+            },
+            SubmissionTime = DateTime.Now,
+        };
+
+        await _context.Submissions.AddAsync(submission);
+        await _context.SaveChangesAsync();
 
         return result;
     }

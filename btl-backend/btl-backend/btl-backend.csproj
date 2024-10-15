@@ -21,6 +21,7 @@
       <Compile Remove="LoginService\**" />
       <Compile Remove="Models\TestCase.cs" />
       <Compile Remove="CodeExecutor\**" />
+      <Compile Remove="Dtos\ClassDto.cs" />
     </ItemGroup>
 
     <ItemGroup>

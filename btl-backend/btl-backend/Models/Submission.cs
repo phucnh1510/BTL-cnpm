@@ -20,7 +20,9 @@ public class Submission
 
     [Required]
     [MaxLength(1000)]
-    public string? Status { get; set; }
+    public string? Result { get; set; }
+
+    public int Status { get; set; }
 
     public int Language { get; set; }
 
@@ -33,4 +35,15 @@ public class Submission
     public decimal ExecutionTime { get; set; }
 
     public decimal Memory { get; set; }
+}
+
+public enum Statuses
+{
+    Accepted = 0,
+    WrongAnswer = 1,
+    TimeLimitExceeded = 2,
+    MemoryLimitExceeded = 3,
+    RuntimeError = 4,
+    CompilationError = 5,
+    NotImplemented = -1
 }
