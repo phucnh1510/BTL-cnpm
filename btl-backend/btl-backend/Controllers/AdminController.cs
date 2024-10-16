@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using btl_backend.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace btl_backend.Controllers;
 
@@ -6,22 +7,28 @@ namespace btl_backend.Controllers;
 [Route("api/admin")]
 public class AdminController : ControllerBase
 {
-    // Admin controler
-    // [HttpPost()]
-    // public IActionResult CreateProblem(int userId, Problem problem)
-    // {
-    //     return Ok();
-    // }
-    //
-    // [HttpDelete("{problemId}")]
-    // public IActionResult DeleteProblem(int userId, int problemId)
-    // {
-    //     return Ok();
-    // }
-    //
-    // [HttpPut("{problemId}")]
-    // public IActionResult UpdateProblem(int userId, int problemId, Problem problem)
-    // {
-    //     return Ok();
-    // }
+
+    [HttpPost("create/problem")]
+    public IActionResult CreateProblem(Problem problem)
+    {
+        return Ok();
+    }
+
+    [HttpDelete("delete/problem")]
+    public IActionResult DeleteProblem(int problemId)
+    {
+        return Ok();
+    }
+
+    [HttpPost("create/user")]
+    public IActionResult CreateUser(User user)
+    {
+        return Ok();
+    }
+
+    [HttpDelete("delete/user")]
+    public IActionResult DeleteUser(int userId)
+    {
+        return Ok();
+    }
 }
