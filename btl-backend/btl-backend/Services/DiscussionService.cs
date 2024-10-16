@@ -30,9 +30,11 @@ public class DiscussionService
         return succeed;
     }
 
-    public async Task<bool> DeleteDiscussion(int discussionid)
+    public async Task<bool> DeleteDiscussion(int userid, int discussionid)
     {
-        var discussion = await _context.Discussions.FindAsync(discussionid);
+        var discussion = await _context.Discussions
+            .Where(d => d.AuthorId == userid)
+            .FirstOrDefaultAsync(d => d.DiscussionId == discussionid);
         if (discussion == null) return false;
         _context.Discussions.Remove(discussion);
         var succeed = await _context.SaveChangesAsync() > 0;

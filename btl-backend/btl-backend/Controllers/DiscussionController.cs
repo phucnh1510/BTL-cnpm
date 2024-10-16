@@ -30,7 +30,7 @@ public class DiscussionController : ControllerBase
         return Ok(discussion);
     }
 
-    [HttpPost("{classid}/create")]
+    [HttpPost("create")]
     public async Task<IActionResult> CreateDiscussion(Discussion discussion)
     {
         if (discussion.Title == null || discussion.Content == null || discussion.AuthorId == 0)
@@ -43,10 +43,10 @@ public class DiscussionController : ControllerBase
     }
 
     [HttpDelete("{discussionid}/delete")]
-    public async Task<IActionResult> DeleteDiscussion(int discussionid)
+    public async Task<IActionResult> DeleteDiscussion(int userid, int discussionid)
     {
-        var succeed = await _discussionService.DeleteDiscussion(discussionid);
-        if (!succeed) return NotFound();
+        var succeed = await _discussionService.DeleteDiscussion(userid, discussionid);
+        if (!succeed) return BadRequest(new {message = "You are not the author of this discussion"});
         return Ok();
     }
 }
