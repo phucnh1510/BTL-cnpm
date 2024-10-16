@@ -21,7 +21,7 @@ public class SvController : ControllerBase
     [HttpGet("{svId}/all")]
     public async Task<IActionResult> GetProblemSet(int svId)
     {
-        var problems = await _userService.GetProblemSet(svId);
+        var problems = await _userService.GetProblemSetAsync(svId);
 
         return Ok(problems);
     }
@@ -29,7 +29,7 @@ public class SvController : ControllerBase
     [HttpGet("{svId}/{classId}/all")]
     public async Task<IActionResult> GetProblemSetByClass(int svId, int classId)
     {
-        var problems = await _userService.GetProblemSet(svId);
+        var problems = await _userService.GetProblemSetAsync(svId);
 
         return Ok(problems);
     }
@@ -48,14 +48,14 @@ public class SvController : ControllerBase
     [HttpGet("{svId}/submissions")]
     public async Task<IActionResult> GetSubmissions(int svId)
     {
-        var submissions = await _userService.GetUserSubmissions(svId);
+        var submissions = await _userService.GetUserSubmissionsAsync(svId);
         return Ok(submissions);
     }
 
     [HttpGet("{svId}/{problemId}/submissions")]
     public async Task<IActionResult> GetProblemSubmissions(int svId, int problemId)
     {
-        var submissions = await _userService.GetProblemSubmissions(svId, problemId);
+        var submissions = await _userService.GetProblemSubmissionsAsync(svId, problemId);
         return Ok(submissions);
     }
 

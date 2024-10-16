@@ -18,7 +18,7 @@ public class GvController : ControllerBase
     [HttpGet("{classid}/students")]
     public async Task<IActionResult> GetListStudentsInClass(int gvid, int classid)
     {
-        var students = await _userService.GetListStudentsInClass(gvid, classid);
+        var students = await _userService.GetListStudentsInClassAsync(gvid, classid);
         return Ok(students);
     }
 
