@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace btl_backend.Controllers;
 
 [ApiController]
-[Route("api/problem")]
+[Route("api/sv")]
 public class SvController : ControllerBase
 {
     private readonly UserService _userService;
@@ -18,7 +18,7 @@ public class SvController : ControllerBase
         _codeJudgeService = codeJudgeService;
     }
 
-    [HttpGet("{svId}/all")]
+    [HttpGet("problemset")]
     public async Task<IActionResult> GetProblemSet(int svId)
     {
         var problems = await _userService.GetProblemSetAsync(svId);
@@ -26,7 +26,7 @@ public class SvController : ControllerBase
         return Ok(problems);
     }
 
-    [HttpGet("{svId}/{classId}/all")]
+    [HttpGet("problemset/class/{classId}")]
     public async Task<IActionResult> GetProblemSetByClass(int svId, int classId)
     {
         var problems = await _userService.GetProblemSetAsync(svId);
@@ -34,7 +34,7 @@ public class SvController : ControllerBase
         return Ok(problems);
     }
 
-    [HttpGet("{svId}/{problemId}")]
+    [HttpGet("problem/{problemId}")]
     public IActionResult GetProblem(int svId, int problemId)
     {
         var problem = _userService.GetProblem(svId, problemId);
@@ -45,21 +45,21 @@ public class SvController : ControllerBase
         return Ok(problem);
     }
 
-    [HttpGet("{svId}/submissions")]
+    [HttpGet("allsubmissions")]
     public async Task<IActionResult> GetSubmissions(int svId)
     {
         var submissions = await _userService.GetUserSubmissionsAsync(svId);
         return Ok(submissions);
     }
 
-    [HttpGet("{svId}/{problemId}/submissions")]
+    [HttpGet("submissions/problem/{problemId}")]
     public async Task<IActionResult> GetProblemSubmissions(int svId, int problemId)
     {
         var submissions = await _userService.GetProblemSubmissionsAsync(svId, problemId);
         return Ok(submissions);
     }
 
-    [HttpPost("{svId}/{problemId}/submit")]
+    [HttpPost("submit/problem/{problemId}")]
     public async Task<IActionResult> SubmitSolution(int svId, int problemId, SubmissionDto submission)
     {
         // Console.WriteLine(submission.Code);
