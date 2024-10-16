@@ -116,7 +116,7 @@ public class CodeJudgeService
                 'R' => (int) Statuses.RuntimeError,
                 _ => (int) Statuses.NotImplemented,
             },
-            SubmissionTime = DateTime.Now,
+            SubmissionTime = DateTime.UtcNow,
         };
 
         await _context.Submissions.AddAsync(submission);
