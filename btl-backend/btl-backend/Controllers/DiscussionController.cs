@@ -49,4 +49,33 @@ public class DiscussionController : ControllerBase
         if (!succeed) return BadRequest(new {message = "You are not the author of this discussion"});
         return Ok();
     }
+
+    [HttpPost("{discussionid}/comment")]
+    public async Task<IActionResult> CreateComment(int discussionid, Comment comment)
+    {
+        if (comment.Content == null || comment.AuthorId == 0)
+        {
+            return BadRequest(new {message = "Invalid Comment"});
+        }
+        var discussion = await _discussionService.GetDiscussion(discussionid);
+        if (discussion == null) return NotFound();
+        discussion.Comments.Add(comment);
+        var succeed = await _discussionService.CreateDiscussion(discussion);
+        if (!succeed) return BadRequest(new {message = "Invalid Comment"});
+        return Ok();
+    }
+
+    [HttpDelete("{discussionid}/comment/{commentid}")]
+    public async Task<IActionResult> DeleteComment(int userid, int discussionid, int commentid)
+    {
+        var discussion = await _discussionService.GetDiscussion(discussionid);
+        if (discussion == null) return NotFound();
+        var comment = discussion.Comments.FirstOrDefault(c => c.CommentId == commentid);
+        if (comment == null) return NotFound();
+        if (comment.AuthorId != userid) return BadRequest(new {message = "You are not the author of this comment"});
+        discussion.Comments.Remove(comment);
+        var succeed = await _discussionService.CreateDiscussion(discussion);
+        if (!succeed) return BadRequest(new {message = "Invalid Comment"});
+        return Ok();
+    }
 }
