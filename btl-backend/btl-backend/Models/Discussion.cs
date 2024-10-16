@@ -4,11 +4,11 @@ namespace btl_backend.Models;
 
 public class Discussion
 {
-    public int DisscussionId { get; set; }
-
-    public int AuthorId { get; set; }
+    public int DiscussionId { get; set; }
 
     [Required]
+    public int AuthorId { get; set; }
+
     public User? Author { get; set; }
 
     [Required]
@@ -21,5 +21,5 @@ public class Discussion
 
     public DateTime CreateTime { get; set; }
 
-    public List<Comment>? Comments { get; set; }
+    public List<Comment> Comments { get; set; } = [];
 }
