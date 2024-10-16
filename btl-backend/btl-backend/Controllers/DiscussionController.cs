@@ -74,7 +74,7 @@ public class DiscussionController : ControllerBase
         if (comment == null) return NotFound();
         if (comment.AuthorId != userid) return BadRequest(new {message = "You are not the author of this comment"});
         discussion.Comments.Remove(comment);
-        var succeed = await _discussionService.CreateDiscussion(discussion);
+        var succeed = await _discussionService.SaveChangesAsync();
         if (!succeed) return BadRequest(new {message = "Invalid Comment"});
         return Ok();
     }

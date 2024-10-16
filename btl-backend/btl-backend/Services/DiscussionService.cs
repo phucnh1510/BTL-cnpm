@@ -51,4 +51,9 @@ public class DiscussionService
             .FirstOrDefaultAsync(d => d.DiscussionId == discussionid);
         return discussion;
     }
+
+    public async Task<bool> SaveChangesAsync()
+    {
+        return await _context.SaveChangesAsync() > 0;
+    }
 }
