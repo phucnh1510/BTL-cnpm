@@ -6,14 +6,9 @@ namespace btl_backend.Controllers;
 
 [ApiController]
 [Route("api/admin")]
-public class AdminController : ControllerBase
+public class AdminController(UserService userService) : ControllerBase
 {
-    private readonly UserService _userService;
-
-    public AdminController(UserService userService)
-    {
-        _userService = userService;
-    }
+    private readonly UserService _userService = userService;
 
     [HttpPost("create/problem")]
     public async Task<IActionResult> AddProblem(Problem problem)
@@ -45,5 +40,21 @@ public class AdminController : ControllerBase
         var succeed = await _userService.DeleteUserAsync(userId);
         if (!succeed) return BadRequest();
         return Ok(succeed);
+    }
+
+    [HttpGet("get/all-topics")]
+    public async Task<IActionResult> GetAllTopics()
+    {
+        var topics = await _userService.GetAllTopicsAsync();
+        if (topics == null) return BadRequest();
+        return Ok(topics);
+    }
+
+    [HttpGet("get/all-class")]
+    public async Task<IActionResult> GetAllClasses()
+    {
+        var classes = await _userService.GetAllClassesAsync();
+        if (classes == null) return BadRequest();
+        return Ok(classes);
     }
 }
