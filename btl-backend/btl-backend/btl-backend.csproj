@@ -23,6 +23,8 @@
       <Compile Remove="CodeExecutor\**" />
       <Compile Remove="Dtos\ClassDto.cs" />
       <Compile Remove="Controllers\RankingController.cs" />
+      <Compile Remove="Controllers\WeatherForecastController.cs" />
+      <Compile Remove="WeatherForecast.cs" />
     </ItemGroup>
 
     <ItemGroup>

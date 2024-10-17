@@ -18,7 +18,8 @@ public class UserService
     {
         var problems = await _context.Users
             .Where(u => u.UserId == userId)
-            .SelectMany(u => u.Classes)
+            .Where(u => u.Classes != null)
+            .SelectMany(u => u.Classes!)
             .SelectMany(c => c.Problems)
             .GroupJoin(
                 _context.Submissions,
@@ -46,7 +47,8 @@ public class UserService
     {
         var problem = _context.Users
             .Where(u => u.UserId == userId)
-            .SelectMany(u => u.Classes)
+            .Where(u => u.Classes != null)
+            .SelectMany(u => u.Classes!)
             .SelectMany(c => c.Problems)
             .Include(p => p.Topics)
             .AsNoTracking()
@@ -80,7 +82,7 @@ public class UserService
                 submission => submission.ProblemId,
                 problem => problem.ProblemId,
                 (submission, problem) => new { submission, problem })
-            .Where(sp => sp.problem.Classes.Any(c => c.ClassId == classId))
+            .Where(sp => sp.problem.Classes != null && sp.problem.Classes.Any(c => c.ClassId == classId))
             .CountAsync();
 
         return finishedProblemsCount;
@@ -91,9 +93,11 @@ public class UserService
     {
         var students = await _context.Users
             .Where(u => u.UserId == userId)
-            .SelectMany(u => u.Classes)
+            .Where(u => u.Classes != null)
+            .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
-            .SelectMany(c => c.Users)
+            .Where(c => c.Users != null)
+            .SelectMany(c => c.Users!)
             .Where(u => u.UserRole == (int) Role.Student)
             .Select(
                 s => new StudentsDto
@@ -112,7 +116,8 @@ public class UserService
     {
         var classes = await _context.Users
             .Where(u => u.UserId == userId)
-            .SelectMany(u => u.Classes)
+            .Where(u => u.Classes != null)
+            .SelectMany(u => u.Classes!)
             .AsNoTracking()
             .ToListAsync();
         return classes;
@@ -122,7 +127,7 @@ public class UserService
     {
         var count = await _context.Users
             .Where(u => u.UserId == userId)
-            .SelectMany(u => u.Classes)
+            .SelectMany(u => u.Classes ?? Enumerable.Empty<Class>())
             .Where(c => c.ClassId == classId)
             .SelectMany(c => c.Problems)
             .CountAsync();
@@ -133,7 +138,7 @@ public class UserService
     {
         var problems = await _context.Users
             .Where(u => u.UserId == userId)
-            .SelectMany(u => u.Classes)
+            .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
             .SelectMany(c => c.Problems)
             .AsNoTracking()
@@ -145,9 +150,10 @@ public class UserService
     {
         var student = await _context.Users
             .Where(u => u.UserId == gvId)
-            .SelectMany(u => u.Classes)
+            .SelectMany(u => u.Classes ?? Enumerable.Empty<Class>())
             .Where(c => c.ClassId == classId)
-            .SelectMany(c => c.Users)
+            .Where(c => c.Users != null)
+            .SelectMany(c => c.Users!)
             .Where(u => u.UserId == svId)
             .FirstOrDefaultAsync();
 
@@ -163,9 +169,9 @@ public class UserService
     {
         var student = await _context.Users
             .Where(u => u.UserId == gvId)
-            .SelectMany(u => u.Classes)
+            .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
-            .SelectMany(c => c.Users)
+            .SelectMany(c => c.Users ?? Enumerable.Empty<User>())
             .Where(u => u.UserId == svId)
             .FirstOrDefaultAsync();
 
@@ -215,9 +221,9 @@ public class UserService
     {
         var students = await _context.Users
             .Where(u => u.UserId == userId)
-            .SelectMany(u => u.Classes)
+            .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
-            .SelectMany(c => c.Users)
+            .SelectMany(c => c.Users ?? Enumerable.Empty<User>())
             .Where(u => u.UserRole == (int) Role.Student)
             .Select(
                 s => new StudentsDto
@@ -231,5 +237,21 @@ public class UserService
             .AsNoTracking()
             .ToListAsync();
         return students;
+    }
+
+    internal async Task<List<Topic>> GetAllTopicsAsync()
+    {
+        var topics = await _context.Topics
+            .AsNoTracking()
+            .ToListAsync();
+        return topics;
+    }
+
+    public async Task<List<Class>> GetAllClassesAsync()
+    {
+        var classes = await _context.Classes
+            .AsNoTracking()
+            .ToListAsync();
+        return classes;
     }
 }
