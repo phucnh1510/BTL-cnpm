@@ -122,7 +122,7 @@
 
                     <Drawer.Root>
                         <!-- Trigger the drawer and set up the editor when it opens -->
-                        <Drawer.Trigger on:click={handleDrawerOpen}>Open</Drawer.Trigger>
+                        <Drawer.Trigger on:click={handleDrawerOpen}>New +</Drawer.Trigger>
 
                         <Drawer.Content>
                             <div class="drawer-discuss">
