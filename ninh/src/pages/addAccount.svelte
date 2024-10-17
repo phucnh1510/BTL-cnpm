@@ -1,85 +1,88 @@
 <script>
     import Header from "../components/Header.svelte";
 
-
     // Manage state for the account form and account list
     let newAccount = {
-        name: '',
-        email: '',
+        userid: '',
+        username: '',
+        password: '',
+        className: '', // Renamed from 'class' to 'className'
         role: ''
     };
 
-    let accounts = [
-        { name: 'John', email: '1234', role: 'Admin' },
-        { name: 'Jane', email: '5432', role: 'User' }
-    ];
+    // Simulate class data fetched from the database
+    let classes = ['Math', 'Science', 'History']; // Replace this with actual DB data
+
+    // Role options
+    let roles = ['Admin', 'User', 'Moderator']; 
 
     // Add a new account to the list
     function addAccount() {
-        if (newAccount.name && newAccount.email && newAccount.role) {
+        if (newAccount.userid && newAccount.username && newAccount.password && newAccount.className && newAccount.role) {
+            // Push the new account (here you can handle the API call for account creation)
             accounts = [...accounts, { ...newAccount }];
             clearForm();
         }
     }
 
-    // Clear form after submission
+    // Clear form after submission or cancellation
     function clearForm() {
         newAccount = {
-            name: '',
-            email: '',
+            userid: '',
+            username: '',
+            password: '',
+            className: '', // Reset to empty string
             role: ''
         };
     }
 
-    // Delete account from the list
+    // Delete account from the list (optional if you have a delete feature)
     function deleteAccount(index) {
         accounts = accounts.filter((_, i) => i !== index);
     }
 </script>
 
-<!-- Main Form for Adding Account -->
 <main class="addAccount-main">
     <Header />
 
     <h2 class="addAccount-title">Add Account</h2>
     <form class="addAccount-form" on:submit|preventDefault={addAccount}>
-        <label class="addAccount-label">Name:</label>
-        <input class="addAccount-input" type="text" bind:value={newAccount.name} placeholder="Enter name" required />
+        <!-- User ID input -->
+        <label class="addAccount-label">User ID:</label>
+        <input class="addAccount-input" type="text" bind:value={newAccount.userid} placeholder="Enter user ID" required />
 
+        <!-- Username input -->
+        <label class="addAccount-label">Username:</label>
+        <input class="addAccount-input" type="text" bind:value={newAccount.username} placeholder="Enter username" required />
+
+        <!-- Password input -->
         <label class="addAccount-label">Password:</label>
-        <input class="addAccount-input" type="password" bind:value={newAccount.email} placeholder="Enter password" required />
+        <input class="addAccount-input" type="password" bind:value={newAccount.password} placeholder="Enter password" required />
 
-        <label class="addAccount-label">Role:</label>
-        <input class="addAccount-input" type="text" bind:value={newAccount.role} placeholder="Enter role" required />
-
-        <button type="submit" class="addAccount-submit">Add Account</button>
-    </form>
-
-    <!-- Account List Section -->
-    <h2 class="addAccount-title">Account Details</h2>
-    <table class="addAccount-table">
-        <thead>
-            <tr>
-                <th class="addAccount-th">Name</th>
-                <th class="addAccount-th">Password</th>
-                <th class="addAccount-th">Role</th>
-                <th class="addAccount-th">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {#each accounts as account, index}
-                <tr>
-                    <td class="addAccount-td">{account.name}</td>
-                    <td class="addAccount-td">{account.email}</td>
-                    <td class="addAccount-td">{account.role}</td>
-                    <td class="addAccount-td">
-                        <button class="addAccount-update">Update</button>
-                        <button class="addAccount-delete" on:click={() => deleteAccount(index)}>Delete</button>
-                    </td>
-                </tr>
+        <!-- Select Class (Dropdown) -->
+        <label class="addAccount-label">Class:</label>
+        <select class="addAccount-input" bind:value={newAccount.className} required>
+            <option value="" disabled selected>Select class</option>
+            {#each classes as className}
+                <option value={className}>{className}</option>
             {/each}
-        </tbody>
-    </table>
+        </select>
+
+        <!-- Select Role (Dropdown) -->
+        <label class="addAccount-label">Role:</label>
+        <select class="addAccount-input" bind:value={newAccount.role} required>
+            <option value="" disabled selected>Select role</option>
+            {#each roles as role}
+                <option value={role}>{role}</option>
+            {/each}
+        </select>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button type="button" class="addAccount-cancel" on:click={clearForm}>Cancel</button>
+            <button type="submit" class="addAccount-submit">Submit</button>
+        </div>
+    </form>
 </main>
 
 <style>
@@ -90,7 +93,6 @@
     }
 
     .addAccount-title {
-        margin-top: 20px;
         font-size: 2rem;
         margin-bottom: 20px;
         font-weight: 700;
@@ -115,55 +117,36 @@
         color: black;
     }
 
-    .addAccount-submit {
+    .button-group {
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .addAccount-submit, .addAccount-cancel {
         padding: 10px 20px;
         font-size: 1rem;
-        background-color: #007bff;
-        color: white;
-        border: none;
         border-radius: 5px;
         cursor: pointer;
+        border: none;
+    }
+
+    .addAccount-submit {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .addAccount-cancel {
+        background-color: #6c757d;
+        color: white;
     }
 
     .addAccount-submit:hover {
         background-color: #0056b3;
     }
 
-    .addAccount-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .addAccount-th, .addAccount-td {
-        padding: 10px;
-        text-align: left;
-        border: 1px solid #ddd;
-    }
-
-    .addAccount-update {
-        background-color: #ffc107;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .addAccount-delete {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-left: 5px;
-    }
-
-    .addAccount-update:hover {
-        background-color: #e0a800;
-    }
-
-    .addAccount-delete:hover {
-        background-color: #c82333;
+    .addAccount-cancel:hover {
+        background-color: #5a6268;
     }
 </style>
