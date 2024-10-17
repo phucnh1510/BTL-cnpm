@@ -6,20 +6,23 @@
         userid: '',
         username: '',
         password: '',
-        className: '', // Renamed from 'class' to 'className'
+        className: '',
         role: ''
     };
 
     // Simulate class data fetched from the database
-    let classes = ['Math', 'Science', 'History']; // Replace this with actual DB data
+    let classes = ['Math', 'Science', 'History'];
 
     // Role options
-    let roles = ['Admin', 'User', 'Moderator']; 
+    let roles = ['Admin', 'User', 'Moderator'];
+
+    // Store accounts
+    let accounts = [];
 
     // Add a new account to the list
     function addAccount() {
         if (newAccount.userid && newAccount.username && newAccount.password && newAccount.className && newAccount.role) {
-            // Push the new account (here you can handle the API call for account creation)
+            // Push the new account to the list
             accounts = [...accounts, { ...newAccount }];
             clearForm();
         }
@@ -31,12 +34,12 @@
             userid: '',
             username: '',
             password: '',
-            className: '', // Reset to empty string
+            className: '',
             role: ''
         };
     }
 
-    // Delete account from the list (optional if you have a delete feature)
+    // Delete account from the list
     function deleteAccount(index) {
         accounts = accounts.filter((_, i) => i !== index);
     }
@@ -71,9 +74,9 @@
         <!-- Select Role (Dropdown) -->
         <label class="addAccount-label">Role:</label>
         <select class="addAccount-input" bind:value={newAccount.role} required>
-            <option value="" disabled selected>Select role</option>
+            <option value="" disabled selected >Select role</option>
             {#each roles as role}
-                <option value={role}>{role}</option>
+                <option value={role} >{role}</option>
             {/each}
         </select>
 
@@ -83,13 +86,42 @@
             <button type="submit" class="addAccount-submit">Submit</button>
         </div>
     </form>
+
+    <!-- Account List Table -->
+    {#if accounts.length > 0}
+        <table class="addAccount-table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Class</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#each accounts as account, index}
+                    <tr>
+                        <td>{account.userid}</td>
+                        <td>{account.username}</td>
+                        <td>{account.className}</td>
+                        <td>{account.role}</td>
+                        <td>
+                            <button class="delete-button" on:click={() => deleteAccount(index)}>Delete</button>
+                        </td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    {/if}
 </main>
 
 <style>
+    
     .addAccount-main {
-        padding: 20px;
         color: white;
         background-color: #1e1e1e;
+        height: 100vh;
     }
 
     .addAccount-title {
@@ -112,9 +144,19 @@
     .addAccount-input {
         padding: 8px;
         font-size: 1rem;
+        border: 1px solid #8c9495;
+        border-radius: 5px;
+        color: white;
+        background-color: #181C14;
+    }
+
+    .addAccount-input option {
+        padding: 8px;
+        font-size: 1rem;
         border: 1px solid #ccc;
         border-radius: 5px;
-        color: black;
+        color: white;
+        background-color: #181C14;
     }
 
     .button-group {
@@ -149,4 +191,32 @@
     .addAccount-cancel:hover {
         background-color: #5a6268;
     }
+
+    /* Table Styles */
+    .addAccount-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        color: white;
+    }
+
+    .addAccount-table th, .addAccount-table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .delete-button {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .delete-button:hover {
+        background-color: #cc0000;
+    }
+
 </style>

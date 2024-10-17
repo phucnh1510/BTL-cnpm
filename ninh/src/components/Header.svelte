@@ -98,7 +98,7 @@
             <DropdownMenu.Separator class="header-dropdown-separator" />
             <DropdownMenu.Item class="header-dropdown-item">GitHub</DropdownMenu.Item>
             <DropdownMenu.Item class="header-dropdown-item">Support</DropdownMenu.Item>
-            <DropdownMenu.Item class="header-dropdown-item" on:click= {() => navigate("/addAccount")} >API</DropdownMenu.Item>
+            <DropdownMenu.Item class="header-dropdown-item" on:click= {() => navigate("/teacherHome")} >API</DropdownMenu.Item>
             <DropdownMenu.Separator class="header-dropdown-separator" />
             <DropdownMenu.Item class="header-dropdown-item" on:click={signOut}>
               Log out

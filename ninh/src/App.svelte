@@ -11,6 +11,9 @@
   import Contest from './pages/contest.svelte';
   import Result from './codeForStudents/result.svelte';
 
+  import TeacherHome from './teacherPages/teacherHome.svelte';
+  import AddAssignment from './teacherPages/addAssignment.svelte';
+
 </script>
 
 <main>
@@ -27,6 +30,8 @@
     <Route path="/addAccount" component={AddAccount} />
     <Route path="/contest" component={Contest} />
     <Route path="/result" component={Result} />
+    <Route path="/teacherHome" component={TeacherHome} />
+    <Route path="/addAssignment" component={AddAssignment} />
 
   </Router>
 

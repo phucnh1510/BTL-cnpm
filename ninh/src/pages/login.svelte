@@ -1,11 +1,10 @@
 <script>
-// @ts-nocheck
-
     import "../CSS/login.css";
     import { Input } from "$lib/components/ui/input";
     import { navigate } from "svelte-routing";
     import { Button } from "$lib/components/ui/button";
     import { accessTokenStore } from "../store/store";
+    
 
     let username = '';
 	let password = '';
