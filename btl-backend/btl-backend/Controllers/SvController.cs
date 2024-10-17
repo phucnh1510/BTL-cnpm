@@ -73,4 +73,11 @@ public class SvController : ControllerBase
         var submissionResult = await _codeJudgeService.JudgeSubmissionAsync(svId, problemId, submission.Code, submission.Language);
         return Ok(new { Result = submissionResult, SubmittedCode = submission.Code });
     }
+
+    [HttpGet("ranking/class/{classId}")]
+    public async Task<IActionResult> GetClassRanking(int svId, int classId)
+    {
+        var ranking = await _userService.GetClassRankingAsync(svId, classId);
+        return Ok(ranking);
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using btl_backend.Models;
+using btl_backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace btl_backend.Controllers;
@@ -7,28 +8,42 @@ namespace btl_backend.Controllers;
 [Route("api/admin")]
 public class AdminController : ControllerBase
 {
+    private readonly UserService _userService;
 
-    [HttpPost("create/problem")]
-    public IActionResult CreateProblem(Problem problem)
+    public AdminController(UserService userService)
     {
-        return Ok();
+        _userService = userService;
     }
 
-    [HttpDelete("delete/problem")]
-    public IActionResult DeleteProblem(int problemId)
+    [HttpPost("create/problem")]
+    public async Task<IActionResult> AddProblem(Problem problem)
     {
-        return Ok();
+        var succeed = await _userService.AddProblemAsync(problem);
+        if (!succeed) return BadRequest();
+        return Ok(succeed);
+    }
+
+    [HttpDelete("delete/problem/{problemId}")]
+    public async Task<IActionResult> DeleteProblem(int problemId)
+    {
+        var succeed = await _userService.DeleteProblemAsync(problemId);
+        if (!succeed) return BadRequest();
+        return Ok(succeed);
     }
 
     [HttpPost("create/user")]
-    public IActionResult CreateUser(User user)
+    public async Task<IActionResult> CreateUser(User user)
     {
-        return Ok();
+        var succeed = await _userService.AddUserAsync(user);
+        if (!succeed) return BadRequest();
+        return Ok(succeed);
     }
 
-    [HttpDelete("delete/user")]
-    public IActionResult DeleteUser(int userId)
+    [HttpDelete("delete/user/{userId}")]
+    public async Task<IActionResult> DeleteUser(int userId)
     {
-        return Ok();
+        var succeed = await _userService.DeleteUserAsync(userId);
+        if (!succeed) return BadRequest();
+        return Ok(succeed);
     }
 }
