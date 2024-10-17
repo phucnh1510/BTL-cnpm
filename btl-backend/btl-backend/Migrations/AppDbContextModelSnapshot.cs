@@ -86,6 +86,68 @@ namespace btl_backend.Migrations
                     b.ToTable("Classes");
                 });
 
+            modelBuilder.Entity("btl_backend.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CommentId"));
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(10000)
+                        .HasColumnType("character varying(10000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("DiscussionId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("DiscussionId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("btl_backend.Models.Discussion", b =>
+                {
+                    b.Property<int>("DiscussionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DiscussionId"));
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(10000)
+                        .HasColumnType("character varying(10000)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.HasKey("DiscussionId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Discussions");
+                });
+
             modelBuilder.Entity("btl_backend.Models.Problem", b =>
                 {
                     b.Property<int>("ProblemId")
@@ -148,10 +210,13 @@ namespace btl_backend.Migrations
                     b.Property<int>("ProblemId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("Result")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("SubmissionTime")
                         .HasColumnType("timestamp with time zone");
@@ -260,6 +325,36 @@ namespace btl_backend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("btl_backend.Models.Comment", b =>
+                {
+                    b.HasOne("btl_backend.Models.User", "Author")
+                        .WithMany("Comments")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("btl_backend.Models.Discussion", "Discussion")
+                        .WithMany("Comments")
+                        .HasForeignKey("DiscussionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Discussion");
+                });
+
+            modelBuilder.Entity("btl_backend.Models.Discussion", b =>
+                {
+                    b.HasOne("btl_backend.Models.User", "Author")
+                        .WithMany("Discussions")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("btl_backend.Models.Submission", b =>
                 {
                     b.HasOne("btl_backend.Models.Problem", "Problem")
@@ -279,6 +374,11 @@ namespace btl_backend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("btl_backend.Models.Discussion", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("btl_backend.Models.Problem", b =>
                 {
                     b.Navigation("Submissions");
@@ -286,6 +386,10 @@ namespace btl_backend.Migrations
 
             modelBuilder.Entity("btl_backend.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Discussions");
+
                     b.Navigation("Submissions");
                 });
 #pragma warning restore 612, 618

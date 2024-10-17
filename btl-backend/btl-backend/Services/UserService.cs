@@ -14,7 +14,7 @@ public class UserService
         _context = context;
     }
 
-    public async Task<List<ProblemDto>> GetProblemSet(int userId)
+    public async Task<List<ProblemDto>> GetProblemSetAsync(int userId)
     {
         var problems = await _context.Users
             .Where(u => u.UserId == userId)
@@ -54,7 +54,7 @@ public class UserService
         return problem;
     }
 
-    public async Task<List<Submission>> GetUserSubmissions(int userId)
+    public async Task<List<Submission>> GetUserSubmissionsAsync(int userId)
     {
         var submissions = await _context.Submissions
             .Where(s => s.UserId == userId)
@@ -63,7 +63,7 @@ public class UserService
         return submissions;
     }
 
-    public async Task<List<Submission>> GetProblemSubmissions(int userId, int problemId)
+    public async Task<List<Submission>> GetProblemSubmissionsAsync(int userId, int problemId)
     {
         var submissions = await _context.Submissions
             .Where(s => s.UserId == userId && s.ProblemId == problemId)
@@ -72,7 +72,7 @@ public class UserService
         return submissions;
     }
 
-    public async Task<int> GetFinishedProblemsCount(int userId, int classId)
+    public async Task<int> GetFinishedProblemsCountAsync(int userId, int classId)
     {
         var finishedProblemsCount = await _context.Submissions
             .Where(s => s.UserId == userId && s.Status == (int)Statuses.Accepted)
@@ -87,7 +87,7 @@ public class UserService
     }
 
 
-    public async Task<List<StudentsDto>> GetListStudentsInClass(int userId, int classId)
+    public async Task<List<StudentsDto>> GetListStudentsInClassAsync(int userId, int classId)
     {
         var students = await _context.Users
             .Where(u => u.UserId == userId)
@@ -99,8 +99,9 @@ public class UserService
                 s => new StudentsDto
             {
                 UserId = s.UserId,
+                Username = s.Username,
                 Status = s.IsBlocked,
-                ProblemCount = GetFinishedProblemsCount(s.UserId, classId).Result
+                ProblemCount = GetFinishedProblemsCountAsync(s.UserId, classId).Result
             })
             .AsNoTracking()
             .ToListAsync();
@@ -174,5 +175,61 @@ public class UserService
         await _context.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<bool> AddUserAsync(User user)
+    {
+        await _context.Users.AddAsync(user);
+        var sucess = await _context.SaveChangesAsync();
+        return sucess > 0;
+    }
+
+    public async Task<bool> DeleteUserAsync(int userId)
+    {
+        var student = await _context.Users
+            .FirstOrDefaultAsync(u => u.UserId == userId);
+        if (student == null) return false;
+        _context.Users.Remove(student);
+        var success = await _context.SaveChangesAsync();
+        return success > 0;
+    }
+
+    public async Task<bool> AddProblemAsync(Problem problem)
+    {
+        await _context.Problems.AddAsync(problem);
+        var success = await _context.SaveChangesAsync();
+        return success > 0;
+    }
+
+    public async Task<bool> DeleteProblemAsync(int problemId)
+    {
+        var problem = await _context.Problems
+            .FirstOrDefaultAsync(p => p.ProblemId == problemId);
+        if (problem == null) return false;
+        _context.Problems.Remove(problem);
+        var success = await _context.SaveChangesAsync();
+        return success > 0;
+    }
+
+    public async Task<List<StudentsDto>> GetClassRankingAsync(int userId, int classId)
+    {
+        var students = await _context.Users
+            .Where(u => u.UserId == userId)
+            .SelectMany(u => u.Classes)
+            .Where(c => c.ClassId == classId)
+            .SelectMany(c => c.Users)
+            .Where(u => u.UserRole == (int) Role.Student)
+            .Select(
+                s => new StudentsDto
+                {
+                    UserId = s.UserId,
+                    Username = s.Username,
+                    Status = s.IsBlocked,
+                    ProblemCount = GetFinishedProblemsCountAsync(s.UserId, classId).Result
+                })
+            .OrderByDescending(s => s.ProblemCount)
+            .AsNoTracking()
+            .ToListAsync();
+        return students;
     }
 }

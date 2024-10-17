@@ -16,9 +16,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddScoped<AuthService>();
+builder.Services.AddTransient<AuthService>();
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<CodeJudgeService>();
+builder.Services.AddTransient<CodeJudgeService>();
+builder.Services.AddTransient<DiscussionService>();
 
 builder.Services.AddCors(options =>
 {

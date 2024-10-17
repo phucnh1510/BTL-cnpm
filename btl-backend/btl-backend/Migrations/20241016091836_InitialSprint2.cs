@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace btl_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialSprint2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -146,6 +146,28 @@ namespace btl_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Discussions",
+                columns: table => new
+                {
+                    DiscussionId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false),
+                    Title = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Content = table.Column<string>(type: "character varying(10000)", maxLength: 10000, nullable: false),
+                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Discussions", x => x.DiscussionId);
+                    table.ForeignKey(
+                        name: "FK_Discussions_Users_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Submissions",
                 columns: table => new
                 {
@@ -153,7 +175,8 @@ namespace btl_backend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProblemId = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false),
-                    Status = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Result = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
                     Language = table.Column<int>(type: "integer", nullable: false),
                     Code = table.Column<string>(type: "character varying(10000)", maxLength: 10000, nullable: false),
                     SubmissionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -177,6 +200,34 @@ namespace btl_backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    CommentId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DiscussionId = table.Column<int>(type: "integer", nullable: false),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false),
+                    Content = table.Column<string>(type: "character varying(10000)", maxLength: 10000, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.CommentId);
+                    table.ForeignKey(
+                        name: "FK_Comments_Discussions_DiscussionId",
+                        column: x => x.DiscussionId,
+                        principalTable: "Discussions",
+                        principalColumn: "DiscussionId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Users_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ClassProblem_ProblemsProblemId",
                 table: "ClassProblem",
@@ -186,6 +237,21 @@ namespace btl_backend.Migrations
                 name: "IX_ClassUser_UsersUserId",
                 table: "ClassUser",
                 column: "UsersUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_AuthorId",
+                table: "Comments",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_DiscussionId",
+                table: "Comments",
+                column: "DiscussionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Discussions_AuthorId",
+                table: "Discussions",
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProblemTopic_TopicsTopicId",
@@ -213,6 +279,9 @@ namespace btl_backend.Migrations
                 name: "ClassUser");
 
             migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
                 name: "ProblemTopic");
 
             migrationBuilder.DropTable(
@@ -220,6 +289,9 @@ namespace btl_backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Classes");
+
+            migrationBuilder.DropTable(
+                name: "Discussions");
 
             migrationBuilder.DropTable(
                 name: "Topics");
