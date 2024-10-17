@@ -198,6 +198,7 @@
         border-collapse: collapse;
         margin-top: 20px;
         color: white;
+        background-color: #1e1e1e;
     }
 
     .addAccount-table th, .addAccount-table td {
