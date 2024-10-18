@@ -4,6 +4,7 @@
     import { onMount } from 'svelte';
     import * as monaco from 'monaco-editor';
     
+
     // Markdown content
     let title = '';
     let content = `Some words are *italic*, some are **bold**\n\n- lists\n- are\n- cool`; 
@@ -67,6 +68,10 @@
     let addAssignment2TemplateEditor;
     let addAssignment2SelectedOption = ''; // For the language dropdown
 
+    // List of submitted assignments
+    let assignments = [];
+    let nextAssignmentId = 1;
+
     // Markdown conversion function
     const getMarkdown = () => {
         return marked(content);
@@ -93,6 +98,21 @@
         const templateCode = addAssignment2TemplateEditor.getValue();
         console.log('Test Case Code:', testCaseCode); // Process test case code
         console.log('Template Code:', templateCode);  // Process template code
+
+        assignments = [
+            ...assignments, 
+            {
+                id: nextAssignmentId++,
+                title: title,
+                testCase: testCaseCode,
+                template: templateCode
+            }
+        ];
+    };
+
+    // Delete an assignment by ID
+    const deleteAssignment = (id) => {
+        assignments = assignments.filter(assignment => assignment.id !== id);
     };
 
 </script>
@@ -241,6 +261,46 @@
 
     .addAssignment2-select { margin-left: 20px; background-color: #2e3236; color: white; padding: 10px; border: none; border-radius: 4px; margin-bottom: 10px; width: 200px; }
 
+    .assign-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .assign-table-header {
+        background-color: #333;
+    }
+
+    .assign-table-header-cell {
+        color: white;
+        padding: 10px;
+        border: 1px solid #555;
+        text-align: left;
+    }
+
+    .assign-table-body {
+        background-color: #2e3236;
+    }
+
+    .assign-table-row {
+        border: 1px solid #555;
+    }
+
+    .assign-table-cell {
+        padding: 10px;
+        color: white;
+        border: 1px solid #555;
+    }
+
+    .assign-table-delete-button {
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
 </style>
 
 <main class="add1">
@@ -334,5 +394,29 @@
 
         <!-- Submit Button -->
         <button class="addAssignment2-submit-button" on:click={addAssignment2HandleSubmit}>Submit</button>
+
+         <!-- Table of Submitted Assignments -->
+        {#if assignments.length > 0}
+            <table class="assign-table">
+                <thead class="assign-table-header">
+                    <tr>
+                        <th class="assign-table-header-cell">Assignment ID</th>
+                        <th class="assign-table-header-cell">Title</th>
+                        <th class="assign-table-header-cell">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="assign-table-body">
+                    {#each assignments as assignment}
+                        <tr class="assign-table-row">
+                            <td class="assign-table-cell">{assignment.id}</td>
+                            <td class="assign-table-cell">{assignment.title}</td>
+                            <td class="assign-table-cell">
+                                <button class="assign-table-delete-button" on:click={() => deleteAssignment(assignment.id)}>Delete</button>
+                            </td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </table>
+        {/if}
     </div>
 </main>
