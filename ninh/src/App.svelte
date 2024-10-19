@@ -14,6 +14,8 @@
   import TeacherHome from './teacherPages/teacherHome.svelte';
   import AddAssignment from './teacherPages/addAssignment.svelte';
 
+  import TeacherHome2 from './teacherTeacher/teacherHome2.svelte';
+
 </script>
 
 <main>
@@ -32,7 +34,8 @@
     <Route path="/result" component={Result} />
     <Route path="/teacherHome" component={TeacherHome} />
     <Route path="/addAssignment" component={AddAssignment} />
-
+    <Route path="/teacherHome2" component={TeacherHome2} />
+    
   </Router>
 
 

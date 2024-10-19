@@ -5,11 +5,12 @@
     import * as monaco from 'monaco-editor';
     
 
-
+    // Markdown content
     let title = '';
-    let content = `Some words are *italic*, some are **bold**\n\n- lists\n- are\n- cool`; // Markdown content
-
-        let tags = [
+    let content = `Some words are *italic*, some are **bold**\n\n- lists\n- are\n- cool`; 
+    
+    // Dropdown data
+    let tags = [
         { id: 1, name: "Tag 1" },
         { id: 2, name: "Tag 2" },
         { id: 3, name: "Tag 3" }
@@ -27,23 +28,56 @@
         { id: 3, name: "Category 3" }
     ];
 
-    let selectedTag = '';       // Stores the selected tag
-    let selectedTopic = '';     // Stores the selected topic
-    let selectedCategory = '';  // Stores the selected category
+    let addAssignmentDifficulties = [
+        { id: 1, name: "Easy" },
+        { id: 2, name: "Medium" },
+        { id: 3, name: "Hard" }
+    ];
 
-    let addAssignment2Title = '';
-    let addAssignment2Content = '';
-    let addAssignment2SelectedOption = ''; // For your dropdown
+    let addAssignmentClasses = [
+        { id: 1, name: "Class 1" },
+        { id: 2, name: "Class 2" },
+        { id: 3, name: "Class 3" },
+    ];
 
-    let addAssignment2TestCaseEditor;  // Monaco editor for the Test Case
-    let addAssignment2TemplateEditor;  // Monaco editor for the Template
-    
+    let selectedTag = ''; // Stores the selected tag
+    let selectedTopic = ''; // Stores the selected topic
+    let addAssignmentSelectedDifficulty = ''; // Stores the selected difficulty
+    let addAssignmentSelectedClasses = []; // Stores the selected classes
+
+    // Select all checkboxes
+    let addAssignmentSelectAll = false;
+
+    // Handle select all classes
+    const addAssignmentToggleSelectAll = () => {
+        addAssignmentSelectAll = !addAssignmentSelectAll;
+        addAssignmentSelectedClasses = addAssignmentSelectAll ? addAssignmentClasses.map(cls => cls.id) : [];
+    };
+
+    // Function to toggle a single class selection
+    const addAssignmentToggleClassSelection = (classId) => {
+        if (addAssignmentSelectedClasses.includes(classId)) {
+            addAssignmentSelectedClasses = addAssignmentSelectedClasses.filter(id => id !== classId);
+        } else {
+            addAssignmentSelectedClasses.push(classId);
+        }
+    };
+
+    // Monaco editor variables
+    let addAssignment2TestCaseEditor;
+    let addAssignment2TemplateEditor;
+    let addAssignment2SelectedOption = ''; // For the language dropdown
+
+    // List of submitted assignments
+    let assignments = [];
+    let nextAssignmentId = 1;
 
     // Markdown conversion function
     const getMarkdown = () => {
-        return marked(content);   
+        return marked(content);
     };
 
+    // Initialize Monaco editors on mount
     onMount(() => {
         addAssignment2TestCaseEditor = monaco.editor.create(document.getElementById('addAssignment2-testcase-editor'), {
             value: '// Add test cases here...',
@@ -64,15 +98,28 @@
         const templateCode = addAssignment2TemplateEditor.getValue();
         console.log('Test Case Code:', testCaseCode); // Process test case code
         console.log('Template Code:', templateCode);  // Process template code
+
+        assignments = [
+            ...assignments, 
+            {
+                id: nextAssignmentId++,
+                title: title,
+                testCase: testCaseCode,
+                template: templateCode
+            }
+        ];
     };
 
+    // Delete an assignment by ID
+    const deleteAssignment = (id) => {
+        assignments = assignments.filter(assignment => assignment.id !== id);
+    };
 
 </script>
 
 <style>
-    .add1{
+    .add1 {
         border-bottom: 1px solid #555;
-        
     }
 
     .addAssignment-container {
@@ -168,19 +215,6 @@
         overflow-y: auto;
     }
 
-    
-
-    .addAssignment2-select {
-        margin-left: 20px;
-        background-color: #2e3236;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 4px;
-        margin-bottom: 10px;
-        width: 200px;
-    }
-
     .addAssignment2-submit-button {
         background-color: #3a4c54;
         color: white;
@@ -189,7 +223,6 @@
         border-radius: 4px;
         cursor: pointer;
         margin-left: 30px;
-        
     }
 
     .addAssignment2-submit-button:hover {
@@ -204,10 +237,68 @@
         margin-top: 10px;
     }
 
-    .addAssignment2-editor-container h3, .addAssignment2-editor-box h3{
+    .addAssignment2-editor-container h3, .addAssignment2-editor-box h3 {
         color: white;
         font-size: 20px;
         font-weight: bold;
+    }
+
+    .addAssignment-checkbox-container {
+        margin-left: 20px;
+        margin-top: 10px;
+    }
+
+    .addAssignment-checkbox-label {
+        color: white;
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .addAssignment-checkbox-label input {
+        margin-right: 10px;
+    }
+
+    .addAssignment2-select { margin-left: 20px; background-color: #2e3236; color: white; padding: 10px; border: none; border-radius: 4px; margin-bottom: 10px; width: 200px; }
+
+    .assign-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .assign-table-header {
+        background-color: #333;
+    }
+
+    .assign-table-header-cell {
+        color: white;
+        padding: 10px;
+        border: 1px solid #555;
+        text-align: left;
+    }
+
+    .assign-table-body {
+        background-color: #2e3236;
+    }
+
+    .assign-table-row {
+        border: 1px solid #555;
+    }
+
+    .assign-table-cell {
+        padding: 10px;
+        color: white;
+        border: 1px solid #555;
+    }
+
+    .assign-table-delete-button {
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
     }
 
 </style>
@@ -233,25 +324,52 @@
             </div>
         </div>
 
-         <select class="addAssignment-select" bind:value={selectedTag}>
+        <!-- Dropdowns for Tags and Topics -->
+        <select class="addAssignment-select" bind:value={selectedTag}>
             <option value="">Select a tag</option>
             {#each tags as tag}
                 <option value={tag.id}>{tag.name}</option>
             {/each}
-            </select>
+        </select>
 
-            <select class="addAssignment-select" bind:value={selectedTopic}>
-                <option value="">Select a topic</option>
-                {#each topics as topic}
-                    <option value={topic.id}>{topic.name}</option>
-                {/each}
-            </select>
+        <select class="addAssignment-select" bind:value={selectedTopic}>
+            <option value="">Select a topic</option>
+            {#each topics as topic}
+                <option value={topic.id}>{topic.name}</option>
+            {/each}
+        </select>
+
+        <!-- Dropdown for Difficulty -->
+        <select class="addAssignment-select" bind:value={addAssignmentSelectedDifficulty}>
+            <option value="">Select Difficulty</option>
+            {#each addAssignmentDifficulties as difficulty}
+                <option value={difficulty.id}>{difficulty.name}</option>
+            {/each}
+        </select>
+
+        <!-- Class Selection with Checkboxes -->
+        <div class="addAssignment-checkbox-container">
+            <label class="addAssignment-checkbox-label">
+                <input type="checkbox" bind:checked={addAssignmentSelectAll} on:change={addAssignmentToggleSelectAll} />
+                Select All Classes
+            </label>
+            {#each addAssignmentClasses as cls}
+                <label class="addAssignment-checkbox-label">
+                    <input 
+                        type="checkbox" 
+                        on:change={() => addAssignmentToggleClassSelection(cls.id)}
+                        checked={addAssignmentSelectedClasses.includes(cls.id)} 
+                    />
+                    {cls.name}
+                </label>
+            {/each}
+        </div>
     </div>
 </main>
 
 <main>
     <div class="addAssignment2-container">
-        <!-- Dropdown -->
+        <!-- Dropdown for Language -->
         <select class="addAssignment2-select" bind:value={addAssignment2SelectedOption}>
             <option value="">Select language</option>
             <option value="javascript">JavaScript</option>
@@ -276,8 +394,29 @@
 
         <!-- Submit Button -->
         <button class="addAssignment2-submit-button" on:click={addAssignment2HandleSubmit}>Submit</button>
+
+         <!-- Table of Submitted Assignments -->
+        {#if assignments.length > 0}
+            <table class="assign-table">
+                <thead class="assign-table-header">
+                    <tr>
+                        <th class="assign-table-header-cell">Assignment ID</th>
+                        <th class="assign-table-header-cell">Title</th>
+                        <th class="assign-table-header-cell">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="assign-table-body">
+                    {#each assignments as assignment}
+                        <tr class="assign-table-row">
+                            <td class="assign-table-cell">{assignment.id}</td>
+                            <td class="assign-table-cell">{assignment.title}</td>
+                            <td class="assign-table-cell">
+                                <button class="assign-table-delete-button" on:click={() => deleteAssignment(assignment.id)}>Delete</button>
+                            </td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </table>
+        {/if}
     </div>
 </main>
-
-
-

@@ -97,7 +97,7 @@
             </DropdownMenu.Group>
             <DropdownMenu.Separator class="header-dropdown-separator" />
             <DropdownMenu.Item class="header-dropdown-item">GitHub</DropdownMenu.Item>
-            <DropdownMenu.Item class="header-dropdown-item">Support</DropdownMenu.Item>
+            <DropdownMenu.Item class="header-dropdown-item" on:click= {() => navigate("/teacherHome2")} >Support</DropdownMenu.Item>
             <DropdownMenu.Item class="header-dropdown-item" on:click= {() => navigate("/teacherHome")} >API</DropdownMenu.Item>
             <DropdownMenu.Separator class="header-dropdown-separator" />
             <DropdownMenu.Item class="header-dropdown-item" on:click={signOut}>

@@ -1,0 +1,369 @@
+<script>
+  import "../CSS/home.css";
+  import Header from "../components/Header.svelte";
+  import Footer from "../components/Footer.svelte";
+  import * as Collapsible from "$lib/components/ui/collapsible";
+  import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
+  import { createPagination, melt } from '@melt-ui/svelte';
+  import { RangeCalendar } from "bits-ui";
+
+  import { onMount } from 'svelte';
+  import { navigate } from "svelte-routing";
+
+  let href = "";
+  let alt = "";
+  let isExpanded = false;
+
+  let listsExpanded = false;
+  let difficultyExpanded = false;
+  let statusExpanded = false;
+  let tagsExpanded = false;
+
+  let perPage = 51;
+
+  // Function to toggle the expanded state for each dropdown
+  function toggleDropdown(dropdown) {
+    switch(dropdown) {
+      case 'lists':
+        listsExpanded = !listsExpanded;
+        break;
+      case 'difficulty':
+        difficultyExpanded = !difficultyExpanded;
+        break;
+      case 'status':
+        statusExpanded = !statusExpanded;
+        break;
+      case 'tags':
+        tagsExpanded = !tagsExpanded;
+        break;
+    }
+  }
+
+  const solutionIcons = {
+    blueCode: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style="color: #33a0f6;" class="text-blue dark:text-dark-blue h-5 w-5" aria-label="Blue Code Icon" role="img"><path d="M15.207 11.293a1 1 0 010 1.414l-3.5 3.5a1 1 0 01-1.414 0l-2-2a1 1 0 111.414-1.414L11 14.086l2.793-2.793a1 1 0 011.414 0z"></path><path d="M4 5a3 3 0 013-3h7.039a3 3 0 012.342 1.126l2.962 3.701A3 3 0 0120 8.702V19a3 3 0 01-3 3H7a3 3 0 01-3-3V5zm3-1a1 1 0 00-1 1v14a1 1 0 001 1h10a1 1 0 001-1V9h-3a2 2 0 01-2-2V4H7zm8 .6V7h1.92L15 4.6z"></path></svg>`,
+    purpleCode: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style="color: #af5ade;" class="text-purple dark:text-dark-purple h-5 w-5" data-darkreader-inline-fill="" style="--darkreader-inline-fill: currentColor;"><path d="M10 15.464v-3.927a.8.8 0 011.259-.656l2.805 1.964a.8.8 0 010 1.31l-2.805 1.964A.8.8 0 0110 15.464z"></path><path d="M7 4a1 1 0 00-1 1v14a1 1 0 001 1h10a1 1 0 001-1V9h-3a2 2 0 01-2-2V4H7zm8 .6V7h1.92L15 4.6zM4 5a3 3 0 013-3h7.039a3 3 0 012.342 1.126l2.962 3.701A3 3 0 0120 8.702V19a3 3 0 01-3 3H7a3 3 0 01-3-3V5z"></path></svg>`
+  };
+
+  const problems = [
+    { stt: 1, name: "Nguyen Van Anh", role: "SV", username: "nguyenvana9", status: "active" },
+    { stt: 2, name: "Nguyen Hoang Bui", role: "SV", username: "nhbui201859", status: "active" },
+    { stt: 3, name: "Tran Van Cuong", role: "SV", username: "trvancuong35", status: "inactive" },
+    { stt: 4, name: "Vo Viet Dung", role: "SV", username: "nguyenvana9", status: "active" },
+    { stt: 5, name: "Do Viet Giang", role: "SV", username: "dvgiang2395", status: "active" },
+    { stt: 6, name: "Nguyen Manh Hung", role: "SV", username: "hungmn2355", status: "inactive" },
+    { stt: 7, name: "Do Nam Khanh", role: "SV", username: "khanhdn1350", status: "active" },
+    { stt: 8, name: "Dao Thi Luong", role: "SV", username: "dtluong1369", status: "active" },
+    { stt: 9, name: "Duong Van Minh", role: "SV", username: "dvminh13513", status: "inactive" },
+    { stt: 10, name: "Ha Van Phong", role: "SV", username: "hvphong1356", status: "inactive" },
+    { stt: 11, name: "Do Nam Trung", role: "SV", username: "donamtrung5", status: "active" },
+    { stt: 12, name: "Nguyen Thi Ngoc Linh", role: "SV", username: "ntnlinh12561", status: "active" }
+];
+
+  const totalProblems = problems.length;
+
+  const {
+    elements: { root, pageTrigger, prevButton, nextButton },
+    states: { pages, range }
+  } = createPagination({
+    count: totalProblems,
+    perPage: perPage,
+    defaultPage: 1,
+    siblingCount: 1
+  });
+
+  // Calculate paginated problems reactively based on range
+  $: paginatedProblems = problems.slice(range.start, range.end);
+  // Reactive statement to slice problems based on valid range
+  $: {
+  console.log('Range:', $range);
+
+  // Ensure the range start is never 0
+  const start = Math.max($range.start - 1, 0); // Make sure we start from at least 0
+  const end = Math.min($range.end, totalProblems); // Ensure we do not exceed the total length of problems
+
+  // Slice the problems array based on the validated start and end values
+  paginatedProblems = problems.slice(start, end);
+
+  // console.log('Paginated Problems:', paginatedProblems);
+}
+
+
+
+
+
+</script>
+
+<main>
+  <Header />
+
+  <div class="body">
+    <div class="body-left">
+      <div class="nav-container">
+        <div class="nav-item active">
+          <svg class="svg-all-topics" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <polyline points="21 8 21 21 3 21 3 8"></polyline>
+            <rect x="1" y="3" width="22" height="5"></rect>
+            <line x1="10" y1="12" x2="14" y2="12"></line>
+          </svg>
+          <span>Class</span>
+        </div>
+    
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" class="text-brand-orange mr-0 hidden h-[18px] w-[18px] lg:block" data-darkreader-inline-fill="" style="--darkreader-inline-fill: currentColor;"><path fill-rule="evenodd" d="M5.828 1.793a1 1 0 011.415 0L10.45 5h8.05a1 1 0 011 1v2.895a3.502 3.502 0 010 6.71V18.5a1 1 0 01-1 1H10V21a1 1 0 01-1 1H4a1 1 0 01-1-1v-5a1 1 0 011-1h5a1 1 0 011 1v1.5h7.5v-1.895a3.502 3.502 0 010-6.71V7h-6.98l-3.277 3.278a1 1 0 01-1.415 0L2.293 6.743a1 1 0 010-1.415l3.535-3.535zm.708 2.121L4.414 6.036l2.122 2.12 2.12-2.12-2.12-2.122zM18.5 10.75a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM5 20v-3h3v3H5z" clip-rule="evenodd"></path></svg>
+          
+          <span>TTNT</span>
+        </div>
+    
+        <div class="nav-item">
+          <svg  xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <ellipse cx="12" cy="5" rx="8" ry="3"></ellipse>
+            <path d="M4 5v6c0 1.656 3.582 3 8 3s8-1.344 8-3V5"></path>
+            <path d="M4 11v6c0 1.656 3.582 3 8 3s8-1.344 8-3v-6"></path>
+          </svg>
+          <span>CNTT</span>
+        </div>
+    
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" class="text-green-s dark:text-dark-green-s mr-0 hidden h-[18px] w-[18px] lg:block" data-darkreader-inline-fill="" style="--darkreader-inline-fill: currentColor;"><path d="M8 2a1 1 0 011 1v1.7h.877c.307 0 .565.107.783.325.218.218.325.476.325.783v.027c0 .306-.107.559-.323.767l-.002.002a1.062 1.062 0 01-.783.325H7.225c-.55 0-1.02.193-1.405.577l-.001.002a1.947 1.947 0 00-.576 1.403c0 .38.09.72.276 1.014.185.292.46.531.816.719.12.063.385.153.775.27.396.12.936.27 1.62.452 1.01.289 1.73.654 2.178 1.085h.001c.636.603.965 1.483.965 2.667 0 1.164-.408 2.155-1.228 2.984A4.15 4.15 0 019 19.126V21a1 1 0 11-2 0v-1.67H4.094c-.296 0-.55-.107-.769-.326l-.002-.002A1.017 1.017 0 013 18.235v-.027c0-.306.107-.564.325-.782.22-.22.473-.326.77-.326h3.704c.55 0 1.021-.193 1.405-.577.384-.384.577-.855.577-1.405 0-.363-.091-.687-.278-.965-.187-.278-.463-.5-.818-.674h-.002a7.78 7.78 0 00-.728-.24c-.395-.12-.948-.28-1.659-.48-1-.297-1.72-.67-2.18-1.111-.637-.63-.966-1.534-.966-2.737 0-1.163.409-2.15 1.228-2.97C5.12 5.2 5.992 4.791 7 4.714V3a1 1 0 011-1zM14.496 9.532a1 1 0 10-.992 1.736l5.48 3.132-5.48 3.132a1 1 0 10.992 1.736l5.48-3.132c1.344-.767 1.344-2.705 0-3.473l-5.48-3.131z"></path></svg>
+          <span>KTPM</span>
+        </div>
+    
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" class="text-purple dark:text-dark-purple mr-0 hidden h-[18px] w-[18px] lg:block" data-darkreader-inline-fill="" style="--darkreader-inline-fill: currentColor;"><path fill-rule="evenodd" d="M16.664 3.48C16.02 2.905 15 3.363 15 4.226v3.546c0 .863 1.02 1.32 1.664.748l1.995-1.774a1 1 0 000-1.494l-1.995-1.774zM4 9a4 4 0 014-4h5a1 1 0 110 2H8a2 2 0 100 4h8a4 4 0 110 8h-6a1 1 0 010-2h6a2 2 0 000-4H8a4 4 0 01-4-4zm4 10.773v-3.546c0-.863-1.02-1.32-1.664-.748L4.34 17.253a1 1 0 000 1.494l1.995 1.773c.645.574 1.664.116 1.664-.747z" clip-rule="evenodd"></path></svg>
+          <span>HTTT</span>
+        </div>
+    
+        <div class="nav-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" width="1em" height="1em" fill="currentColor" class="mr-0 hidden h-[18px] w-[18px] lg:block text-teal dark:text-dark-teal" data-darkreader-inline-fill="" style="--darkreader-inline-fill: currentColor;"><mask id="javascript_svg__a" width="16" height="18" x="0.8" y="0.081" maskUnits="userSpaceOnUse"><path d="M.8.081h16v18H.8z"></path><path d="M11.221 11.254a3.236 3.236 0 01-1.735-.314 1.135 1.135 0 01-.425-.798.175.175 0 00-.18-.174 37.413 37.413 0 00-.753 0 .167.167 0 00-.183.147 1.843 1.843 0 00.597 1.456 3.175 3.175 0 001.767.663c.67.078 1.349.049 2.01-.085a2.484 2.484 0 001.332-.714c.402-.494.521-1.16.313-1.762a1.481 1.481 0 00-.975-.864c-1.016-.356-2.114-.328-3.15-.598-.18-.055-.4-.117-.48-.306a.673.673 0 01.225-.755 2.037 2.037 0 011.071-.265 3.248 3.248 0 011.494.213c.288.169.488.456.545.783a.192.192 0 00.181.186c.25.006.498.002.749.002a.18.18 0 00.195-.132 1.92 1.92 0 00-.942-1.664 4.685 4.685 0 00-2.553-.388 2.788 2.788 0 00-1.726.69 1.712 1.712 0 00-.344 1.786 1.529 1.529 0 00.966.84c1.014.363 2.124.246 3.145.569.2.067.432.17.493.39a.782.782 0 01-.214.748 2.366 2.366 0 01-1.423.346zm4.361-6.669a6909.08 6909.08 0 00-5.934-3.336 1.336 1.336 0 00-1.298 0L2.438 4.572a1.217 1.217 0 00-.638 1.06v6.692a1.226 1.226 0 00.663 1.07c.566.306 1.116.645 1.693.931a2.441 2.441 0 002.172.06 1.678 1.678 0 00.79-1.518c.003-2.208 0-4.417.001-6.625a.173.173 0 00-.164-.201 31.753 31.753 0 00-.756 0 .167.167 0 00-.182.168c-.003 2.194.002 4.39 0 6.585 0 .31-.193.588-.485.697a1.22 1.22 0 01-.984-.132l-1.572-.884a.187.187 0 01-.107-.186V5.667a.204.204 0 01.124-.205l5.891-3.306a.204.204 0 01.232 0l5.892 3.305a.207.207 0 01.123.205v6.624a.191.191 0 01-.106.188c-1.934 1.089-3.87 2.176-5.805 3.262-.092.05-.202.133-.31.07-.508-.285-1.007-.582-1.513-.87a.163.163 0 00-.183-.012c-.222.13-.456.24-.7.326-.109.044-.244.057-.32.158.096.104.213.187.344.245l1.773 1.02a1.298 1.298 0 001.314.036c1.97-1.105 3.941-2.211 5.912-3.319a1.229 1.229 0 00.663-1.07V5.631a1.216 1.216 0 00-.618-1.046z"></path></mask><path d="M11.221 11.254a3.236 3.236 0 01-1.735-.314 1.135 1.135 0 01-.425-.798.175.175 0 00-.18-.174 37.413 37.413 0 00-.753 0 .167.167 0 00-.183.147 1.843 1.843 0 00.597 1.456 3.175 3.175 0 001.767.663c.67.078 1.349.049 2.01-.085a2.484 2.484 0 001.332-.714c.402-.494.521-1.16.313-1.762a1.481 1.481 0 00-.975-.864c-1.016-.356-2.114-.328-3.15-.598-.18-.055-.4-.117-.48-.306a.673.673 0 01.225-.755 2.037 2.037 0 011.071-.265 3.248 3.248 0 011.494.213c.288.169.488.456.545.783a.192.192 0 00.181.186c.25.006.498.002.749.002a.18.18 0 00.195-.132 1.92 1.92 0 00-.942-1.664 4.685 4.685 0 00-2.553-.388 2.788 2.788 0 00-1.726.69 1.712 1.712 0 00-.344 1.786 1.529 1.529 0 00.966.84c1.014.363 2.124.246 3.145.569.2.067.432.17.493.39a.782.782 0 01-.214.748 2.366 2.366 0 01-1.423.346zm4.361-6.669a6909.08 6909.08 0 00-5.934-3.336 1.336 1.336 0 00-1.298 0L2.438 4.572a1.217 1.217 0 00-.638 1.06v6.692a1.226 1.226 0 00.663 1.07c.566.306 1.116.645 1.693.931a2.441 2.441 0 002.172.06 1.678 1.678 0 00.79-1.518c.003-2.208 0-4.417.001-6.625a.173.173 0 00-.164-.201 31.753 31.753 0 00-.756 0 .167.167 0 00-.182.168c-.003 2.194.002 4.39 0 6.585 0 .31-.193.588-.485.697a1.22 1.22 0 01-.984-.132l-1.572-.884a.187.187 0 01-.107-.186V5.667a.204.204 0 01.124-.205l5.891-3.306a.204.204 0 01.232 0l5.892 3.305a.207.207 0 01.123.205v6.624a.191.191 0 01-.106.188c-1.934 1.089-3.87 2.176-5.805 3.262-.092.05-.202.133-.31.07-.508-.285-1.007-.582-1.513-.87a.163.163 0 00-.183-.012c-.222.13-.456.24-.7.326-.109.044-.244.057-.32.158.096.104.213.187.344.245l1.773 1.02a1.298 1.298 0 001.314.036c1.97-1.105 3.941-2.211 5.912-3.319a1.229 1.229 0 00.663-1.07V5.631a1.216 1.216 0 00-.618-1.046z"></path><path stroke-width="0.48" d="M11.221 11.254a3.236 3.236 0 01-1.735-.314 1.135 1.135 0 01-.425-.798.175.175 0 00-.18-.174 37.413 37.413 0 00-.753 0 .167.167 0 00-.183.147 1.843 1.843 0 00.597 1.456 3.175 3.175 0 001.767.663c.67.078 1.349.049 2.01-.085a2.484 2.484 0 001.332-.714c.402-.494.521-1.16.313-1.762a1.481 1.481 0 00-.975-.864c-1.016-.356-2.114-.328-3.15-.598-.18-.055-.4-.117-.48-.306a.673.673 0 01.225-.755 2.037 2.037 0 011.071-.265 3.248 3.248 0 011.494.213c.288.169.488.456.545.783a.192.192 0 00.181.186c.25.006.498.002.749.002a.18.18 0 00.195-.132 1.92 1.92 0 00-.942-1.664 4.685 4.685 0 00-2.553-.388 2.788 2.788 0 00-1.726.69 1.712 1.712 0 00-.344 1.786 1.529 1.529 0 00.966.84c1.014.363 2.124.246 3.145.569.2.067.432.17.493.39a.782.782 0 01-.214.748 2.366 2.366 0 01-1.423.346zm4.361-6.669a6909.08 6909.08 0 00-5.934-3.336 1.336 1.336 0 00-1.298 0L2.438 4.572a1.217 1.217 0 00-.638 1.06v6.692a1.226 1.226 0 00.663 1.07c.566.306 1.116.645 1.693.931a2.441 2.441 0 002.172.06 1.678 1.678 0 00.79-1.518c.003-2.208 0-4.417.001-6.625a.173.173 0 00-.164-.201 31.753 31.753 0 00-.756 0 .167.167 0 00-.182.168c-.003 2.194.002 4.39 0 6.585 0 .31-.193.588-.485.697a1.22 1.22 0 01-.984-.132l-1.572-.884a.187.187 0 01-.107-.186V5.667a.204.204 0 01.124-.205l5.891-3.306a.204.204 0 01.232 0l5.892 3.305a.207.207 0 01.123.205v6.624a.191.191 0 01-.106.188c-1.934 1.089-3.87 2.176-5.805 3.262-.092.05-.202.133-.31.07-.508-.285-1.007-.582-1.513-.87a.163.163 0 00-.183-.012c-.222.13-.456.24-.7.326-.109.044-.244.057-.32.158.096.104.213.187.344.245l1.773 1.02a1.298 1.298 0 001.314.036c1.97-1.105 3.941-2.211 5.912-3.319a1.229 1.229 0 00.663-1.07V5.631a1.216 1.216 0 00-.618-1.046z" mask="url(#javascript_svg__a)"></path></svg>
+          
+          <span>ANM</span>
+        </div>
+      </div>
+    
+      <div class="selector-1">
+        <div class="selector-1-container">
+           <!-- Dropdown Menu for Lists -->
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger class="dropdown-trigger" on:click={() => toggleDropdown('lists')}>
+                Lists
+                <svg class="caret-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  {#if listsExpanded}
+                    <path d="M7 10l5 5 5-5H7z" />
+                  {:else}
+                    <path d="M7 14l5-5 5 5H7z" />
+                  {/if}
+                </svg>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content class="dropdown-content">
+                <DropdownMenu.Item class="dropdown-item">Array</DropdownMenu.Item>
+                <DropdownMenu.Item class="dropdown-item">Linked List</DropdownMenu.Item>
+                <DropdownMenu.Item class="dropdown-item">Graph</DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+
+            <!-- Dropdown Menu for Difficulty -->
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger class="dropdown-trigger" on:click={() => toggleDropdown('difficulty')}>
+                Difficulty
+                <svg class="caret-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  {#if difficultyExpanded}
+                    <path d="M7 10l5 5 5-5H7z" />
+                  {:else}
+                    <path d="M7 14l5-5 5 5H7z" />
+                  {/if}
+                </svg>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content class="dropdown-content">
+                <DropdownMenu.Item style="color:#2ff1de"  class="dropdown-item" >Easy</DropdownMenu.Item>
+                <DropdownMenu.Item style="color:orange" class="dropdown-item">Medium</DropdownMenu.Item>
+                <DropdownMenu.Item style="color: red" class="dropdown-item">Hard</DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+
+            <!-- Dropdown Menu for Status -->
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger class="dropdown-trigger" on:click={() => toggleDropdown('status')}>
+                Status
+                <svg class="caret-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  {#if statusExpanded}
+                    <path d="M7 10l5 5 5-5H7z" />
+                  {:else}
+                    <path d="M7 14l5-5 5 5H7z" />
+                  {/if}
+                </svg>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content class="dropdown-content">
+                <DropdownMenu.Item class="dropdown-item"><span class="status-icon dash">—</span> Todo</DropdownMenu.Item>
+                <DropdownMenu.Item class="dropdown-item"><span class="status-icon check">✔</span>Solved</DropdownMenu.Item>
+                <DropdownMenu.Item class="dropdown-item"><span class="status-icon dot">•</span>Attempt</DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+
+            <!-- Dropdown Menu for Tags -->
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger class="dropdown-trigger" on:click={() => toggleDropdown('tags')}>
+                Tags
+                <svg class="caret-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  {#if tagsExpanded}
+                    <path d="M7 10l5 5 5-5H7z" />
+                  {:else}
+                    <path d="M7 14l5-5 5 5H7z" />
+                  {/if}
+                </svg>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content class="dropdown-content">
+                <DropdownMenu.Item class="dropdown-item">Algorithm</DropdownMenu.Item>
+                <DropdownMenu.Item class="dropdown-item">Data Structure</DropdownMenu.Item>
+                <DropdownMenu.Item class="dropdown-item">System Design</DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+    
+          <!-- Search Bar -->
+          <div class="search-bar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.414-1.415l-3.85-3.849zm-5.242 1.101a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
+            </svg>
+            <input type="text" placeholder="Search students" />
+          </div>
+    
+          <!-- Icons -->
+          <div class="nav-icons">           
+            <a {href}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" class="h-[18px] w-[18px] fill-none stroke-current text-white" data-darkreader-inline-fill="" style="--darkreader-inline-fill: currentColor;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.398 18.296H5.38a3.6 3.6 0 002.93-1.508l1.023-1.433m11.522-9.71h-2.98a3.6 3.6 0 00-2.93 1.507l-1.146 1.603m5.298-5.747l2.502 2.636-2.502 2.637m0 7.438l2.502 2.636-2.502 2.637M2.398 6.052H5.38a3.6 3.6 0 012.93 1.507l6.635 9.289a3.6 3.6 0 002.93 1.507h2.98"></path></svg>
+            Pick One
+            </a>            
+          </div>
+        
+        </div>
+      </div>
+
+      <div class="selector-2">
+        <div class="table-container">
+            <!-- Table Header -->
+            <div class="table-header">
+                <div class="table-column">No</div>
+                <div class="table-column title-column">Name</div>
+                <div class="table-column">Role</div>
+                <div class="table-column">Username</div>
+                <div class="table-column">Account Status</div>
+            </div>
+
+            <!-- Table Rows -->
+            {#if paginatedProblems.length > 0}
+                {#each paginatedProblems as problem}
+                <div class="table-row">
+                    <div class="table-column">{problem.stt}</div>
+                    <button class="table-column title-column" on:click={() => navigate("/profile")} >{problem.name}</button>
+                    <div class="table-column">{problem.role}</div>
+                    <div class="table-column">{problem.username}</div>
+                    <div class="table-column">
+                    {#if problem.status === "active"}
+                        <span class="text-active">Active</span>
+                    {:else}
+                        <span class="text-inactive">Inactive</span>
+                    {/if}
+                    </div>
+                </div>
+                {/each}
+            {:else}
+                <div>No data available</div>
+            {/if}
+      
+  
+          <!-- Pagination Component -->
+        <nav class="pagination-container" use:melt={$root}>
+          <div class="per-page">
+            50 / page
+          </div>
+          <div class="pagination-controls">
+            <button use:melt={$prevButton}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </button>
+            {#each $pages as page (page.key)}
+              {#if page.type === 'ellipsis'}
+                <span>...</span>
+              {:else}
+                <button use:melt={$pageTrigger(page)}>{page.value}</button>
+              {/if}
+            {/each}
+            <button use:melt={$nextButton}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+      
+    </div>
+
+    <div class="body-right" style="margin-top: 60px;">
+      <!-- Calendar placed inside body-right -->
+      <RangeCalendar.Root let:months let:weekdays   class='range-calendar-root'>
+        <RangeCalendar.Header class="range-calendar-header">
+
+          <RangeCalendar.PrevButton class="range-calendar-prev-button">
+            <!-- Left Arrow SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </RangeCalendar.PrevButton>
+
+          <RangeCalendar.Heading class="range-calendar-heading" />
+    
+          <RangeCalendar.NextButton class="range-calendar-next-button">
+            <!-- Right Arrow SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </RangeCalendar.NextButton>
+
+
+        </RangeCalendar.Header>
+
+        {#each months as month}
+          <RangeCalendar.Grid class="range-calendar-grid">
+            <RangeCalendar.GridHead class="range-calendar-grid-head">
+              <RangeCalendar.GridRow class="range-calendar-grid-row">
+                {#each weekdays as day}
+                  <RangeCalendar.HeadCell class="range-calendar-head-cell">
+                    {day}
+                  </RangeCalendar.HeadCell>
+                {/each}
+              </RangeCalendar.GridRow>
+            </RangeCalendar.GridHead>
+
+            <RangeCalendar.GridBody>
+              {#each month.weeks as weekDates}
+                <RangeCalendar.GridRow class="range-calendar-grid-row">
+                  {#each weekDates as date}
+                    <RangeCalendar.Cell {date} class="range-calendar-cell">
+                      <RangeCalendar.Day {date} month={month.value} class="range-calendar-day" />
+                    </RangeCalendar.Cell>
+                  {/each}
+                </RangeCalendar.GridRow>
+              {/each}
+            </RangeCalendar.GridBody>
+          </RangeCalendar.Grid>
+        {/each}
+      </RangeCalendar.Root>
+
+      
+    <!-- Body right -->
+    </div> 
+
+  </div>
+
+
+  <Footer />
+</main>
+
+<style>
+    .text-active{
+        color: green;
+    }
+
+    .text-inactive{
+        color: red;
+    }
+</style>
