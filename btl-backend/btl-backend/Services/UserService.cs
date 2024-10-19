@@ -112,7 +112,7 @@ public class UserService
         return students;
     }
 
-    public async Task<List<Class>> GetListClassAsync(int userId)
+    public async Task<List<Class>> GetUserClassAsync(int userId)
     {
         var classes = await _context.Users
             .Where(u => u.UserId == userId)

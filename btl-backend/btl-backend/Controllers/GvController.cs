@@ -25,7 +25,7 @@ public class GvController : ControllerBase
     [HttpGet("allclasses")]
     public async Task<IActionResult> GetClasses(int gvid)
     {
-        var classes = await _userService.GetListClassAsync(gvid);
+        var classes = await _userService.GetUserClassAsync(gvid);
         return Ok(classes);
     }
 
