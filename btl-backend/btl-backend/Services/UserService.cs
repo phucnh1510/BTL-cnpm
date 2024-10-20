@@ -18,7 +18,6 @@ public class UserService
     {
         var problems = await _context.Users
             .Where(u => u.UserId == userId)
-            .Where(u => u.Classes != null)
             .SelectMany(u => u.Classes!)
             .SelectMany(c => c.Problems)
             .GroupJoin(
@@ -47,7 +46,6 @@ public class UserService
     {
         var problem = _context.Users
             .Where(u => u.UserId == userId)
-            .Where(u => u.Classes != null)
             .SelectMany(u => u.Classes!)
             .SelectMany(c => c.Problems)
             .Include(p => p.Topics)
@@ -74,29 +72,12 @@ public class UserService
         return submissions;
     }
 
-    public async Task<int> GetFinishedProblemsCountAsync(int userId, int classId)
-    {
-        var finishedProblemsCount = await _context.Submissions
-            .Where(s => s.UserId == userId && s.Status == (int)Statuses.Accepted)
-            .Join(_context.Problems,
-                submission => submission.ProblemId,
-                problem => problem.ProblemId,
-                (submission, problem) => new { submission, problem })
-            .Where(sp => sp.problem.Classes != null && sp.problem.Classes.Any(c => c.ClassId == classId))
-            .CountAsync();
-
-        return finishedProblemsCount;
-    }
-
-
     public async Task<List<StudentsDto>> GetListStudentsInClassAsync(int userId, int classId)
     {
         var students = await _context.Users
             .Where(u => u.UserId == userId)
-            .Where(u => u.Classes != null)
             .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
-            .Where(c => c.Users != null)
             .SelectMany(c => c.Users!)
             .Where(u => u.UserRole == (int) Role.Student)
             .Select(
@@ -105,7 +86,9 @@ public class UserService
                 UserId = s.UserId,
                 Username = s.Username,
                 Status = s.IsBlocked,
-                ProblemCount = GetFinishedProblemsCountAsync(s.UserId, classId).Result
+                ProblemCount = _context.Submissions
+                    .Where(sub => sub.UserId == s.UserId && sub.Status == (int) Statuses.Accepted)
+                    .Count()
             })
             .AsNoTracking()
             .ToListAsync();
@@ -116,7 +99,6 @@ public class UserService
     {
         var classes = await _context.Users
             .Where(u => u.UserId == userId)
-            .Where(u => u.Classes != null)
             .SelectMany(u => u.Classes!)
             .AsNoTracking()
             .ToListAsync();
@@ -127,7 +109,7 @@ public class UserService
     {
         var count = await _context.Users
             .Where(u => u.UserId == userId)
-            .SelectMany(u => u.Classes ?? Enumerable.Empty<Class>())
+            .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
             .SelectMany(c => c.Problems)
             .CountAsync();
@@ -150,7 +132,7 @@ public class UserService
     {
         var student = await _context.Users
             .Where(u => u.UserId == gvId)
-            .SelectMany(u => u.Classes ?? Enumerable.Empty<Class>())
+            .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
             .Where(c => c.Users != null)
             .SelectMany(c => c.Users!)
@@ -171,7 +153,7 @@ public class UserService
             .Where(u => u.UserId == gvId)
             .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
-            .SelectMany(c => c.Users ?? Enumerable.Empty<User>())
+            .SelectMany(c => c.Users!)
             .Where(u => u.UserId == svId)
             .FirstOrDefaultAsync();
 
@@ -223,7 +205,7 @@ public class UserService
             .Where(u => u.UserId == userId)
             .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
-            .SelectMany(c => c.Users)
+            .SelectMany(c => c.Users!)
             .Where(u => u.UserRole == (int) Role.Student)
             .Select(
                 s => new StudentsDto
@@ -231,7 +213,9 @@ public class UserService
                     UserId = s.UserId,
                     Username = s.Username,
                     Status = s.IsBlocked,
-                    ProblemCount = GetFinishedProblemsCountAsync(s.UserId, classId).Result
+                    ProblemCount = _context.Submissions
+                        .Where(sub => sub.UserId == s.UserId && sub.Status == (int) Statuses.Accepted)
+                        .Count()
                 })
             .OrderByDescending(s => s.ProblemCount)
             .AsNoTracking()

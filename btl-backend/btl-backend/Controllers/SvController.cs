@@ -40,7 +40,7 @@ public class SvController : ControllerBase
         var problem = _userService.GetProblem(svId, problemId);
         if (problem == null)
         {
-            return Unauthorized();
+            return Unauthorized("Problem not found");
         }
         return Ok(problem);
     }

@@ -11,14 +11,6 @@ public class CodeJudgeService
 {
     private class CodeExecutor
     {
-        public static string ExecutePythonCode(string submittedcode, string testcode)
-        {
-            string tempFile = Path.GetTempFileName() + ".py";
-            File.WriteAllText(tempFile, submittedcode + testcode);
-
-            return ExecuteCode("python", tempFile);
-        }
-
         public static string ExecuteCppCode(string submittedcode, string testcode)
         {
             var tempFile = Path.GetTempFileName() + ".cpp";
@@ -35,6 +27,54 @@ public class CodeJudgeService
 
             // Execute the compiled C++ code
             return ExecuteCode(exeFile, "");
+        }
+
+        public static string ExecutePythonCode(string submittedcode, string testcode)
+        {
+            var tempFile = Path.GetTempFileName() + ".py";
+            File.WriteAllText(tempFile, submittedcode + testcode);
+
+            return ExecuteCode("python", tempFile);
+        }
+
+        public static string ExecuteJavaCode(string submittedcode, string testcode)
+        {
+            var tempFile = Path.GetTempFileName() + ".java";
+            File.WriteAllText(tempFile, submittedcode + testcode);
+
+            // Compile the Java code
+            var e = ExecuteCode("javac", tempFile);
+
+            if (!string.IsNullOrEmpty(e)) {
+                return "Compile error:\n" + e;
+            }
+
+            // Execute the compiled Java code
+            return ExecuteCode("java", "Main");
+        }
+
+        public static string ExecuteJavascriptCode(string submittedcode, string testcode)
+        {
+            var tempFile = Path.GetTempFileName() + ".js";
+            File.WriteAllText(tempFile, submittedcode + testcode);
+
+            return ExecuteCode("node", tempFile);
+        }
+
+        public static string ExecuteTypescriptCode(string submittedcode, string testcode)
+        {
+            var tempFile = Path.GetTempFileName() + ".ts";
+            File.WriteAllText(tempFile, submittedcode + testcode);
+
+            // Compile the Typescript code
+            var e = ExecuteCode("tsc", tempFile);
+
+            if (!string.IsNullOrEmpty(e)) {
+                return "Compile error:\n" + e;
+            }
+
+            // Execute the compiled Typescript code
+            return ExecuteCode("node", tempFile.Replace(".ts", ".js"));
         }
 
         private static string ExecuteCode(string command, string arguments)
@@ -81,21 +121,20 @@ public class CodeJudgeService
             .Select(p => p.TestCode)
             .AsNoTracking()
             .FirstOrDefaultAsync();
-        var result = "";
-        if (language == (int) Language.Cpp)
+        var result = language switch
         {
-            result = CodeExecutor.ExecuteCppCode(submittedCode, testCode?[language] ?? "");
-        }
-        else if (language == (int)Language.Python)
-        {
-            result = CodeExecutor.ExecutePythonCode(submittedCode, testCode?[language] ?? "");
-        }
-        else
-        {
-            result = "Not implemented language";
-        }
+            (int)Language.Cpp => CodeExecutor.ExecuteCppCode(submittedCode, testCode?[language] ?? ""),
+            (int)Language.Python => CodeExecutor.ExecutePythonCode(submittedCode, testCode?[language] ?? ""),
+            (int)Language.Java => CodeExecutor.ExecuteJavaCode(submittedCode, testCode?[language] ?? ""),
+            (int)Language.JavaScript => CodeExecutor.ExecuteJavascriptCode(submittedCode, testCode?[language] ?? ""),
+            (int)Language.TypeScript => CodeExecutor.ExecuteTypescriptCode(submittedCode, testCode?[language] ?? ""),
+            _ => "Not implemented language"
+        };
 
-
+        if (result == "Not implemented language")
+        {
+            return result;
+        }
 
         var submission = new Submission()
         {
