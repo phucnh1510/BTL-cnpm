@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace btl_backend.Models;
 
@@ -10,7 +11,9 @@ public class Class
     [MaxLength(100)]
     public string? ClassName { get; set; }
 
+    [JsonIgnore]
     public List<Problem> Problems { get; set; } = [];
 
+    [JsonIgnore]
     public List<User>? Users { get; set; }
 }

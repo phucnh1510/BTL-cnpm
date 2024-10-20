@@ -42,6 +42,22 @@ public class AdminController(UserService userService) : ControllerBase
         return Ok(succeed);
     }
 
+    [HttpPost("create/class")]
+    public async Task<IActionResult> AddClass(Class @class)
+    {
+        var succeed = await _userService.AddClassAsync(@class);
+        if (!succeed) return BadRequest();
+        return Ok(succeed);
+    }
+
+    [HttpPost("create/topic")]
+    public async Task<IActionResult> AddTopic(Topic topic)
+    {
+        var succeed = await _userService.AddTopicAsync(topic);
+        if (!succeed) return BadRequest();
+        return Ok(succeed);
+    }
+
     [HttpGet("get/all-topics")]
     public async Task<IActionResult> GetAllTopics()
     {
@@ -56,5 +72,21 @@ public class AdminController(UserService userService) : ControllerBase
         var classes = await _userService.GetAllClassesAsync();
         if (classes == null) return BadRequest();
         return Ok(classes);
+    }
+
+    [HttpGet("get/all-problems")]
+    public async Task<IActionResult> GetAllProblems()
+    {
+        var problems = await _userService.GetAllProblemsAsync();
+        if (problems == null) return BadRequest();
+        return Ok(problems);
+    }
+
+    [HttpGet("get/all-users")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var users = await _userService.GetAllUsersAsync();
+        if (users == null) return BadRequest();
+        return Ok(users);
     }
 }

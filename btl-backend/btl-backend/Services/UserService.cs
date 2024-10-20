@@ -223,7 +223,7 @@ public class UserService
             .Where(u => u.UserId == userId)
             .SelectMany(u => u.Classes!)
             .Where(c => c.ClassId == classId)
-            .SelectMany(c => c.Users ?? Enumerable.Empty<User>())
+            .SelectMany(c => c.Users)
             .Where(u => u.UserRole == (int) Role.Student)
             .Select(
                 s => new StudentsDto
@@ -253,5 +253,35 @@ public class UserService
             .AsNoTracking()
             .ToListAsync();
         return classes;
+    }
+
+    internal async Task<bool> AddClassAsync(Class @class)
+    {
+        await _context.Classes.AddAsync(@class);
+        var success = await _context.SaveChangesAsync();
+        return success > 0;
+    }
+
+    public async Task<bool> AddTopicAsync(Topic topic)
+    {
+        await _context.Topics.AddAsync(topic);
+        var success = await _context.SaveChangesAsync();
+        return success > 0;
+    }
+
+    public async Task<List<Problem>> GetAllProblemsAsync()
+    {
+        var problems = await _context.Problems
+            .AsNoTracking()
+            .ToListAsync();
+        return problems;
+    }
+
+    public async Task<List<User>> GetAllUsersAsync()
+    {
+        var users = await _context.Users
+            .AsNoTracking()
+            .ToListAsync();
+        return users;
     }
 }

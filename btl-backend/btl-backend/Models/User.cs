@@ -19,8 +19,10 @@ public class User
 
     public bool IsBlocked { get; set; }
 
+    [JsonIgnore]
     public List<Class>? Classes { get; set; }
 
+    [JsonIgnore]
     public List<Submission>? Submissions { get; set; }
 
     [JsonIgnore]

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 namespace btl_backend.Models;
 
 public class Problem
@@ -23,6 +24,7 @@ public class Problem
 
     public List<Class>? Classes { get; set; }
 
+    [JsonIgnore]
     public List<Submission>? Submissions { get; set; }
 
     public List<Topic>? Topics { get; set; }

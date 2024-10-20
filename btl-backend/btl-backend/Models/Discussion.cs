@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace btl_backend.Models;
 
@@ -9,6 +10,7 @@ public class Discussion
     [Required]
     public int AuthorId { get; set; }
 
+    [JsonIgnore]
     public User? Author { get; set; }
 
     [Required]
@@ -21,5 +23,6 @@ public class Discussion
 
     public DateTime CreateTime { get; set; }
 
+    [JsonIgnore]
     public List<Comment> Comments { get; set; } = [];
 }
