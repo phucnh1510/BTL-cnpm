@@ -14,7 +14,7 @@ INSERT INTO "Users" VALUES (1, 'Phuc', '12345', 0, false),
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (1, 'Two Sum',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
  $$Given an array of integers `nums` and an integer `target`, *return indices of the two numbers such that they add up to `target`.*
 
 You may assume that each input would have ***exactly one solution***, and you may not use the same element twice.
@@ -52,11 +52,11 @@ You can return the answer in any order.
 
 **Follow-up:** Can you come up with an algorithm that is less than <code>O(n<sup>^</sup>2)</code> time complexity?$$,
  1, true,
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (2, 'Add Two Numbers',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
  $$You are given two **non-empty** linked lists representing two non-negative integers. The digits are stored in **reverse order**, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
 
 You may assume the two numbers do not contain any leading zero, except the number 0 itself.
@@ -88,11 +88,11 @@ You may assume the two numbers do not contain any leading zero, except the numbe
 * The number of nodes in each linked list is in the range `[1, 100]`.
 * `0 <= Node.val <= 9`
 * It is guaranteed that the list represents a number that does not have leading zeros.$$,
- 2, true, ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+ 2, true, ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (3, 'Longest Substring Without Repeating Characters',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
  $$Given a string `s`, find the length of the **longest substring** without repeating characters.
 
 <br>
@@ -127,11 +127,11 @@ INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficu
 
 * <code>0 <= s.length <= 5 * 10<sup>4</sup></code>
 * `s` consists of English letters, digits, symbols and spaces.$$,
- 2, true, ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+ 2, true, ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (4, 'Median of Two Sorted Arrays',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
  $$Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return **the median** of the two sorted arrays.
 
 The overall run time complexity should be `O(log (m+n))`.
@@ -175,11 +175,11 @@ The overall run time complexity should be `O(log (m+n))`.
 * `0 <= n <= 1000`
 * `1 <= m + n <= 2000`
 * <code>-10<sup>6</sup> <= nums1[i], nums2[i] <= 10<sup>6</sup></code>$$,
- 3, false, ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+ 3, false, ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (5, 'Longest Palindromic Substring',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
 $$Given a string `s`, return *the longest palindromic substring* in `s`.
 
 <br>
@@ -211,11 +211,11 @@ $$Given a string `s`, return *the longest palindromic substring* in `s`.
 
 * `1 <= s.length <= 1000`
 * `s` consist of only digits and English letters.$$,
- 2, true, ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+ 2, true, ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (6, 'ZigZag Conversion',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
  $$The string `"PAYPALISHIRING"` is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
 
 ```
@@ -264,11 +264,11 @@ string convert(string s, int numRows);
 * `1 <= s.length <= 1000`
 * `s` consists of English letters (lower-case and upper-case), `','` and `'.'`.
 * `1 <= numRows <= 1000`$$,
- 2, false, ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+ 2, false, ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (7, 'Reverse Integer',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
 $$Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range `[-2^31, 2^31 - 1]`, then return `0`.
 
 Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
@@ -300,11 +300,11 @@ Assume the environment does not allow you to store 64-bit integers (signed or un
 **Constraints:**
 
 * <code>-2<sup>31</sup> <= x <= 2<sup>31</sup> - 1</code>$$,
- 2, true, ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+ 2, true, ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (8, 'String to Integer (atoi)',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
 $$Implement the `myAtoi(string s)` function, which converts a string to a 32-bit signed integer (similar to C/C++'s `atoi` function).
 
 The algorithm for `myAtoi(string s)` is as follows:
@@ -368,11 +368,11 @@ The algorithm for `myAtoi(string s)` is as follows:
 
 * `0 <= s.length <= 200`
 * `s` consists of English letters (lower-case and upper-case), digits, `' '`, `'+'`, `'-'`, and `'.'`. $$,
-    2, false, ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+    2, false, ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (9, 'Palindrome Number',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
 $$Given an integer `x`, return `true` if `x` is a palindrome integer.
 
 An integer is a **palindrome** when it reads the same backward as forward. For example, `121` is palindrome while `123` is not.
@@ -406,11 +406,11 @@ An integer is a **palindrome** when it reads the same backward as forward. For e
 **Constraints:**
 
 * <code>-2<sup>31</sup> <= x <= 2<sup>31</sup> - 1</code>$$,
-    1, false, ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+    1, false, ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "Problems"("ProblemId", "Title", "TestCode", "Description", "Difficulty", "Solution", "TemplateCode") VALUES
 (10, 'Roman to Integer',
- ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
+ ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");'],
 $$Roman numerals are represented by seven different symbols: `I`, `V`, `X`, `L`, `C`, `D` and `M`.
 
 ```
@@ -470,7 +470,7 @@ Given a roman numeral, convert it to an integer.
 * `s` contains only the characters `('I', 'V', 'X', 'L', 'C', 'D', 'M')`.
 * It is **guaranteed** that `s` is a valid roman numeral in the range `[1, 3999]`. $$,
     1,
- true, ARRAY ['int main() {\n\tcout <<\"Accepted\";\n}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
+ true, ARRAY ['int main() {cout <<"Accepted";}', 'print("Accepted")', 'class Main {public static void main(String[] args) {System.out.println("Accepted");}}', 'console.log("Accepted");', 'console.log("Accepted");']);
 
 INSERT INTO "ClassProblem" VALUES
 (1, 1),

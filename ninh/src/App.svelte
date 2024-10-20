@@ -21,7 +21,7 @@
 <main>
   <!-- Cấu hình Router -->
   <Router>
-    <Route component={Home} />
+    <Route component={Login} />
 
     <Route path="/home" component={Home} />
     <Route path="/login" component={Login} />

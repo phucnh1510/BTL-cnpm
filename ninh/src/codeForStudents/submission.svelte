@@ -7,6 +7,7 @@
         { status: 'Compile Error', language: 'C++', time: 'Oct 10, 2024', runtime: 'N/A', memory: 'N/A', notes: '' },
         // Add more rows here as needed
     ];
+    
 </script>
 
 <style>

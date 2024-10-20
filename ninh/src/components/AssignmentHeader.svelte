@@ -2,7 +2,7 @@
     import "../CSS/header.css";
 
     import { navigate } from "svelte-routing";
-    import { editorContent, editorLanguage, resultData } from '../store/store.js';
+    import { editorContent, editorLanguage, resultData, accessTokenStore } from '../store/store.js';
     import { onDestroy } from 'svelte';
 
     import * as Avatar from "$lib/components/ui/avatar/index.js";
@@ -11,6 +11,7 @@
     import * as Sheet from "$lib/components/ui/sheet";
 
     function signOut() {
+        accessTokenStore.set({});
         navigate("/login");
     }
     
@@ -36,7 +37,7 @@
             "language": $editorLanguage,
             "code": $editorContent
         }
-        const response = await fetch('http://localhost:5292/api/problem/1/1/submit', {
+        const response = await fetch('http://localhost:5292/api/sv/submit/problem/1?svId=1', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

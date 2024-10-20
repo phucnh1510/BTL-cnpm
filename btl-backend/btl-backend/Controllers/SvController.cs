@@ -45,6 +45,13 @@ public class SvController : ControllerBase
         return Ok(problem);
     }
 
+    [HttpGet("classes")]
+    public async Task<IActionResult> GetClasses(int svId)
+    {
+        var classes = await _userService.GetClassesAsync(svId);
+        return Ok(classes);
+    }
+
     [HttpGet("allsubmissions")]
     public async Task<IActionResult> GetSubmissions(int svId)
     {
@@ -67,7 +74,7 @@ public class SvController : ControllerBase
         var problem = _userService.GetProblem(svId, problemId);
         if (problem == null)
         {
-            return Unauthorized();
+            return NotFound();
         }
 
         var submissionResult = await _codeJudgeService.JudgeSubmissionAsync(svId, problemId, submission.Code, submission.Language);

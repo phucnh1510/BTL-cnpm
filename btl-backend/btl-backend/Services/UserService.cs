@@ -32,10 +32,12 @@ public class UserService
                 {
                     ProblemId = ps.problem.ProblemId,
                     Title = ps.problem.Title,
+                    Solution = ps.problem.Solution,
                     Difficulty = ps.problem.Difficulty,
                     Status = submission != null ? submission.Status : -1
                 }
             )
+            .Distinct()
             .AsNoTracking()
             .ToListAsync();
 
@@ -52,6 +54,16 @@ public class UserService
             .AsNoTracking()
             .FirstOrDefault(p => p.ProblemId == problemId);
         return problem;
+    }
+
+    public Task<List<Class>> GetClassesAsync(int userId)
+    {
+        var classes = _context.Users
+            .Where(u => u.UserId == userId)
+            .SelectMany(u => u.Classes!)
+            .AsNoTracking()
+            .ToListAsync();
+        return classes;
     }
 
     public async Task<List<Submission>> GetUserSubmissionsAsync(int userId)

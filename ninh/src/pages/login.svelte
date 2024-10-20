@@ -9,10 +9,10 @@
     let username = '';
 	let password = '';
 
-    $: {
-        console.log(username);
-        console.log(password);
-    }
+    // $: {
+    //     console.log(username);
+    //     console.log(password);
+    // }
 
     const handleSubmit = async () => {
         const loginDetails = {
@@ -31,11 +31,17 @@
 
         try {
 			const res = await fetch(url, options);
-            console.log(res);
+            // console.log(res);
 			const accessToken = await res.json();
 			console.log(accessToken);
 			accessTokenStore.set(accessToken);
-            navigate('/home');
+            if (accessToken.role === 1) {
+                navigate('/teacherHome2');
+            } else if (accessToken.role === 2) {
+                navigate('/teacherHome');
+            } else {
+                navigate('/home');
+            }
 		} catch (err) {
 			alert("Invalid Credentials");
 		}
@@ -49,8 +55,8 @@
                 <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1376&q=80;" alt="">
                 <div class="login-image-overlay">
                     <h2 class="login-company-name">Acme Inc</h2>
-                    <p class="login-testimonial">“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula congue massa, eu scelerisque sem maximus a. <br> Donec nec consequat nulla . ”</p>
-                    <p class="login-author">Nguyễn Hải Ninh</p>
+                    <p class="login-testimonial">“Now I have become death <br> The destroyer of worlds.”</p>
+                    <p class="login-author">Nguyễn Hải Ninh & Phúc</p>
                 </div>
             </div>
 

@@ -4,6 +4,7 @@
   export let alt = "LeetCode";
 
   import { navigate } from "svelte-routing";
+  import {accessTokenStore} from "../store/store.js";
   import AddAccount from "../pages/addAccount.svelte";
 
   import * as Avatar from "$lib/components/ui/avatar/index.js";
@@ -13,6 +14,7 @@
 
 
   function signOut() {
+    accessTokenStore.set({});
     navigate("/login");
   }
   
