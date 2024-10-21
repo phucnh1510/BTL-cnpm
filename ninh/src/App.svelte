@@ -16,6 +16,7 @@
 
   import TeacherHome2 from './teacherTeacher/teacherHome2.svelte';
 
+
 </script>
 
 <main>
@@ -36,6 +37,7 @@
     <Route path="/addAssignment" component={AddAssignment} />
     <Route path="/teacherHome2" component={TeacherHome2} />
     
+
   </Router>
 
 

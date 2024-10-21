@@ -46,7 +46,7 @@
     {
       title: "New Assignment",
       date: "January 1, 2024 9:00 AM",
-      description: "Two Sum",
+      description: "N-Queens",
       points: "+10",
     },
     
@@ -102,7 +102,7 @@
                 <div class="notification-item">
                   <div class="notification-header">{notification.title}</div>
                   <div class="notification-date">{notification.date}</div>
-                  <div class="notification-desc">{notification.description}</div>
+                  <button class="notification-desc" on:click={() => navigate("/assignment")}>{notification.description}</button>
                   <div class="notification-points">{notification.points}</div>
                 </div>
               </DropdownMenu.Item>
@@ -184,13 +184,6 @@
 </div>
 
 <style>
-  .dropdown-content {
-    background-color: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
   .notification-item {
     margin-bottom: 10px;
   }
@@ -207,6 +200,10 @@
   .notification-desc {
     font-size: 0.9rem;
     font-weight: bold;
+  }
+
+  .notification-desc:hover {
+    color: white;
   }
 
   .notification-points {

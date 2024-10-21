@@ -69,21 +69,7 @@
     let addAssignment2SelectedOption = ''; // For the language dropdown
 
     // List of submitted assignments
-    let assignments = [
-        {
-            id: 1,
-            title: 'Assignment 1',
-            testCase: 'const testCases = [1, 2, 3];',
-            template: 'const template = "Hello, World!";'
-        },
-        {
-            id: 2,
-            title: 'Assignment 2',
-            testCase: 'const testCases = [4, 5, 6];',
-            template: 'const template = "Hello, World!";'
-        }
-
-    ];
+    let assignments = [ ];
     let nextAssignmentId = 1;
 
     // Markdown conversion function
@@ -125,9 +111,21 @@
     };
 
     // Delete an assignment by ID
-    const deleteAssignment = (id) => {
-        assignments = assignments.filter(assignment => assignment.id !== id);
+    const deleteAssignment = (topicId) => {
+        assignments = assignments.filter(assignment => assignment.topicId !== topicId);
     };
+
+    onMount(() => {
+        const getalluserproblem = 'http://localhost:5292/api/admin/get/all-topics';
+        fetch(getalluserproblem)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                assignments = data;
+            });
+        
+    });
+
 
 </script>
 
@@ -422,10 +420,10 @@
                 <tbody class="assign-table-body">
                     {#each assignments as assignment}
                         <tr class="assign-table-row">
-                            <td class="assign-table-cell">{assignment.id}</td>
-                            <td class="assign-table-cell">{assignment.title}</td>
+                            <td class="assign-table-cell">{assignment.topicId}</td>
+                            <td class="assign-table-cell">{assignment.topicName}</td>
                             <td class="assign-table-cell">
-                                <button class="assign-table-delete-button" on:click={() => deleteAssignment(assignment.id)}>Delete</button>
+                                <button class="assign-table-delete-button" on:click={() => deleteAssignment(assignment.topicId)}>Delete</button>
                             </td>
                         </tr>
                     {/each}
