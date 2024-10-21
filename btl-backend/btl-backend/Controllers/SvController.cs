@@ -45,6 +45,34 @@ public class SvController : ControllerBase
         return Ok(problem);
     }
 
+    [HttpGet("problem-list/topic/{topicId}")]
+    public IActionResult GetProblemListByTopic(int svId, int topicId)
+    {
+        var problems = _userService.GetProblemListByTopic(svId, topicId);
+        return Ok(problems);
+    }
+
+    [HttpGet("problem-list/difficulty/{difficulty}")]
+    public IActionResult GetProblemListByDifficulty(int svId, int difficulty)
+    {
+        var problems = _userService.GetProblemListByDifficulty(svId, difficulty);
+        return Ok(problems);
+    }
+
+    [HttpGet("problem-list/class/{classId}/topic/{topicId}")]
+    public IActionResult GetProblemListByClassAndTopic(int svId, int classId, int topicId)
+    {
+        var problems = _userService.GetProblemListByClassAndTopic(svId, classId, topicId);
+        return Ok(problems);
+    }
+
+    [HttpGet("problem-list/class/{classId}/difficulty/{difficulty}")]
+    public IActionResult GetProblemListByClassAndDifficulty(int svId, int classId, int difficulty)
+    {
+        var problems = _userService.GetProblemListByClassAndDifficulty(svId, classId, difficulty);
+        return Ok(problems);
+    }
+
     [HttpGet("classes")]
     public async Task<IActionResult> GetClasses(int svId)
     {

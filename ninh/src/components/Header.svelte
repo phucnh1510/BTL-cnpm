@@ -11,6 +11,46 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Button } from "$lib/components/ui/button/index.js";
 
+  
+  let notifications = [
+    {
+      title: "New Assignment",
+      date: "July 26, 2024 12:49 AM",
+      description: "Regular Expression Matching",
+      points: "+10",
+    },
+    {
+      title: "New Assignment",
+      date: "May 9, 2024 3:02 PM",
+      description: "Longest Palindromic Substring",
+      points: "+10",
+    },
+    {
+      title: "New Assignment",
+      date: "April 1, 2024 9:00 AM",
+      description: "Two Sum",
+      points: "+10",
+    },
+    {
+      title: "New Assignment",
+      date: "March 1, 2024 9:00 AM",
+      description: "Add Two Numbers",
+      points: "+10",
+    },
+    {
+      title: "New Assignment",
+      date: "February 1, 2024 9:00 AM",
+      description: "Reverse Integer",
+      points: "+10",
+    },
+    {
+      title: "New Assignment",
+      date: "January 1, 2024 9:00 AM",
+      description: "Two Sum",
+      points: "+10",
+    },
+    
+  ];
 
 
   function signOut() {
@@ -44,7 +84,35 @@
 
     <div class="nav-right">
 
-      <div class="bell"><i class="fa-solid fa-bell"></i></div>
+      <DropdownMenu.Root>
+        <!-- Notification Icon Trigger -->
+        <DropdownMenu.Trigger>
+          <i class="fa-solid fa-bell"></i>
+        </DropdownMenu.Trigger>
+      
+        <!-- Dropdown Menu Content -->
+        <DropdownMenu.Content align="end" class="dropdown-content">
+          <DropdownMenu.Group>
+            <DropdownMenu.Label> Notifications</DropdownMenu.Label>
+            <hr>
+            <DropdownMenu.Separator />
+      
+            {#each notifications as notification}
+              <DropdownMenu.Item class="notification-item">
+                <div class="notification-item">
+                  <div class="notification-header">{notification.title}</div>
+                  <div class="notification-date">{notification.date}</div>
+                  <div class="notification-desc">{notification.description}</div>
+                  <div class="notification-points">{notification.points}</div>
+                </div>
+              </DropdownMenu.Item>
+            {/each}
+          </DropdownMenu.Group>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+      
+
+      
       <div class="fire"><i class="fa-solid fa-fire"></i></div>
       <div class="user">
         <DropdownMenu.Root >
@@ -115,3 +183,34 @@
 
 </div>
 
+<style>
+  .dropdown-content {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .notification-item {
+    margin-bottom: 10px;
+  }
+
+  .notification-header {
+    font-weight: bold;
+  }
+
+  .notification-date {
+    font-size: 0.8rem;
+    color: gray;
+  }
+
+  .notification-desc {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  .notification-points {
+    color: orange;
+    font-weight: bold;
+  }
+</style>

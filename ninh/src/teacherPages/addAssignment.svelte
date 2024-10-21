@@ -3,7 +3,7 @@
     import Header from '../components/Header.svelte';
     import { onMount } from 'svelte';
     import * as monaco from 'monaco-editor';
-    
+    import AdminHeader from '../components/AdminHeader.svelte';    
 
     // Markdown content
     let title = '';
@@ -69,7 +69,21 @@
     let addAssignment2SelectedOption = ''; // For the language dropdown
 
     // List of submitted assignments
-    let assignments = [];
+    let assignments = [
+        {
+            id: 1,
+            title: 'Assignment 1',
+            testCase: 'const testCases = [1, 2, 3];',
+            template: 'const template = "Hello, World!";'
+        },
+        {
+            id: 2,
+            title: 'Assignment 2',
+            testCase: 'const testCases = [4, 5, 6];',
+            template: 'const template = "Hello, World!";'
+        }
+
+    ];
     let nextAssignmentId = 1;
 
     // Markdown conversion function
@@ -304,7 +318,7 @@
 </style>
 
 <main class="add1">
-    <Header />
+    <AdminHeader />
     <div class="addAssignment-container">
         <!-- Title Input -->
         <input class="addAssignment-input-field" type="text" bind:value={title} placeholder="Enter topic title..." />

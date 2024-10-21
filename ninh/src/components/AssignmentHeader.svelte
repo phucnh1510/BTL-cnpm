@@ -32,6 +32,11 @@
         console.log('Submitting content:', $editorContent);
         console.log('Submitting language:', $editorLanguage);
 
+        if (!$editorContent || $editorContent.trim() === '') {
+        alert('Editor content is empty. Please write some code before submitting.');
+        return;  
+        }
+
         try {
         const object = {
             "language": $editorLanguage,
@@ -251,9 +256,7 @@
         padding-left: 20px;
     }
 
-    .sheet-trigger{
-        display: flex;
-    }
+
 
     .problem-list{
         color: #e8e6e3;

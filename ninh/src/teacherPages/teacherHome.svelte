@@ -1,5 +1,9 @@
 <script>
     import Header from "../components/Header.svelte";
+    import Footer from "../components/Footer.svelte";
+    import AdminHeader from "../components/AdminHeader.svelte";
+
+
     import { navigate } from "svelte-routing";
 
     const navigateTo = (route) => {
@@ -7,10 +11,11 @@
     };
 
 
+
 </script>
 
 <main class="adminMain">
-    <Header />
+    <AdminHeader />
     
     <div class="adminHome-grid-container">
         <button class="adminHome-card-button" on:click={() => navigateTo('/addAccount')}>
@@ -22,14 +27,16 @@
             <div class="adminHome-card-icon">📝</div>
             <div class="adminHome-card-label">Add Assignments</div>
         </button>
+
+      
 </div>
-
-
+    
 </main>
 
 <style>
     .adminMain{
         height: 100vh;
+        background-color: #121414;
     }
 
     .adminHome-grid-container {
@@ -37,6 +44,7 @@
        gap: 20px;
        margin-top: 20px;
        margin-left: 3vw;
+  
     }
 
     .adminHome-card-button {

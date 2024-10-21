@@ -1,5 +1,7 @@
 <script>
     import Header from "../components/Header.svelte";
+    import AdminHeader from "../components/AdminHeader.svelte";
+    import { onMount } from 'svelte';
 
     // Manage state for the account form and account list
     let newAccount = {
@@ -11,10 +13,10 @@
     };
 
     // Simulate class data fetched from the database
-    let classes = ['Math', 'Science', 'History'];
+    let classes = [];
 
     // Role options
-    let roles = ['Admin', 'User', 'Moderator'];
+    let roles = ['Admin', 'Student', 'Teacher'];
 
     // Store accounts
     let accounts = [];
@@ -43,10 +45,39 @@
     function deleteAccount(index) {
         accounts = accounts.filter((_, i) => i !== index);
     }
+
+    onMount(() => {
+        const getalluserurl = 'http://localhost:5292/api/admin/get/all-users';
+        fetch(getalluserurl)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                accounts = data;
+                for (let account of accounts) {
+                    if (account.userRole === 0) {
+                        account.userRole = 'Student';
+                    } else if (account.userRole === 1) {
+                        account.userRole = 'Teacher';
+                    } else {
+                        account.userRole = 'Admin';
+                    }
+                }
+            });
+        const getallclassurl = 'http://localhost:5292/api/admin/get/all-class';
+        fetch(getallclassurl)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                classes = data;
+            });
+    });
+
+
+
 </script>
 
 <main class="addAccount-main">
-    <Header />
+    <AdminHeader />
 
     <h2 class="addAccount-title">Add Account</h2>
     <form class="addAccount-form" on:submit|preventDefault={addAccount}>
@@ -67,7 +98,7 @@
         <select class="addAccount-input" bind:value={newAccount.className} required>
             <option value="" disabled selected>Select class</option>
             {#each classes as className}
-                <option value={className}>{className}</option>
+                <option value={className.className}>{className.className}</option>
             {/each}
         </select>
 
@@ -94,7 +125,6 @@
                 <tr>
                     <th>User ID</th>
                     <th>Username</th>
-                    <th>Class</th>
                     <th>Role</th>
                     <th>Actions</th>
                 </tr>
@@ -102,10 +132,9 @@
             <tbody>
                 {#each accounts as account, index}
                     <tr>
-                        <td>{account.userid}</td>
+                        <td>{account.userId}</td>
                         <td>{account.username}</td>
-                        <td>{account.className}</td>
-                        <td>{account.role}</td>
+                        <td>{account.userRole}</td>
                         <td>
                             <button class="delete-button" on:click={() => deleteAccount(index)}>Delete</button>
                         </td>

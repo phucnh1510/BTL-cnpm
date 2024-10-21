@@ -84,6 +84,128 @@ public class UserService
         return submissions;
     }
 
+    public async Task<List<ProblemDto>> GetProblemListByTopic(int userId, int topicId)
+    {
+        var problems = await _context.Users
+            .Where(u => u.UserId == userId)
+            .SelectMany(u => u.Classes!)
+            .SelectMany(c => c.Problems)
+            .Where(p => p.Topics.Any(t => t.TopicId == topicId))
+            .GroupJoin(
+                _context.Submissions,
+                problem => problem.ProblemId,
+                submission => submission.ProblemId,
+                (problem, submissions) => new { problem, submissions }
+            )
+            .SelectMany(
+                ps => ps.submissions.DefaultIfEmpty(),
+                (ps, submission) => new ProblemDto
+                {
+                    ProblemId = ps.problem.ProblemId,
+                    Title = ps.problem.Title,
+                    Solution = ps.problem.Solution,
+                    Difficulty = ps.problem.Difficulty,
+                    Status = submission != null ? submission.Status : -1
+                }
+            )
+            .Distinct()
+            .AsNoTracking()
+            .ToListAsync();
+        return problems;
+    }
+
+    public async Task<List<ProblemDto>> GetProblemListByDifficulty(int userId, int difficulty)
+    {
+        var problems = await _context.Users
+            .Where(u => u.UserId == userId)
+            .SelectMany(u => u.Classes!)
+            .SelectMany(c => c.Problems)
+            .Where(p => p.Difficulty == difficulty)
+            .GroupJoin(
+                _context.Submissions,
+                problem => problem.ProblemId,
+                submission => submission.ProblemId,
+                (problem, submissions) => new { problem, submissions }
+            )
+            .SelectMany(
+                ps => ps.submissions.DefaultIfEmpty(),
+                (ps, submission) => new ProblemDto
+                {
+                    ProblemId = ps.problem.ProblemId,
+                    Title = ps.problem.Title,
+                    Solution = ps.problem.Solution,
+                    Difficulty = ps.problem.Difficulty,
+                    Status = submission != null ? submission.Status : -1
+                }
+            )
+            .Distinct()
+            .AsNoTracking()
+            .ToListAsync();
+        return problems;
+    }
+
+    public async Task<List<ProblemDto>> GetProblemListByClassAndTopic(int userId, int classId, int topicId)
+    {
+        var problems = await _context.Users
+            .Where(u => u.UserId == userId)
+            .SelectMany(u => u.Classes!)
+            .Where(c => c.ClassId == classId)
+            .SelectMany(c => c.Problems)
+            .Where(p => p.Topics.Any(t => t.TopicId == topicId))
+            .GroupJoin(
+                _context.Submissions,
+                problem => problem.ProblemId,
+                submission => submission.ProblemId,
+                (problem, submissions) => new { problem, submissions }
+            )
+            .SelectMany(
+                ps => ps.submissions.DefaultIfEmpty(),
+                (ps, submission) => new ProblemDto
+                {
+                    ProblemId = ps.problem.ProblemId,
+                    Title = ps.problem.Title,
+                    Solution = ps.problem.Solution,
+                    Difficulty = ps.problem.Difficulty,
+                    Status = submission != null ? submission.Status : -1
+                }
+            )
+            .Distinct()
+            .AsNoTracking()
+            .ToListAsync();
+        return problems;
+    }
+
+    public async Task<List<ProblemDto>> GetProblemListByClassAndDifficulty(int userId, int classId, int difficulty)
+    {
+        var problems = await _context.Users
+            .Where(u => u.UserId == userId)
+            .SelectMany(u => u.Classes!)
+            .Where(c => c.ClassId == classId)
+            .SelectMany(c => c.Problems)
+            .Where(p => p.Difficulty == difficulty)
+            .GroupJoin(
+                _context.Submissions,
+                problem => problem.ProblemId,
+                submission => submission.ProblemId,
+                (problem, submissions) => new { problem, submissions }
+            )
+            .SelectMany(
+                ps => ps.submissions.DefaultIfEmpty(),
+                (ps, submission) => new ProblemDto
+                {
+                    ProblemId = ps.problem.ProblemId,
+                    Title = ps.problem.Title,
+                    Solution = ps.problem.Solution,
+                    Difficulty = ps.problem.Difficulty,
+                    Status = submission != null ? submission.Status : -1
+                }
+            )
+            .Distinct()
+            .AsNoTracking()
+            .ToListAsync();
+        return problems;
+    }
+
     public async Task<List<StudentsDto>> GetListStudentsInClassAsync(int userId, int classId)
     {
         var students = await _context.Users

@@ -27,7 +27,7 @@
 				'Content-Type': 'application/json'
 			},
 		};
-		const url = 'http://localhost:5292/auth/login';
+		const url = 'http://localhost:5292/Auth/login';
 
         try {
 			const res = await fetch(url, options);
