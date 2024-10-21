@@ -1,14 +1,15 @@
 <script>
-    import Header from "../components/Header.svelte";
+    // import Header from "../components/Header.svelte";
     import AdminHeader from "../components/AdminHeader.svelte";
     import { onMount } from 'svelte';
+    import MultiSelect from "svelte-multiselect";
 
     // Manage state for the account form and account list
     let newAccount = {
         userid: '',
         username: '',
         password: '',
-        className: '',
+        className: [],
         role: ''
     };
 
@@ -36,7 +37,7 @@
             userid: '',
             username: '',
             password: '',
-            className: '',
+            className: [],
             role: ''
         };
     }
@@ -95,13 +96,21 @@
 
         <!-- Select Class (Dropdown) -->
         <label class="addAccount-label">Class:</label>
-        <select class="addAccount-input" bind:value={newAccount.className} required>
-            <option value="" disabled selected>Select class</option>
-            {#each classes as className}
-                <option value={className.className}>{className.className}</option>
-            {/each}
-        </select>
+<!--        <select class="addAccount-input" bind:value={newAccount.className} required>-->
+<!--            <option value="" disabled selected>Select class</option>-->
+<!--            {#each classes as className}-->
+<!--                <option value={className.className}>{className.className}</option>-->
+<!--            {/each}-->
+<!--        </select>-->
 
+        <MultiSelect
+            --sms-options-bg="#1e1e1e"
+            --sms-text-color="white"
+            bind:value={newAccount.className}
+            options={classes.map(c => c.className)}
+            placeholder="Select class"
+            required
+        />
         <!-- Select Role (Dropdown) -->
         <label class="addAccount-label">Role:</label>
         <select class="addAccount-input" bind:value={newAccount.role} required>
@@ -146,7 +155,7 @@
 </main>
 
 <style>
-    
+
     .addAccount-main {
         color: white;
         background-color: #1e1e1e;
