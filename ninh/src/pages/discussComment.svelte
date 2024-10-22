@@ -64,6 +64,10 @@
     function handleInput(event) {
         newComment = event.target.value;
     }
+
+    function deleteComment(index) {
+        comments = comments.filter((_, i) => i !== index);
+    }
 </script>
 
 <main class="discuss-main">
@@ -119,10 +123,11 @@
         <!-- Comments Section -->
         {#if showComments}
             <section class="discuss-comments">
-                {#each comments as comment}
+                {#each comments as comment, index}
                     <div class="discuss-comment">
                         <p><strong>{comment.author}</strong> - {comment.created}</p>
                         <p>{comment.text}</p>
+                        <button  style="color: red;" on:click={() => deleteComment(index)}>Delete</button>
                     </div>
                 {/each}
             </section>

@@ -3,30 +3,23 @@
     import Header from '../components/Header.svelte';
     import { onMount } from 'svelte';
     import * as monaco from 'monaco-editor';
-    import AdminHeader from '../components/AdminHeader.svelte';    
+    import AdminHeader from '../components/AdminHeader.svelte';
+    import MultiSelect from "svelte-multiselect";
 
     // Markdown content
     let title = '';
-    let content = `Some words are *italic*, some are **bold**\n\n- lists\n- are\n- cool`; 
+    let content = `Some words are *italic*, some are **bold**\n\n- lists\n- are\n- cool`;
+
+    let problemId = '';
     
     // Dropdown data
-    let tags = [
-        { id: 1, name: "Tag 1" },
-        { id: 2, name: "Tag 2" },
-        { id: 3, name: "Tag 3" }
-    ];
+    // let tags = [
+    //     { id: 1, name: "Tag 1" },
+    //     { id: 2, name: "Tag 2" },
+    //     { id: 3, name: "Tag 3" }
+    // ];
 
-    let topics = [
-        { id: 1, name: "Topic 1" },
-        { id: 2, name: "Topic 2" },
-        { id: 3, name: "Topic 3" }
-    ];
-
-    let categories = [
-        { id: 1, name: "Category 1" },
-        { id: 2, name: "Category 2" },
-        { id: 3, name: "Category 3" }
-    ];
+    let topics = [];
 
     let addAssignmentDifficulties = [
         { id: 1, name: "Easy" },
@@ -49,19 +42,19 @@
     let addAssignmentSelectAll = false;
 
     // Handle select all classes
-    const addAssignmentToggleSelectAll = () => {
-        addAssignmentSelectAll = !addAssignmentSelectAll;
-        addAssignmentSelectedClasses = addAssignmentSelectAll ? addAssignmentClasses.map(cls => cls.id) : [];
-    };
-
-    // Function to toggle a single class selection
-    const addAssignmentToggleClassSelection = (classId) => {
-        if (addAssignmentSelectedClasses.includes(classId)) {
-            addAssignmentSelectedClasses = addAssignmentSelectedClasses.filter(id => id !== classId);
-        } else {
-            addAssignmentSelectedClasses.push(classId);
-        }
-    };
+    // const addAssignmentToggleSelectAll = () => {
+    //     addAssignmentSelectAll = !addAssignmentSelectAll;
+    //     addAssignmentSelectedClasses = addAssignmentSelectAll ? addAssignmentClasses.map(cls => cls.id) : [];
+    // };
+    //
+    // // Function to toggle a single class selection
+    // const addAssignmentToggleClassSelection = (classId) => {
+    //     if (addAssignmentSelectedClasses.includes(classId)) {
+    //         addAssignmentSelectedClasses = addAssignmentSelectedClasses.filter(id => id !== classId);
+    //     } else {
+    //         addAssignmentSelectedClasses.push(classId);
+    //     }
+    // };
 
     // Monaco editor variables
     let addAssignment2TestCaseEditor;
@@ -90,6 +83,29 @@
             language: 'javascript',
             theme: 'vs-dark'
         });
+
+        const getalluserproblem = 'http://localhost:5292/api/admin/get/all-problems';
+        fetch(getalluserproblem)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                assignments = data;
+            });
+        const get_all_topics = "http://localhost:5292/api/admin/get/all-topics";
+        fetch(get_all_topics)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                topics = data;
+            });
+
+        const get_all_class = "http://localhost:5292/api/admin/get/all-class";
+        fetch(get_all_class)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                addAssignmentClasses = data;
+            })
     });
 
     // Handle form submit (e.g., when "Submit" button is clicked)
@@ -111,20 +127,9 @@
     };
 
     // Delete an assignment by ID
-    const deleteAssignment = (topicId) => {
-        assignments = assignments.filter(assignment => assignment.topicId !== topicId);
+    const deleteAssignment = (problemId) => {
+        assignments = assignments.filter(assignment => assignment.problemId !== problemId);
     };
-
-    onMount(() => {
-        const getalluserproblem = 'http://localhost:5292/api/admin/get/all-topics';
-        fetch(getalluserproblem)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                assignments = data;
-            });
-        
-    });
 
 
 </script>
@@ -319,7 +324,8 @@
     <AdminHeader />
     <div class="addAssignment-container">
         <!-- Title Input -->
-        <input class="addAssignment-input-field" type="text" bind:value={title} placeholder="Enter topic title..." />
+        <input style="margin-left: 20px; padding: 10px; background: #2e3236; border-radius: 4px; width: 100px" type="text" placeholder="Id" bind:value={problemId}>
+        <input class="addAssignment-input-field" type="text" bind:value={title} placeholder="Enter problem title..." />
 
         <div class="addAssignment-editor-container">
             <!-- Markdown Editor -->
@@ -337,19 +343,12 @@
         </div>
 
         <!-- Dropdowns for Tags and Topics -->
-        <select class="addAssignment-select" bind:value={selectedTag}>
-            <option value="">Select a tag</option>
-            {#each tags as tag}
-                <option value={tag.id}>{tag.name}</option>
-            {/each}
-        </select>
-
-        <select class="addAssignment-select" bind:value={selectedTopic}>
-            <option value="">Select a topic</option>
-            {#each topics as topic}
-                <option value={topic.id}>{topic.name}</option>
-            {/each}
-        </select>
+<!--        <select class="addAssignment-select" bind:value={selectedTag}>-->
+<!--            <option value="">Select a tag</option>-->
+<!--            {#each tags as tag}-->
+<!--                <option value={tag.id}>{tag.name}</option>-->
+<!--            {/each}-->
+<!--        </select>-->
 
         <!-- Dropdown for Difficulty -->
         <select class="addAssignment-select" bind:value={addAssignmentSelectedDifficulty}>
@@ -359,23 +358,57 @@
             {/each}
         </select>
 
+        <br>
+
+<!--        <select class="addAssignment-select" bind:value={selectedTopic}>-->
+<!--            <option value="">Select a topic</option>-->
+<!--            {#each topics as topic}-->
+<!--                <option value={topic.id}>{topic.name}</option>-->
+<!--            {/each}-->
+<!--        </select>-->
+        <MultiSelect
+            --sms-options-bg="#1e1e1e"
+            --sms-text-color="white"
+            --sms-margin="20px 0 10px 20px"
+            --sms-width="400pt"
+            --sms-padding="10px"
+            bind:value={selectedTopic}
+            options={topics.map(t => t.topicName)}
+            placeholder="Select topics"
+            required
+        />
+
+        <br>
+
+        <MultiSelect
+                --sms-options-bg="#1e1e1e"
+                --sms-text-color="white"
+                --sms-margin="0 0 30px 20px"
+                --sms-width="400pt"
+                --sms-padding="10px"
+                bind:value={addAssignmentSelectedClasses}
+                options={addAssignmentClasses.map(c => c.className)}
+                placeholder="Select classes"
+                required
+        />
+
         <!-- Class Selection with Checkboxes -->
-        <div class="addAssignment-checkbox-container">
-            <label class="addAssignment-checkbox-label">
-                <input type="checkbox" bind:checked={addAssignmentSelectAll} on:change={addAssignmentToggleSelectAll} />
-                Select All Classes
-            </label>
-            {#each addAssignmentClasses as cls}
-                <label class="addAssignment-checkbox-label">
-                    <input 
-                        type="checkbox" 
-                        on:change={() => addAssignmentToggleClassSelection(cls.id)}
-                        checked={addAssignmentSelectedClasses.includes(cls.id)} 
-                    />
-                    {cls.name}
-                </label>
-            {/each}
-        </div>
+<!--        <div class="addAssignment-checkbox-container">-->
+<!--            <label class="addAssignment-checkbox-label">-->
+<!--                <input type="checkbox" bind:checked={addAssignmentSelectAll} on:change={addAssignmentToggleSelectAll} />-->
+<!--                Select All Classes-->
+<!--            </label>-->
+<!--            {#each addAssignmentClasses as cls}-->
+<!--                <label class="addAssignment-checkbox-label">-->
+<!--                    <input -->
+<!--                        type="checkbox" -->
+<!--                        on:change={() => addAssignmentToggleClassSelection(cls.id)}-->
+<!--                        checked={addAssignmentSelectedClasses.includes(cls.id)} -->
+<!--                    />-->
+<!--                    {cls.name}-->
+<!--                </label>-->
+<!--            {/each}-->
+<!--        </div>-->
     </div>
 </main>
 
@@ -420,10 +453,10 @@
                 <tbody class="assign-table-body">
                     {#each assignments as assignment}
                         <tr class="assign-table-row">
-                            <td class="assign-table-cell">{assignment.topicId}</td>
-                            <td class="assign-table-cell">{assignment.topicName}</td>
+                            <td class="assign-table-cell">{assignment.problemId}</td>
+                            <td class="assign-table-cell">{assignment.title}</td>
                             <td class="assign-table-cell">
-                                <button class="assign-table-delete-button" on:click={() => deleteAssignment(assignment.topicId)}>Delete</button>
+                                <button class="assign-table-delete-button" on:click={() => deleteAssignment(assignment.problemId)}>Delete</button>
                             </td>
                         </tr>
                     {/each}

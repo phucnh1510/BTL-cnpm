@@ -390,6 +390,7 @@ public class UserService
     public async Task<List<Problem>> GetAllProblemsAsync()
     {
         var problems = await _context.Problems
+            .Include(p => p.Topics)
             .AsNoTracking()
             .ToListAsync();
         return problems;

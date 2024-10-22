@@ -106,6 +106,7 @@
         <MultiSelect
             --sms-options-bg="#1e1e1e"
             --sms-text-color="white"
+            --sms-padding="8px"
             bind:value={newAccount.className}
             options={classes.map(c => c.className)}
             placeholder="Select class"
@@ -199,7 +200,7 @@
 
     .button-group {
         display: flex;
-        justify-content: flex-start;
+        justify-content: flex-end;
         gap: 10px;
         margin-top: 20px;
     }

@@ -62,7 +62,7 @@ public class AdminController(UserService userService) : ControllerBase
     public async Task<IActionResult> GetAllTopics()
     {
         var topics = await _userService.GetAllTopicsAsync();
-        if (topics == null) return BadRequest();
+        // if (topics.Count == 0) return BadRequest();
         return Ok(topics);
     }
 
@@ -70,7 +70,7 @@ public class AdminController(UserService userService) : ControllerBase
     public async Task<IActionResult> GetAllClasses()
     {
         var classes = await _userService.GetAllClassesAsync();
-        if (classes == null) return BadRequest();
+        // if (classes.Count == 0) return BadRequest();
         return Ok(classes);
     }
 
@@ -78,7 +78,7 @@ public class AdminController(UserService userService) : ControllerBase
     public async Task<IActionResult> GetAllProblems()
     {
         var problems = await _userService.GetAllProblemsAsync();
-        if (problems == null) return BadRequest();
+        // if (problems == null) return BadRequest();
         return Ok(problems);
     }
 
@@ -86,7 +86,7 @@ public class AdminController(UserService userService) : ControllerBase
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _userService.GetAllUsersAsync();
-        if (users == null) return BadRequest();
+        // if (users == null) return BadRequest();
         return Ok(users);
     }
 }
