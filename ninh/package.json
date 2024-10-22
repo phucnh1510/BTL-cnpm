@@ -13,7 +13,10 @@
     "@melt-ui/svelte": "^0.83.0",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "autoprefixer": "^10.4.20",
+    "bits-ui": "^0.21.16",
+    "cmdk-sv": "^0.0.18",
     "svelte": "^4.2.18",
+    "svelte-radix": "^1.1.1",
     "tailwindcss": "^3.4.9",
     "vaul-svelte": "^0.3.2",
     "vite": "^5.4.1"
@@ -30,7 +33,6 @@
     "@tiptap/starter-kit": "^2.8.0",
     "@unovis/svelte": "^1.4.3-beta.0",
     "@unovis/ts": "^1.4.3-beta.0",
-    "bits-ui": "^0.21.16",
     "chart.js": "^4.4.4",
     "clsx": "^2.1.1",
     "marked": "^14.1.2",
@@ -38,8 +40,7 @@
     "paneforge": "^0.0.6",
     "quill": "^2.0.2",
     "shadcn-ui": "^0.2.3",
-    "svelte-multiselect": "^10.3.0",
-    "svelte-radix": "^1.1.1",
+    "svelte-multiselect": "^10.2.0",
     "svelte-routing": "^2.13.0",
     "tailwind-merge": "^2.5.2",
     "tailwind-variants": "^0.2.1"
